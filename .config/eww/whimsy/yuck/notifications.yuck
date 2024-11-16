@@ -64,16 +64,12 @@
                 :xalign "0"
                 :vexpand true
                 :text { noti.summary }))
-            (scroll
-              :hexpand true
+            (label 
+              :xalign "0"
               :vexpand true
-              :hscroll true
-              :vscroll false
-              (label 
-                :xalign "0"
-                :vexpand true
-                :visible { noti.body != "null" }
-                :text { noti.body }))))
+              :wrap true
+              :visible { noti.body != "null" }
+              :text { noti.body })))
         (box
           :orientation "h"
           :hexpand true

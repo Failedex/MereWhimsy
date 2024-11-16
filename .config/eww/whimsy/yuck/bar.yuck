@@ -64,7 +64,10 @@
     :onrightclick "./scripts/floatingwin.py toggle"
     (box
       :height 42
-      :class "barpfp")
+      :class "barpfp"
+      (label 
+        :visible false
+        :text pstatus))
     ; (image
     ;   :image-width 40
     ;   :path "./assets/roundpfp.png")
