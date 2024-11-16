@@ -82,13 +82,13 @@
       :hexpand true
       )))
 
+;; may need to change to fit all screen sizes
 (defwindow fakecornerl
   :geometry (geometry 
               :x "0%"
               :y "0%"
-              :width 50
+              :width 1868
               :height "100%"
-              :anchor "center left"
               )
   :stacking "bottom"
   :exclusive false
@@ -96,21 +96,6 @@
   :wm-ignore false
   (box 
     :class "fakecornersl ${ locked ? 'active' : 'inactive'}"))
-
-(defwindow fakecornerr
-  :geometry (geometry 
-              :x "0%"
-              :y "0%"
-              :width 50
-              :height "100%"
-              :anchor "center right"
-              )
-  :stacking "bottom"
-  :exclusive false
-  :monitor 0
-  :wm-ignore false
-  (box 
-    :class "fakecornersr ${ locked ? 'active' : 'inactive'}"))
 
 (include "./yuck/widgets/workspaces.yuck")
 (include "./yuck/widgets/time.yuck")

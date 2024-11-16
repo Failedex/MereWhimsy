@@ -78,15 +78,19 @@
 }
 
 .fakecornersl {
-  transition: box-shadow 500ms, border-radius 500ms;
+  transition: box-shadow 500ms, border-radius 500ms, margin 500ms;
   &.active {
-    border-top-left-radius: $round + 10px; 
-    border-bottom-left-radius: $round + 10px; 
+    margin: 5px;
+    margin-left: 0;
+    border-radius: $round + 10px; 
     box-shadow: 
       -20px -20px 0px $base,
-      -20px 20px 0px $base;
+      -20px 20px 0px $base,
+      20px -20px 0px $base,
+      20px 20px 0px $base;
   }
   &.inactive {
+    margin: 0;
     border-radius: 0;
     box-shadow: none;
   }

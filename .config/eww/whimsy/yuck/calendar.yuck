@@ -2,7 +2,7 @@
 (defwindow calendarpopup
   :geometry (geometry 
               :x "10px"
-              :y "10px"
+              :y "15px"
               :width 380
               :height 300
               :anchor "bottom left")
