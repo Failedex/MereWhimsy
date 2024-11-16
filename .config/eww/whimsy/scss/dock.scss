@@ -1,0 +1,12 @@
+
+.dockindicate {
+    transition: padding-right 500ms;
+    background-color: $white0;
+    border-radius: 5px;
+    &.active {
+      padding-right: 10px;
+    }
+    &.inactive {
+      padding-right: 5px;
+    }
+}

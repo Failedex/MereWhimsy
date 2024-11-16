@@ -1,0 +1,119 @@
+
+(defwindow bar 
+  :geometry (geometry 
+              :x "0%"
+              :y "0%"
+              :width 50
+              :height "100%"
+              :anchor "center left"
+              )
+  :stacking "bottom"
+  :exclusive true
+  :monitor 0
+  :wm-ignore false
+  (barstruct))
+
+(defwidget barstruct []
+  (centerbox 
+    :class "barstruct"
+    :style "
+      border-radius: ${ locked ? 0 : 25 }px;
+      margin: ${ locked ? '0px' : '100px 10px'};
+    "
+    :width 50
+    :halign "center"
+    :orientation "v"
+    (top)
+    (middle)
+    (bottom)
+    ))
+
+(defwidget top []
+  (box
+    :orientation "v"
+    :space-evenly false
+    :valign "start"
+    (lockintoggle)
+    ))
+
+(defwidget middle []
+  (box
+    :orientation "v"
+    :space-evenly false
+    :valign "center"
+    (sidedeco :area "top")
+    (workspaces)
+    (sidedeco :area "bottom")
+    ))
+
+(defwidget bottom []
+  (box
+    :orientation "v"
+    :space-evenly false
+    :valign "end"
+    ; (batscale)
+    (stray)
+    (system)
+    (sidedeco :area "top")
+    (time)
+    ))
+
+(defwidget lockintoggle []
+  (button
+    :onclick "${EWW_CMD} open dashboard --toggle"
+    :onrightclick "./scripts/floatingwin.py toggle"
+    (box
+      :height 42
+      :class "barpfp")
+    ; (image
+    ;   :image-width 40
+    ;   :path "./assets/roundpfp.png")
+    ))
+
+(defwidget sidedeco [area] 
+  (overlay 
+    (box 
+      :class "sidedeco bottom"
+      :hexpand true
+      ; :height 10
+      )
+    (box 
+      :class "sidedeco ${ locked ? 'active'+area : ''}"
+      :hexpand true
+      )))
+
+(defwindow fakecornerl
+  :geometry (geometry 
+              :x "0%"
+              :y "0%"
+              :width 50
+              :height "100%"
+              :anchor "center left"
+              )
+  :stacking "bottom"
+  :exclusive false
+  :monitor 0
+  :wm-ignore false
+  (box 
+    :class "fakecornersl ${ locked ? 'active' : 'inactive'}"))
+
+(defwindow fakecornerr
+  :geometry (geometry 
+              :x "0%"
+              :y "0%"
+              :width 50
+              :height "100%"
+              :anchor "center right"
+              )
+  :stacking "bottom"
+  :exclusive false
+  :monitor 0
+  :wm-ignore false
+  (box 
+    :class "fakecornersr ${ locked ? 'active' : 'inactive'}"))
+
+(include "./yuck/widgets/workspaces.yuck")
+(include "./yuck/widgets/time.yuck")
+(include "./yuck/widgets/battery.yuck")
+(include "./yuck/widgets/system.yuck")
+(include "./yuck/widgets/music.yuck")

@@ -1,0 +1,64 @@
+
+.musiccoverbg {
+  transition: 500ms ease;
+  background-color: $surface0;
+  border-radius: $round;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin: $margin;
+  padding: $padding;
+  opacity: 0.3;
+}
+
+.dashmusiccover {
+  transition: 500ms ease;
+  background-color: $surface0;
+  border-radius: $round;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin: $margin;
+  padding: $padding;
+  opacity: 1.0;
+}
+
+.fadeoutbox {
+  margin: $margin;
+  padding: $padding;
+  background-image: linear-gradient(90deg, transparent, $surface0);
+  border-radius: $round;
+}
+
+.timer button{
+  background-color: $accent;
+  margin: $margin;
+  padding: $padding 10px;
+  border-radius: 5px;
+}
+
+.timer button label {
+  color: $base;
+}
+
+.hseparator {
+  margin: $margin; 
+  padding: 2px;
+  background-color: $surface0; 
+  border-radius: $round;
+} 
+
+.whiteboard {
+  @extend .widget;
+  background-color: $base;
+  border: solid 2px;
+  border-color: $surface0;
+  padding: 0px;
+}
+
+.whiteboardhead {
+  background-color: $surface0;
+  padding: $padding; 
+  border-top-left-radius: $round - 2px;
+  border-top-right-radius: $round - 2px;
+}

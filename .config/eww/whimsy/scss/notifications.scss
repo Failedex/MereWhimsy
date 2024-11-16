@@ -1,0 +1,21 @@
+.notibody {
+  margin: $margin;
+  padding: $padding;
+}
+
+.notihead {
+  padding: $padding;
+  background-color: $surface0;
+  border-top-left-radius: $round+8px;
+  border-top-right-radius: $round+8px;
+}
+
+.notiimage {
+  transition: 500ms ease;
+  border-radius: $round;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin: $margin;
+  opacity: 1.0;
+}

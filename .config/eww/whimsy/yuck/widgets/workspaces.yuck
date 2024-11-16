@@ -1,0 +1,30 @@
+
+(defwidget workspaces []
+  (box 
+    :class "widget ${ locked ? 'left' : 'float' }"
+    :orientation "v"
+    :space-evenly false
+    (for i in {"[0, 1, 2, 3, 4]"}
+      (button 
+          :onclick "swaymsg -t command workspace number ${workspacejson[i].name}"
+        (box
+          :class "wspill ${ workspacejson[i].focused ? 'active' : ''}"
+          ; :style "
+          ;   min-height: ${ws.focused ? 60 : !ws.empty ? 40 : 30}px;
+          ; "
+          :width 10
+          :orientation "v"
+          :space-evenly false
+          (box
+            :height 40)
+          (revealer 
+            :transition "slideup"
+            :reveal {!workspacejson[i].empty || workspacejson[i].focused}
+            (box
+              :height 20))
+          (revealer 
+            :transition "slideup"
+            :reveal {workspacejson[i].focused}
+            (box
+              :height 10))
+        )))))

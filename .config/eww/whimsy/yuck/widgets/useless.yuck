@@ -1,0 +1,104 @@
+
+(defwidget userinfo [] 
+  (box 
+    :orientation "h"
+    :space-evenly false
+    :style "margin: 15px;"
+    :spacing 10
+    (image
+      :image-width 60
+      :path "./assets/roundpfp.png")
+    (box 
+      :class "hseparator")
+    (box 
+      :orientation "v"
+      :space-evenly false
+      :valign "center"
+      (label 
+        :halign "start"
+        :text hostname)
+      (label 
+        :halign "start"
+        :style "font-size: 15px;"
+        :text uptime))))
+
+(defwidget generalinfo []
+  (box 
+    :orientation "h"
+    :space-evenly false
+    (box 
+      :orientation "v"
+      (infobox 
+        :icon {volumemute == 'false' ? "󰕾" : "󰖁"}
+        :value volume 
+        :onchange "pamixer --set-volume {}")
+      (infobox 
+        :icon "󰃞"
+        :value brightness
+        :onchange "brightnessctl set {}%")
+      (infobox 
+        :icon baticon
+        :value bat0
+        :onchange ""))
+    (weather)))
+
+(defwidget infobox [icon value onchange]
+  (overlay 
+    (scale
+      :class "boxslides"
+      :flipped true 
+      :orientation "v"
+      :min 0 
+      :max 100
+      :tooltip "${value}%"
+      :value value
+      :onchange onchange)
+
+    (box 
+      :hexpand true
+      :vexpand true
+      :class "boxslideoverlays")
+
+    (label 
+      :halign "start"
+      :valign "start"
+      :style "margin: 15px;"
+      :class "icon"
+      :text icon)
+    (label 
+      :halign "end"
+      :valign "end"
+      :style "margin: 15px;"
+      :text "${value}%")))
+
+(defwidget whiteboard []
+    (box 
+      :class "whiteboard"
+      :orientation "v"
+      :space-evenly false
+      :hexpand true
+      (centerbox 
+        :class "whiteboardhead"
+        (label 
+          :text "")
+        (label 
+          :text "Whiteboard")
+        (button 
+          :halign "end"
+          :onclick "foot nvim ~/Documents/fuck.txt &"
+          (label 
+            :class "icon"
+            :text "")))
+      (scroll
+        :height 220
+        :hscroll false
+        :vscroll true
+        (box 
+          (label 
+            :style "margin: 5px;"
+            :valign "start"
+            :halign "start"
+            :xalign 0
+            :wrap true
+            :markup notesc))
+        )))

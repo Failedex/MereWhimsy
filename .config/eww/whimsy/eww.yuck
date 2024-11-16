@@ -1,0 +1,78 @@
+(deflisten locked :initial true "./scripts/floatingwin.py subscribe")
+
+(defpoll thour :initial "0" :interval "60s" "date +'%I'")
+(defpoll tmin :initial "0" :interval "60s" "date +'%M'")
+(defpoll tpm :initial "0" :interval "60s" "date +'%p'")
+(defpoll tdate :initial "0" :interval "60s" "date +'%d %b'")
+(defpoll tday :initial "0" :interval "60s" "date +'%A'")
+
+(defpoll wifi_icon :initial "" :interval "30s" "./scripts/wifi --ICON")
+(defpoll wifi_essid :initial "" :interval "30s" "./scripts/wifi --ESSID")
+(defpoll volumemute :initial "false" :interval "1s" "pamixer --get-mute")
+(defpoll volume :initial "0" :interval "1s" "pamixer --get-volume")
+(defpoll brightness :initial "0" :interval "2s" "brightnessctl -m | awk -F, '{print substr($4, 0, length($4)-1)}' | tr -d '%'")
+(defpoll bat0 :initial "0" :interval "30s" "bash ./scripts/sys_info --bat")
+(defpoll baticon :initial "" :interval "30s" "bash ./scripts/sys_info --baticon")
+
+(deflisten notesc "./scripts/notesmd.py")
+
+(deflisten workspacejson 
+  :initial '[{"focused": true, "empty": false, "name": 1}, {"focused": false, "empty": true, "name": 2}, {"focused": false, "empty": true, "name": 3}, {"focused": false, "empty": true, "name": 4}, {"focused": false, "empty": true, "name": 5}]'
+  "./scripts/workspace.py")
+
+(deflisten psong "playerctl metadata --format '{{ title }}' -F")
+(deflisten partist "playerctl metadata --format '{{ artist }}' -F")
+(deflisten pcover "./scripts/pollcover.sh")
+(deflisten pstatus "playerctl status -F")
+
+(defpoll hostname :initial "idk" :interval "24h" 'echo "$(whoami)@$(hostname)"')
+(defpoll uptime :initial "idk" :interval "1m" "uptime -p")
+
+(deflisten tasklistjson :initial "[]" "./scripts/tasklist.py")
+
+(deflisten notifications :initial '{
+    "count": 0,
+    "dnd": false,
+    "notifications": [],
+    "popups": []
+    }'
+    "./scripts/notifCatch"
+)
+
+(defpoll weatherjson 
+  :initial '{
+    "FeelsLikeC": "0", 
+    "FeelsLikeF": "0", 
+    "cloudcover": "0", 
+    "humidity": "0", 
+    "localObsDateTime": "2000-00-00 07:27 AM", 
+    "observation_time": "07:27 AM", 
+    "precipInches": "0.0", 
+    "precipMM": "0.0", 
+    "pressure": "0", 
+    "pressureInches": "0", 
+    "temp_C": "0", 
+    "temp_F": "0", 
+    "uvIndex": "0", 
+    "visibility": "0", 
+    "visibilityMiles": "0", 
+    "weatherCode": "727", 
+    "weatherDesc": [{"value": "Idk"}], 
+    "weatherIconUrl": [{"value": ""}], 
+    "winddir16Point": "", 
+    "winddirDegree": "0", 
+    "windspeedKmph": "0", 
+    "windspeedMiles": "0", 
+    "icon": "idk", 
+    "hourly": []
+  }'
+  :interval "1h" 
+  "./scripts/weather.py")
+
+(deflisten timerdis `./scripts/timer.py subscribe`)
+
+(include "./yuck/bar.yuck")
+(include "./yuck/dashboard.yuck")
+(include "./yuck/notifications.yuck")
+(include "./yuck/dock.yuck")
+(include "./yuck/calendar.yuck")

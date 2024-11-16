@@ -1,0 +1,80 @@
+(defvar revealmusic false)
+(defvar emptympd "./assets/emptympd.png")
+
+(defwidget barplayerctl []
+  (revealer
+    :transition "slidedown"
+    :reveal { psong != "" }
+    (eventbox
+      :onhover "${EWW_CMD} update revealmusic=true"
+      :onhoverlost "${EWW_CMD} update revealmusic=false"
+      (box 
+        :orientation "v"
+        :space-evenly false
+
+        (box 
+          :height 52
+          :class "musiccover"
+          :style "background-image: url('${ pcover }')")
+
+        (revealer
+          :transition "slidedown"
+          :reveal revealmusic
+          (box 
+            :class "widget"
+            :orientation "v"
+            :hexpand true
+            :spacing 5
+
+            (button :onclick "playerctl previous"
+              (label :class "icon" :text "󰒮"))
+
+            (button :onclick "playerctl play-pause" 
+              (label :class "icon" :text  { pstatus == "Playing" ? "" : "" }))
+
+            (button :onclick "playerctl next"
+              (label :class "icon" :text "󰒭"))))))))
+
+(defwidget dashplayerctl []
+  (overlay
+    (box 
+      :height 100
+      :class "musiccoverbg"
+      :style "background-image: url('${ pcover }')"
+      :space-evenly false)
+    (box 
+      :height 100 
+      :class "fadeoutbox"
+      :space-evenly false
+      (box 
+        :height 80
+        :width 80
+        :class "dashmusiccover"
+        :style "background-image: url('${ pcover }')"
+        )
+      (box 
+        :orientation "v"
+        :hexpand true
+        :space-evenly false
+        :valign "center"
+        (scroll
+          :hscroll true
+          :height 25
+          (label 
+            :text psong))
+        (scroll
+          :hscroll true
+          :height 25
+            (label 
+            :text partist)))
+    (box 
+      :orientation "v"
+      :style "margin: 5px;"
+      (button :onclick "playerctl next"
+        (label :class "icon" :text "󰒭"))
+
+      (button :onclick "playerctl play-pause" 
+        (label :class "icon" :text  { pstatus == "Playing" ? "" : "" }))
+      (button :onclick "playerctl previous"
+        (label :class "icon" :text "󰒮")))
+      )))

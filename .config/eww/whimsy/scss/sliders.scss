@@ -1,0 +1,89 @@
+
+.batscale {
+  all: unset;
+  trough {
+    min-height: 100px;
+    min-width: 30px;
+    border-radius: $round;
+    background-color: $surface1;
+    margin: $margin;
+
+    slider {
+      min-height: 20px;
+      min-width: 20px;
+      margin: -5px;
+    }
+
+    highlight {
+      background-color: $accent;
+      border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+      border-bottom-left-radius: $round;
+      border-bottom-right-radius: $round;
+    }
+  }
+
+  // &.charging trough highlight {
+  //   background-color: $green;
+  // }
+  //
+  // &.dying trough highlight {
+  //   background-color: $red;
+  // }
+}
+
+.sysslide {
+  all: unset;
+  trough {
+    background-color: $surface2;
+    border-radius: $round;
+    margin : $margin;
+    min-height: 80px;
+    min-width: 10px;
+
+    slider {
+      min-height: 15px;
+      min-width: 15px;
+      margin: -10px;
+    }
+
+    highlight {
+      background-color: $accent;
+      border-radius: $round;
+    }
+  }
+}
+
+.boxslides {
+  all: unset;
+  trough {
+    background-color: $surface1;
+    border-radius: $round;
+    margin : $margin;
+    min-height: 82px;
+    min-width: 82px;
+
+    slider {
+      min-height: 15px;
+      min-width: 60px;
+    }
+
+    highlight {
+      background-color: $surface2;
+      border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+      border-bottom-left-radius: $round;
+      border-bottom-right-radius: $round;
+    }
+  }
+}
+
+.boxslideoverlays {
+  background-color: transparent;
+  border-radius: $round;
+  box-shadow: 
+    inset -$padding $padding 0px 0px $base, 
+    inset $padding $padding 0px 0px $base,
+    inset -$padding $padding*-1 0px 0px $base, 
+    inset $padding $padding*-1 0px 0px $base;
+}

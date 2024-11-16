@@ -1,0 +1,117 @@
+
+.barstruct {
+  // border-radius: $round;
+  background-color: $base;
+  padding: $padding;
+  transition: border-radius 500ms, margin 500ms;
+}
+
+.widget {
+  margin: $margin;
+  padding: $padding;
+  border-radius: $round;
+  background-color: $surface0;
+  transition: margin 500ms, border-radius 500ms, padding 500ms;
+  &.float {
+    margin: $margin;
+    border-radius: $round;
+  }
+  &.left {
+    margin-left: -$padding; 
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    padding: 10px;
+  }
+  &.bleft {
+    margin-left: -$padding; 
+    margin-bottom: -$padding; 
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    padding: 10px;
+  }
+}
+
+.sidedeco {
+  background-color: $base;
+  transition: border-radius 500ms, margin 500ms;
+  margin: -$padding;
+  &.bottom {
+    background-color: $surface0;
+  }
+  &.activetop {
+    border-bottom-left-radius: $round;
+  }
+  &.activebottom {
+    border-top-left-radius: $round;
+  }
+}
+
+.wspill {
+  margin: $margin;
+  border-radius: $round;
+  background-color: $surface1;
+  &.active {
+    background-color: $accent;
+  }
+}
+
+.musiccover {
+  transition: 500ms ease;
+  background-color: $surface0;
+  border-radius: 50px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin: $margin 0px;
+  opacity: 1.0;
+}
+
+.baticon {
+  @extend .icon;
+  &.charging {
+    color: $green; 
+  } 
+  &.dying {
+    color: $red; 
+  }
+}
+
+.fakecornersl {
+  transition: box-shadow 500ms, border-radius 500ms;
+  &.active {
+    border-top-left-radius: $round + 10px; 
+    border-bottom-left-radius: $round + 10px; 
+    box-shadow: 
+      -20px -20px 0px $base,
+      -20px 20px 0px $base;
+  }
+  &.inactive {
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+.fakecornersr {
+  transition: box-shadow 500ms, border-radius 500ms;
+  &.active {
+    border-top-right-radius: $round + 10px; 
+    border-bottom-right-radius: $round + 10px; 
+    box-shadow: 
+      20px -20px 0px $base,
+      20px 20px 0px $base;
+  }
+  &.inactive {
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+.barpfp {
+  border-radius: 50px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-image: url('./assets/roundpfp.png');
+  opacity: 1.0;
+}

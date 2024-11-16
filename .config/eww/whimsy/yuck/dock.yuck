@@ -1,0 +1,62 @@
+
+(defvar revealdock false)
+(defvar floatingwin false)
+
+(defwindow dock 
+  :geometry (geometry
+              :x 0
+              :y 0 
+              :width 500 
+              :height 3
+              :anchor "bottom center")
+  :stacking "overlay"
+  :monitor 0 
+  (dockstruct))
+
+(defwidget dockstruct [] 
+  (eventbox 
+    :onhoverlost "${EWW_CMD} update revealdock=false"
+    :onhover "${EWW_CMD} update revealdock=true"
+    (box 
+      :orientation "v"
+      :space-evenly false 
+      (box 
+        :height 3)
+      (revealer 
+        :reveal { !locked || floatingwin || revealdock }
+        :transition "slideup"
+        (box 
+          :class "popup"
+          :style "margin: 10px;"
+          :height 60 
+          :orientation "h"
+          :halign "center"
+          (tasklist))))))
+
+(defwidget tasklist []
+  (box 
+    :orientation "h"
+    (for task in {tasklistjson}
+      (button 
+        :tooltip { task.name }
+        :onclick { task.pid != 'null' ? 'swaymsg "[pid=${task.pid}] focus"' : '(cd && gtk-launch ${task.app_id}) &'}
+        (box 
+          :orientation "v"
+          :space-evenly false 
+          (image 
+            :image-width 50 
+            :path {task.path})
+          (scroll 
+            :hscroll true 
+            :vscroll false 
+            (box 
+              :orientation "h"
+              :halign "center"
+              :space-evenly false 
+              :spacing 3
+              (for focus in { task.focused }
+                (box 
+                  :class "dockindicate ${ focus ? 'active' : 'inactive'}"
+                  :hexpand false 
+                  :height 5)))))))))
+

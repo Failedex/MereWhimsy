@@ -1,0 +1,18 @@
+
+(defwindow calendarpopup
+  :geometry (geometry 
+              :x "10px"
+              :y "10px"
+              :width 380
+              :height 300
+              :anchor "bottom left")
+  :stacking "overlay"
+  :exclusive false 
+  :monitor 0 
+  (box 
+    :orientation "v"
+    :space-evenly false
+    :class "popup"
+    (timer)
+    (datecalendar)
+    ))

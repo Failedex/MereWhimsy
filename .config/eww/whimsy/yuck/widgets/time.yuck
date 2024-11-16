@@ -1,0 +1,94 @@
+
+(defwidget time []
+  (button 
+    :onclick "${EWW_CMD} open calendarpopup --toggle"
+    (box
+      :class "widget ${ locked ? 'bleft' : 'float'}"
+      :orientation "v"
+      (label :text thour)
+      (label :text tmin)
+      (label :text tpm))))
+
+(defwidget timedate []
+  (box 
+    :vexpand false
+    :orientation "h"
+    (box 
+      :class "widget"
+      (label 
+        :text "${thour}:${tmin} ${tpm}"))
+    (box 
+      :class "widget"
+      :orientation "v"
+      (label 
+        :text tdate)
+      (label 
+        :text tday))))
+
+(defwidget timedateline []
+  (box 
+    :vexpand false
+    :orientation "h"
+    (label 
+      :text "${tday} ${tdate}, ${calendar_year}")))
+
+(defpoll calendar_month :initial "1" :interval "20h" "date '+%m'")
+(defpoll calendar_year :initial "1" :interval "20h" "date '+%Y'")
+(defvar months '["nothing to see here", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November","December"]')
+
+(defwidget datecalendar []
+  (box 
+    :class "widget"
+    :orientation "v"
+    :space-evenly false
+    :spacing 5
+    (box 
+      :orientation "h"
+      :space-evenly false 
+      :spacing 20
+      :halign "center"
+      (button 
+        :onclick "${EWW_CMD} update calendar_year=${calendar_month == 1 ? calendar_year - 1 : calendar_year} calendar_month=${calendar_month == 1 ? 12 : calendar_month - 1}"
+        (label 
+          :class "icon"
+          :angle 180 
+          :text ""))
+      (label 
+        :text "${months[calendar_month]} ${calendar_year}")
+      (button 
+        :onclick "${EWW_CMD} update calendar_year=${calendar_month == 12 ? calendar_year + 1 : calendar_year} calendar_month=${calendar_month == 12 ? 1 : calendar_month + 1}"
+        (label 
+          :class "icon"
+          :text "")))
+
+    (calendar 
+      :month calendar_month
+      :year calendar_year
+      :show-heading false)))
+
+(defwidget timer []
+  (box 
+    :orientation "h"
+    :class "widget timer"
+    :hexpand true 
+    (box 
+      :orientation "h"
+      :halign "start"
+      :space-evenly false
+      :spacing 10
+      (button 
+        :onclick "./scripts/timer.py timedec"
+        (label 
+          :text "-"))
+      (label 
+        :text "${timerdis}${!matches(timerdis, ':') ? ' min' : ''}")
+      (button 
+        :onclick "./scripts/timer.py timeinc"
+        (label 
+          :text "+")))
+    (button 
+      :halign "end"
+      :onclick "./scripts/timer.py toggle"
+      (label 
+        :class "icon"
+        :text { !matches(timerdis, ":") ? "start" : "stop" }))))

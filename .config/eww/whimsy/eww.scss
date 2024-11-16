@@ -1,0 +1,96 @@
+
+$round: 15px;
+$padding: 5px; 
+$margin: 5px; 
+
+@import "./theme.scss";
+@import "./scss/bar.scss";
+@import "./scss/dashboard.scss";
+@import "./scss/sliders.scss";
+@import "./scss/notifications.scss";
+@import "./scss/dock.scss";
+
+* {
+  all: unset;
+  color: $white0; 
+  font-family: "Roboto Mono Nerd Font";
+  font-size: 18px;
+}
+
+tooltip {
+  background-color: $surface0;
+  border-radius: $round;
+  font-size: 15px;
+}
+
+.popup {
+    background-color: $base;
+    padding: $padding;
+    border-radius: $round + 10px;
+    margin: $margin;
+
+    &.bordered {
+      border-style: solid;
+      border-color: $surface0;
+      border-width: 2px;
+    }
+}
+
+menu {
+  @extend .popup;
+}
+
+calendar {
+  background-color: $surface1;
+  // font-size: 20px;
+  color: $white0;
+  border-radius: calc($round - $padding);
+  padding: 3px;
+}
+
+calendar:selected {
+  color: $accent;
+  border-radius: $round;
+  font-weight: bold;
+}
+
+calendar.header {
+  color: $accent;
+  font-weight: bold;
+}
+
+calendar:indeterminate {
+  color: $surface2;
+}
+
+checkbutton {
+    border-radius: 24px;
+    background-color: $surface1;
+    padding: 4px;
+    check {
+        min-height: 15px;
+        min-width: 15px;
+        color: $white0;
+    }
+}
+
+checkbutton:checked {
+    check{
+        border-radius: 24px;
+        background-color: $white0;
+    }
+}
+
+entry {
+  padding: $padding; 
+  margin: $margin;
+  border-radius: $round;
+  color: $white0;
+}
+
+.icon {
+  font-family: "Symbols Nerd Font";
+  min-width: 1em;
+  min-height: 1em;
+  font-size: 18px;
+}

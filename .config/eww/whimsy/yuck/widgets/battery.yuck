@@ -1,0 +1,10 @@
+
+(defwidget batscale [] 
+  (scale
+    :orientation "v"
+    :active false 
+    :min 0
+    :max 100
+    :value bat0
+    :flipped true
+    :class "batscale"))

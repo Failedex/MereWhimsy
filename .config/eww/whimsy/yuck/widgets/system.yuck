@@ -1,0 +1,87 @@
+(defvar revealvol false)
+(defvar revealbri false)
+(defvar revealtray false)
+
+(defwidget system [] 
+  (box
+    :class "widget"
+    :orientation "v"
+    :space-evenly false
+    :spacing 5
+    ; (label 
+    ;   :tooltip wifi_essid 
+    ;   :class "icon" 
+    ;   :text wifi_icon)
+    (revealslide
+      :var revealvol
+      :varstr "revealvol"
+      (label 
+        :tooltip "${volume}%" 
+        :class "icon" 
+        :text {volumemute == 'false' ? "󰕾" : "󰖁"})
+      (scale 
+        :class "sysslide"
+        :flipped true
+        :orientation "v"
+        :min 0 
+        :max 100
+        :tooltip "${volume}%"
+        :value volume 
+        :onchange "pamixer --set-volume {}"))
+
+    (revealslide 
+      :var revealbri
+      :varstr "revealbri"
+      (label
+        :tooltip "${brightness}%"
+        :class "icon"
+        :text "󰃞")
+      (scale
+        :class "sysslide"
+        :flipped true
+        :orientation "v"
+        :min 0 
+        :max 100
+        :tooltip "${brightness}%"
+        :value brightness
+        :onchange "brightnessctl set {}%"))
+
+    (label 
+      :tooltip "${bat0}%"
+      :class "baticon ${ EWW_BATTERY.BAT0.status == 'Charging' ? 'charging': bat0 < 16 ? 'dying': '' }"
+      :text baticon
+      )
+    ))
+
+(defwidget stray [] 
+  (box
+    :orientation "v"
+    :space-evenly false
+    (button
+      :onclick "${EWW_CMD} update revealtray=${!revealtray}"
+      (label 
+        :class "icon"
+        :angle {!revealtray ? 90 : 270}
+        :text ""))
+    (revealer
+      :reveal revealtray
+      :transition "slideup"
+      (box
+        :class "widget"
+        (systray
+          :icon-size 20
+          :orientation "v")))))
+
+(defwidget revealslide [var varstr]
+  (eventbox 
+    :onhover "${EWW_CMD} update ${varstr}=true"
+    :onhoverlost "${EWW_CMD} update ${varstr}=false"
+    (box
+      :orientation "v"
+      :space-evenly false 
+      (children :nth 0)
+      (revealer
+        :reveal var
+        :transition "slidedown"
+        (children :nth 1)))))
+

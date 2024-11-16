@@ -1,0 +1,24 @@
+
+(defwindow dashboard 
+  :geometry (geometry
+              :x "10px"
+              :y "10px"
+              :width 500
+              :height 200
+              :anchor "top left")
+  :stacking "overlay"
+  :exclusive false
+  :monitor 0
+  (box 
+    :class "popup"
+    :orientation "v"
+    :valign "start"
+    :space-evenly false
+    (userinfo)
+    (dashplayerctl)
+    (generalinfo)
+    (whiteboard)
+    ))
+
+(include "./yuck/widgets/useless.yuck")
+(include "./yuck/widgets/weather.yuck")

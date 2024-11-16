@@ -1,0 +1,56 @@
+
+(defwidget weather []
+  (box 
+    :class "widget"
+    :hexpand true 
+    :orientation "v"
+    :space-evenly false
+    (box 
+      :class "widget"
+      :hexpand true
+      :orientation "h"
+      :space-evenly false
+      :spacing 10
+      (image 
+        :image-width 90 
+        :image-height 90
+        :path "./assets/weather/${weatherjson.icon}.svg")
+      (scroll
+        :hscroll true 
+        :vscroll false 
+        :hexpand true
+        (box 
+          :orientation "v"
+          (label 
+            :xalign 0
+            :text { weatherjson.weatherDesc[0].value })
+          (label 
+            :xalign 0
+            :text "Feel's like ${weatherjson.FeelsLikeC}°C")
+          (label 
+            :xalign 0
+            :text "← ${weatherjson.windspeedKmph} km/h"))))
+    (box
+      :orientation "h"
+      :space-evenly false
+      (for hour in {weatherjson.hourly}
+        (smallweather :hour {hour}))
+      )))
+
+(defwidget smallweather [hour]
+  (box 
+    :class "widget"
+    :orientation "v"
+    :space-evenly false
+    :hexpand true
+    (label
+      :text {hour.time})
+    (image 
+      :image-width 50 
+      :image-height 50
+      :path "./assets/weather/${hour.icon}.svg")
+    (label 
+      :text "${hour.FeelsLikeC}°C")
+    (label 
+      :text "${hour.chanceofrain}%")
+    ))
