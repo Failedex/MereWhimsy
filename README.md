@@ -2,6 +2,12 @@
 
 Many design choices were made during the development of this rice, most of them were made on a whim. 
 
+![Screenshot](https://github.com/Failedex/MereWhimsy/blob/main/assets/latte.png?raw=true)
+
+There's also a floating mode
+
+![Screenshot2](https://github.com/Failedex/MereWhimsy/blob/main/assets/lattefloat.png?raw=true)
+
 ## Stuff I use 
 - Compositor: swayfx
 - App launcher: wofi
