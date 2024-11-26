@@ -13,8 +13,8 @@ $margin: 5px;
 * {
   all: unset;
   color: $white0; 
-  font-family: "Roboto Mono Nerd Font";
-  font-size: 18px;
+  font-family: "Roboto Nerd Font";
+  font-size: 15px;
 }
 
 tooltip {
@@ -41,10 +41,10 @@ menu {
 }
 
 calendar {
-  background-color: $surface1;
+  background-color: $base;
   // font-size: 20px;
   color: $white0;
-  border-radius: calc($round - $padding);
+  border-radius: 20px;
   padding: 3px;
 }
 

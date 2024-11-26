@@ -3,9 +3,9 @@
   :geometry (geometry 
               :x "0%"
               :y "0%"
-              :width 50
-              :height "100%"
-              :anchor "center left"
+              :width "100%"
+              :height 50
+              :anchor "top center"
               )
   :stacking "bottom"
   :exclusive true
@@ -15,14 +15,13 @@
 
 (defwidget barstruct []
   (centerbox 
-    :class "barstruct"
     :style "
       border-radius: ${ locked ? 0 : 25 }px;
-      margin: ${ locked ? '0px' : '100px 10px'};
+      margin: ${ locked ? '0px' : '10px 100px'};
     "
-    :width 50
-    :halign "center"
-    :orientation "v"
+    :height 15
+    :valign "center"
+    :orientation "h"
     (top)
     (middle)
     (bottom)
@@ -30,41 +29,51 @@
 
 (defwidget top []
   (box
-    :orientation "v"
+    :orientation "h"
     :space-evenly false
-    :valign "start"
-    (lockintoggle)
+    (box 
+      :orientation "h"
+      :space-evenly false
+      :halign "start"
+      :class "barstruct right"
+      (lockintoggle))
+    (spacefiller)
     ))
 
 (defwidget middle []
   (box
-    :orientation "v"
+    :orientation "h"
     :space-evenly false
-    :valign "center"
-    (sidedeco :area "top")
-    (workspaces)
-    (sidedeco :area "bottom")
-    ))
+    :halign "center"
+    :class "barstruct left right"
+    (workspaces)))
 
 (defwidget bottom []
-  (box
-    :orientation "v"
+  (box 
+    :orientation "h"
     :space-evenly false
-    :valign "end"
-    ; (batscale)
-    (stray)
-    (system)
-    (sidedeco :area "top")
-    (time)
-    ))
+    (spacefiller)
+    (box
+      :orientation "h"
+      :space-evenly false
+      :halign "end"
+      :class "barstruct left"
+      (stray)
+      (system)
+      (time)
+      )))
 
 (defwidget lockintoggle []
   (button
     :onclick "${EWW_CMD} open dashboard --toggle"
-    :onrightclick "./scripts/floatingwin.py toggle"
+    ; :onrightclick "./scripts/floatingwin.py toggle"
     (box
-      :height 42
-      :class "barpfp"
+      ; :width 40
+      ; :class "barpfp"
+      :class "widget"
+      :style "padding: 0px 10px;"
+      (label
+        :text "Dashboard")
       (label 
         :visible false
         :text pstatus))
@@ -76,22 +85,28 @@
 (defwidget sidedeco [area] 
   (overlay 
     (box 
+      :width 20 
+      :visible locked
       :class "sidedeco bottom"
-      :hexpand true
-      ; :height 10
-      )
+      :vexpand true)
     (box 
       :class "sidedeco ${ locked ? 'active'+area : ''}"
-      :hexpand true
+      :vexpand true
       )))
+
+(defwidget spacefiller []
+  (box 
+    :hexpand true
+    :class "filler"))
 
 ;; may need to change to fit all screen sizes
 (defwindow fakecornerl
   :geometry (geometry 
               :x "0%"
               :y "0%"
-              :width 1868
-              :height "100%"
+              :width "100%"
+              :height 1030
+              :anchor "top center"
               )
   :stacking "bottom"
   :exclusive false

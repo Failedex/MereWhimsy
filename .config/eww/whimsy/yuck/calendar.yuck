@@ -1,11 +1,11 @@
 
 (defwindow calendarpopup
   :geometry (geometry 
-              :x "10px"
-              :y "15px"
+              :x "20px"
+              :y "10px"
               :width 380
               :height 300
-              :anchor "bottom left")
+              :anchor "top right")
   :stacking "overlay"
   :exclusive false 
   :monitor 0 

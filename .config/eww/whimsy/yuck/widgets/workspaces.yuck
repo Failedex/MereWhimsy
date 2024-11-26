@@ -1,8 +1,9 @@
 
 (defwidget workspaces []
   (box 
-    :class "widget ${ locked ? 'left' : 'float' }"
-    :orientation "v"
+    ; :class "widget ${ locked ? 'top' : 'float' }"
+    :class "widget"
+    :orientation "h"
     :space-evenly false
     (for i in {"[0, 1, 2, 3, 4]"}
       (button 
@@ -12,19 +13,19 @@
           ; :style "
           ;   min-height: ${ws.focused ? 60 : !ws.empty ? 40 : 30}px;
           ; "
-          :width 10
-          :orientation "v"
+          :height 10
+          :orientation "h"
           :space-evenly false
           (box
-            :height 40)
+            :width 40)
           (revealer 
-            :transition "slideup"
+            :transition "slideright"
             :reveal {!workspacejson[i].empty || workspacejson[i].focused}
             (box
-              :height 20))
+              :width 20))
           (revealer 
-            :transition "slideup"
+            :transition "slideright"
             :reveal {workspacejson[i].focused}
             (box
-              :height 10))
+              :width 10))
         )))))

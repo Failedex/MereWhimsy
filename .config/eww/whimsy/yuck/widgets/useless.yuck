@@ -95,7 +95,7 @@
         :vscroll true
         (box 
           (label 
-            :style "margin: 5px;"
+            :style "margin: 10px;"
             :valign "start"
             :halign "start"
             :xalign 0

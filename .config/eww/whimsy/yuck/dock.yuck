@@ -5,7 +5,7 @@
 (defwindow dock 
   :geometry (geometry
               :x 0
-              :y 0 
+              :y 0
               :width 500 
               :height 3
               :anchor "bottom center")
@@ -26,12 +26,20 @@
         :reveal { !locked || floatingwin || revealdock }
         :transition "slideup"
         (box 
-          :class "popup"
-          :style "margin: 10px;"
-          :height 60 
           :orientation "h"
+          :space-evenly false
           :halign "center"
-          (tasklist))))))
+          (box 
+            :width 50
+            :class "dockcurve left")
+          (box 
+            :class "dockpopup"
+            :height 60 
+            :orientation "h"
+            (tasklist))
+          (box 
+            :width 50
+            :class "dockcurve right"))))))
 
 (defwidget tasklist []
   (box 

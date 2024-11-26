@@ -3,11 +3,12 @@
   (button 
     :onclick "${EWW_CMD} open calendarpopup --toggle"
     (box
-      :class "widget ${ locked ? 'bleft' : 'float'}"
-      :orientation "v"
-      (label :text thour)
-      (label :text tmin)
-      (label :text tpm))))
+      ; :class "widget ${ locked ? 'topr' : 'float'}"
+      :class "widget"
+      :orientation "h"
+      :style "padding: 0px 10px;"
+      (label 
+        :text "${thour}:${tmin} ${tpm}"))))
 
 (defwidget timedate []
   (box 
@@ -38,28 +39,30 @@
 
 (defwidget datecalendar []
   (box 
-    :class "widget"
+    :class "whiteboard"
     :orientation "v"
     :space-evenly false
     :spacing 5
     (box 
-      :orientation "h"
-      :space-evenly false 
-      :spacing 20
-      :halign "center"
-      (button 
-        :onclick "${EWW_CMD} update calendar_year=${calendar_month == 1 ? calendar_year - 1 : calendar_year} calendar_month=${calendar_month == 1 ? 12 : calendar_month - 1}"
+      :class "whiteboardhead"
+      (box 
+        :orientation "h"
+        :space-evenly false 
+        :spacing 20
+        :halign "center"
+        (button 
+          :onclick "${EWW_CMD} update calendar_year=${calendar_month == 1 ? calendar_year - 1 : calendar_year} calendar_month=${calendar_month == 1 ? 12 : calendar_month - 1}"
+          (label 
+            :class "icon"
+            :angle 180 
+            :text ""))
         (label 
-          :class "icon"
-          :angle 180 
-          :text ""))
-      (label 
-        :text "${months[calendar_month]} ${calendar_year}")
-      (button 
-        :onclick "${EWW_CMD} update calendar_year=${calendar_month == 12 ? calendar_year + 1 : calendar_year} calendar_month=${calendar_month == 12 ? 1 : calendar_month + 1}"
-        (label 
-          :class "icon"
-          :text "")))
+          :text "${months[calendar_month]} ${calendar_year}")
+        (button 
+          :onclick "${EWW_CMD} update calendar_year=${calendar_month == 12 ? calendar_year + 1 : calendar_year} calendar_month=${calendar_month == 12 ? 1 : calendar_month + 1}"
+          (label 
+            :class "icon"
+            :text ""))))
 
     (calendar 
       :month calendar_month

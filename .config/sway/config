@@ -229,8 +229,10 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 
 corner_radius 15
 gaps inner 15
-gaps outer 5
-gaps left 0
+gaps outer 10
+gaps top 0
+# gaps outer 5
+# gaps left 0
 font pango:RobotoMonoNerdFont Regular 12
 titlebar_separator enable
 # titlebar_padding 8

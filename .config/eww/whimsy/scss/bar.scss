@@ -4,6 +4,12 @@
   background-color: $base;
   padding: $padding;
   transition: border-radius 500ms, margin 500ms;
+  &.right {
+    border-bottom-right-radius: $round + 10px;
+  }
+  &.left {
+    border-bottom-left-radius: $round + 10px;
+  }
 }
 
 .widget {
@@ -12,24 +18,28 @@
   border-radius: $round;
   background-color: $surface0;
   transition: margin 500ms, border-radius 500ms, padding 500ms;
+  &label {
+    font-size: 5px;
+  }
   &.float {
     margin: $margin;
     border-radius: $round;
   }
-  &.left {
-    margin-left: -$padding; 
+  &.top {
+    margin-top: -$padding; 
     border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    padding: 10px;
+    border-top-right-radius: 0px;
+    padding-top: 2*$padding; 
   }
-  &.bleft {
-    margin-left: -$padding; 
-    margin-bottom: -$padding; 
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
+  &.topr {
+    margin-top: -$padding; 
+    margin-right: -$padding; 
+    border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
-    padding: 10px;
+    border-top-left-radius: 0px;
+    padding-top: 2*$padding; 
   }
+
 }
 
 .sidedeco {
@@ -39,11 +49,11 @@
   &.bottom {
     background-color: $surface0;
   }
-  &.activetop {
-    border-bottom-left-radius: $round;
+  &.activeleft {
+    border-top-right-radius: $round+10px;
   }
-  &.activebottom {
-    border-top-left-radius: $round;
+  &.activeright {
+    border-top-left-radius: $round+10px;
   }
 }
 
@@ -79,18 +89,14 @@
 
 .fakecornersl {
   transition: box-shadow 500ms, border-radius 500ms, margin 500ms;
+  margin: 0;
   &.active {
-    margin: 5px;
-    margin-left: 0;
+    margin: 10px;
+    margin-top: 0;
     border-radius: $round + 10px; 
-    box-shadow: 
-      -20px -20px 0px $base,
-      -20px 20px 0px $base,
-      20px -20px 0px $base,
-      20px 20px 0px $base;
+    box-shadow: 0px 0px 0px 50px $base;
   }
   &.inactive {
-    margin: 0;
     border-radius: 0;
     box-shadow: none;
   }
@@ -109,6 +115,17 @@
     border-radius: 0;
     box-shadow: none;
   }
+}
+
+.filler {
+  margin: 0px;
+  margin-top: 10px;
+  margin-left: -1px;
+  margin-right: -1px;
+  border-top-left-radius: $round + 10px;
+  border-top-right-radius: $round + 10px;
+  box-shadow: 
+    0px -26px 0px 5px $base,
 }
 
 .barpfp {
