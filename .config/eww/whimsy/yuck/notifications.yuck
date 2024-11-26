@@ -1,8 +1,8 @@
 
 (defwindow notifypopup
   :geometry (geometry 
-              :x 0
-              :y 0 
+              :x "20px"
+              :y "10px"
               :width 450 
               :height 0
               :anchor "top right")

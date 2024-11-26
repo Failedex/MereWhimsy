@@ -65,7 +65,8 @@
 
 (defwidget lockintoggle []
   (button
-    :onclick "${EWW_CMD} open dashboard --toggle"
+    ; :onclick "${EWW_CMD} open dashboard --toggle"
+    :onclick "./scripts/hackslide revealdashint revealdashintb"
     ; :onrightclick "./scripts/floatingwin.py toggle"
     (box
       ; :width 40

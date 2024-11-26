@@ -1,0 +1,18 @@
+#!/bin/bash
+
+PWD="$(pwd)"
+
+
+STAT="$(eww -c $PWD get $1)"
+if [[ $STAT == "true" ]]; then
+    eww -c $PWD update "$1"=false
+    sleep 0.5
+    STAT="$(eww -c $PWD get $1)"
+    if [[ $STAT == "false" ]]; then 
+        eww -c $PWD update "$2"=false
+    fi
+else
+    eww -c $PWD update "$1"=true
+    eww -c $PWD update "$2"=true
+fi
+

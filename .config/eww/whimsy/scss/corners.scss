@@ -1,0 +1,73 @@
+
+.fakecornersl {
+  transition: box-shadow 500ms, border-radius 500ms, margin 500ms;
+  margin: 0;
+  &.active {
+    margin: 10px;
+    margin-top: 0;
+    border-radius: $round + 10px; 
+    box-shadow: 0px 0px 0px 50px $base;
+  }
+  &.inactive {
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+.fakecornersr {
+  transition: box-shadow 500ms, border-radius 500ms;
+  &.active {
+    border-top-right-radius: $round + 10px; 
+    border-bottom-right-radius: $round + 10px; 
+    box-shadow: 
+      20px -20px 0px $base,
+      20px 20px 0px $base;
+  }
+  &.inactive {
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+.filler {
+  margin: 0px;
+  margin-top: 10px;
+  margin-left: -1px;
+  margin-right: -1px;
+  border-top-left-radius: $round + 10px;
+  border-top-right-radius: $round + 10px;
+  box-shadow: 
+    0px -26px 0px 5px $base;
+}
+
+.fillerl {
+  @extend .filler;
+  margin: 0;
+  border-top-left-radius: 0;
+  box-shadow: 
+    0px -25px 0px 0px $base;
+}
+
+.fillerr {
+  @extend .filler;
+  margin: 0;
+  border-top-right-radius: 0;
+  box-shadow: 
+    0px -25px 0px 0px $base;
+}
+
+.fillerrs {
+  @extend .filler;
+  margin: 0;
+  border-top-right-radius: 0;
+  box-shadow: 
+    -20px 0px 0px 0px $base;
+}
+
+.fillerls {
+  @extend .filler;
+  margin: 0;
+  border-top-left-radius: 0;
+  box-shadow: 
+    20px 0px 0px 0px $base;
+}

@@ -9,16 +9,75 @@
   :stacking "overlay"
   :exclusive false
   :monitor 0
+  (dashstruct 
+    :class "popup"))
+
+(defvar revealdashint false)
+(defvar revealdashintb false)
+
+(defwindow dashboardint
+  :geometry (geometry 
+              :x 0 
+              :y -50
+              :width 0 
+              :height 0 
+:anchor "top left")
+  :stacking "overlay"
+  :exclusive false 
+  :monitor 0 
   (box 
-    :class "popup"
+    :orientation "v"
+    :space-evenly false
+    (revealer 
+      :reveal revealdashint
+      :transition "slidedown"
+      (box 
+        :orientation "h"
+        :space-evenly false
+        (dashstruct :class "barstruct right")
+        (box 
+          :width 50 
+          :style "margin-top: 10px;"
+          :class "fillerr")))
+
+    (revealer
+      :duration 0
+      :reveal revealdashintb
+      :transition "slidedown"
+      (box 
+        :orientation "v"
+        :space-evenly false
+        (box
+          :orientation "h"
+          :space-evenly false
+          :halign "start"
+          :height 50
+          (box 
+            :orientation "h"
+            :space-evenly false 
+            :halign "start"
+            :class "barstruct right"
+            (lockintoggle))
+          (box 
+            :width 50 
+            :class "fillerr"))
+        (box 
+          :width 50 
+          :height 50 
+          :style "margin-left: 10px;"
+          :class "fillerrs")))))
+
+(defwidget dashstruct [class]
+  (box 
+    :class class
     :orientation "v"
     :valign "start"
+    :width 500
     :space-evenly false
     (userinfo)
     (dashplayerctl)
     (generalinfo)
-    (whiteboard)
-    ))
+    (whiteboard)))
 
 (include "./yuck/widgets/useless.yuck")
 (include "./yuck/widgets/weather.yuck")
