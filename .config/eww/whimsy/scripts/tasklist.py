@@ -127,7 +127,7 @@ def update(i3, e):
             ))
 
 
-    # subprocess.run(eww_bin + ["update", f"windows={json.dumps(windows)}"])
+    subprocess.run(eww_bin + ["update", f"windowsjson={json.dumps(windows)}"])
     # subprocess.run(eww_bin + ["update", f"tasklistjson={json.dumps(appsjson)}"])
     print(json.dumps(appsjson), flush=True)
 

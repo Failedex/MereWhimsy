@@ -20,7 +20,6 @@
       margin: ${ locked ? '0px' : '10px 100px'};
     "
     :height 15
-    :valign "center"
     :orientation "h"
     (top)
     (middle)
@@ -31,6 +30,7 @@
   (box
     :orientation "h"
     :space-evenly false
+    :vexpand true
     (box 
       :orientation "h"
       :space-evenly false
@@ -45,6 +45,7 @@
     :orientation "h"
     :space-evenly false
     :halign "center"
+    :vexpand true
     :class "barstruct left right"
     (workspaces)))
 
@@ -52,6 +53,7 @@
   (box 
     :orientation "h"
     :space-evenly false
+    :vexpand true
     (spacefiller)
     (box
       :orientation "h"
@@ -66,7 +68,7 @@
 (defwidget lockintoggle []
   (button
     ; :onclick "${EWW_CMD} open dashboard --toggle"
-    :onclick "./scripts/hackslide revealdashint revealdashintb"
+    :onclick '${ !revealoverviewint ? "./scripts/hackslide revealdashint revealdashintb" : ""}'
     ; :onrightclick "./scripts/floatingwin.py toggle"
     (box
       ; :width 40

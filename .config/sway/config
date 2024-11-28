@@ -11,7 +11,7 @@ set $menu 'wofi -i -I'
 
 ### Output configuration
 # output * bg ~/.config/sway/wallpaper/tile.png tile
-output * bg ~/.config/sway/wallpaper/catppuccinfw.png fill
+output * bg ~/.config/sway/wallpaper/whitebgfw.jpg fill
 
 # I considered it at some point
 # output * bg #dde1e6 solid_color

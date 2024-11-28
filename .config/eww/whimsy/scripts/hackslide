@@ -12,7 +12,6 @@ if [[ $STAT == "true" ]]; then
         eww -c $PWD update "$2"=false
     fi
 else
-    eww -c $PWD update "$1"=true
-    eww -c $PWD update "$2"=true
+    eww -c $PWD update "$2"=true "$1"=true
 fi
 

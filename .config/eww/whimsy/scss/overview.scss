@@ -1,0 +1,21 @@
+
+.overviewworkspace {
+  margin: $margin;
+  border-radius: $round;
+  border: solid 2px;
+  border-color: $surface0;
+  background-color: $base;
+}
+
+.overviewwindow {
+  border-radius: $round - 5px;
+  border: solid 2px;
+  border-color: $surface0;
+  background-color: $base;
+}
+
+.overviewwindowhead {
+  border-top-left-radius: $round - 5px - 2px;
+  border-top-right-radius: $round - 5px - 2px;
+  background-color: $surface0;
+}

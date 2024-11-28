@@ -21,7 +21,7 @@
               :y -50
               :width 0 
               :height 0 
-:anchor "top left")
+              :anchor "top left")
   :stacking "overlay"
   :exclusive false 
   :monitor 0 

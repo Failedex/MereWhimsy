@@ -71,8 +71,11 @@
 
 (deflisten timerdis `./scripts/timer.py subscribe`)
 
+(defvar windowsjson "[[], [], [], [], []]")
+
 (include "./yuck/bar.yuck")
 (include "./yuck/dashboard.yuck")
 (include "./yuck/notifications.yuck")
 (include "./yuck/dock.yuck")
 (include "./yuck/calendar.yuck")
+(include "./yuck/overview.yuck")
