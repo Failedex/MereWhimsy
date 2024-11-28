@@ -23,7 +23,7 @@
       (box 
         :height 3)
       (revealer 
-        :reveal { !locked || floatingwin || revealdock }
+        :reveal { !locked && (floatingwin || revealdock) }
         :transition "slideup"
         (box 
           :orientation "h"

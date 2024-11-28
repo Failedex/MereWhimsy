@@ -36,7 +36,7 @@
         :space-evenly false
         (box 
           :width 50 
-          :style "margin-top: 10px;"
+          :style "margin-top: ${ locked ? 50 : 10 }px;"
           :class "fillerl")
         (calendarstruct :class "barstruct left")))
     (revealer  
@@ -53,15 +53,7 @@
           (box 
             :width 50
             :class "fillerl")
-          (box 
-            :orientation "h"
-            :space-evenly false
-            :halign "end"
-            :class "barstruct left"
-            (stray)
-            (system)
-            (time)
-            ))
+          (bottomstruct))
         (box 
           :width 50 
           :height 50 

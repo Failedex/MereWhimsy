@@ -22,12 +22,12 @@
         :space-evenly false 
         (box 
           :width 50 
-          :style "margin-top: 10px;"
+          :style "margin-top: ${ locked ? 50 : 10 }px;"
           :class "fillerl")
         (overview :class "barstruct left right")
         (box 
           :width 50 
-          :style "margin-top: 10px;"
+          :style "margin-top: ${ locked ? 50 : 10 }px;"
           :class "fillerr")))
     (revealer 
       :duration 0 

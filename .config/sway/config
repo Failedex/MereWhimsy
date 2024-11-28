@@ -152,7 +152,7 @@ input "type:tablet_tool" {
     bindsym $mod+z focus child
 
     # tile mode toggle
-    bindsym $mod+Tab exec '~/.config/eww/whimsy/scripts/floatingwin.py toggle'
+    # bindsym $mod+Tab exec '~/.config/eww/whimsy/scripts/floatingwin.py toggle'
 #
 # Scratchpad:
 #

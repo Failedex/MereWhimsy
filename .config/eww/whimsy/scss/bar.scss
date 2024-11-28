@@ -4,6 +4,7 @@
   background-color: $base;
   padding: $padding;
   transition: border-radius 500ms, margin 500ms;
+  border-radius: 0;
   &.right {
     border-bottom-right-radius: $round + 10px;
   }
