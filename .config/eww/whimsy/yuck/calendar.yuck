@@ -13,6 +13,7 @@
     :class "popup"))
 
 (defvar revealcalint false)
+(defvar revealcalmode 1)
 (defvar revealcalintb false)
 
 (defwindow calendarint 
@@ -28,17 +29,24 @@
   (box 
     :orientation "v"
     :space-evenly false
-    (revealer
-      :reveal revealcalint
+    (revealer 
+      :reveal { revealcalint }
       :transition "slidedown"
-      (box 
+      (box
         :orientation "h"
-        :space-evenly false
+        :space-evenly false 
+        :hexpand true
         (box 
-          :width 50 
+          :width 50
           :style "margin-top: ${ locked ? 50 : 10 }px;"
           :class "fillerl")
-        (calendarstruct :class "barstruct left")))
+        (stack 
+          :selected revealcalmode
+          :transition "slidedown"
+          (sysctl :class "barstruct left")
+          (calendarstruct :class "barstruct left")
+          )))
+
     (revealer  
       :duration 0 
       :reveal revealcalintb

@@ -40,7 +40,10 @@
     border-top-left-radius: 0px;
     padding-top: 2*$padding; 
   }
-
+  
+  &.transparent {
+    background-color: transparent;
+  }
 }
 
 .sidedeco {

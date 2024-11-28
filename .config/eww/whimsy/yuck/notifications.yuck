@@ -2,7 +2,7 @@
 (defwindow notifypopup
   :geometry (geometry 
               :x "20px"
-              :y "10px"
+              :y "-50px"
               :width 450 
               :height 0
               :anchor "top right")
@@ -14,75 +14,94 @@
     (box 
       :orientation "v"
       :space-evenly false
-      (for noti in { notifications.popups }
-        (singlenotif :noti noti )))))
+      :style "margin-top: 60px;"
+      (for i in { [0, 1, 2] }
+        (singlenotif 
+          :noti {
+            i < arraylength(notifications.popups)
+            ? notifications.popups[i]
+            : '{
+              "id": -727, 
+              "app": "",
+              "summary": "",
+              "body": "",
+              "time": "07:27",
+              "actions": [],
+              "icon": null,
+              "image": null
+            }'
+          } )))))
 
 (defwidget singlenotif [noti]
-  (box 
-    :class "popup bordered"
-    :style "padding: 0px;"
-    :orientation "v"
-    :space-evenly false
+  (revealer 
+    :transition "slidedown"
+    :reveal { noti.id != -727 }
     (box 
-      :class "notihead"
-      (label 
-        :text { noti.app }))
-
-    (box 
+      :class "popup bordered"
+      :style "padding: 0px;"
+      :orientation "v"
       :space-evenly false
-      :orientation "h"
+      :width 450
       (box 
-        :valign "start"
-        :visible { noti.image != "null" }
-        :class "notiimage"
-        :width 80
-        :height 80 
-        :style "background-image: url('${noti.image}')")
+        :class "notihead"
+        (label 
+          :text { noti.app }))
 
-      (box
-        :orientation "v"
+      (box 
         :space-evenly false
-        :hexpand true
-        :vexpand true
-        (button
-          :onclick "./scripts/notifManage --dismiss ${noti.id}"
-          :onrightclick "./scripts/notifManage --close ${noti.id}"
-          :tooltip "${noti.time}"
+        :orientation "h"
+        (box 
+          :valign "start"
+          :visible { noti.image != "null" }
+          :class "notiimage"
+          :width 80
+          :height 80 
+          :style "background-image: url('${noti.image}')")
+
+        (box
+          :orientation "v"
+          :space-evenly false
           :hexpand true
           :vexpand true
-          (box
-            :class "notibody"
-            :height 80
-            :orientation "v"
-            :space-evenly false
-            (scroll
-              :hexpand true
-              :vexpand true
-              :hscroll true
-              :vscroll false
+          (button
+            :onclick "./scripts/notifManage --dismiss ${noti.id}"
+            :onrightclick "./scripts/notifManage --close ${noti.id}"
+            :tooltip "${noti.time}"
+            :hexpand true
+            :vexpand true
+            (box
+              :class "notibody"
+              :height 80
+              :orientation "v"
+              :space-evenly false
+              (scroll
+                :hexpand true
+                :vexpand true
+                :hscroll true
+                :vscroll false
+                (label 
+                  :xalign "0"
+                  :vexpand true
+                  :text { noti.summary }))
               (label 
                 :xalign "0"
                 :vexpand true
-                :text { noti.summary }))
-            (label 
-              :xalign "0"
-              :vexpand true
-              :wrap true
-              :visible { noti.body != "null" }
-              :text { noti.body })))
-        (box
-          :orientation "h"
-          :hexpand true
-          (for action in {noti.actions}
-            (button 
-              :onclick "./scripts/notifManage --action ${noti.id} ${action[0]} && ./scripts/notifManage --close ${noti.id}" 
-              (box 
-                :hexpand true
-                :class "widget"
-                (scroll
+                :wrap true
+                :visible { noti.body != "null" }
+                :text { noti.body })))
+          (box
+            :orientation "h"
+            :hexpand true
+            (for action in {noti.actions}
+              (button 
+                :onclick "./scripts/notifManage --action ${noti.id} ${action[0]} && ./scripts/notifManage --close ${noti.id}" 
+                (box 
                   :hexpand true
-                  :hscroll true
-                  :vscroll false
-                  (label 
-                    :text { action[1] })))))))
-      )))
+                  :class "widget"
+                  (scroll
+                    :hexpand true
+                    :hscroll true
+                    :vscroll false
+                    (label 
+                      :text { action[1] })))))))
+        ))))

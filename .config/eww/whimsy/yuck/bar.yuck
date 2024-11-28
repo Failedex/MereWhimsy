@@ -71,7 +71,7 @@
 (defwidget dashtoggle []
   (button
     ; :onclick "${EWW_CMD} open dashboard --toggle"
-    :onclick '${ !revealoverviewint ? "./scripts/hackslide revealdashint revealdashintb" : ""}'
+    :onclick '${ !revealoverviewint ? "./scripts/hackslide revealdashint revealdashintb&" : ""}'
     (box
       ; :width 40
       ; :class "barpfp"
@@ -93,7 +93,7 @@
     :style "padding: 0px 5px;"
     (label 
       :class "icon"
-      :tooltip { locked ? "locked in" : "Dilly dally" }
+      :tooltip { locked ? "Locked in" : "Dilly dally" }
       :text { locked ? "󰌾" : "" })))
 
 (defwidget sidedeco [area] 

@@ -2,7 +2,12 @@
 (defwidget time []
   (button 
     ; :onclick "${EWW_CMD} open calendarpopup --toggle"
-    :onclick '${ !revealoverviewint ? "./scripts/hackslide revealcalint revealcalintb" : ""}'
+    :onclick { 
+    !revealoverviewint ? 
+        !revealcalint 
+        ? "${EWW_CMD} update revealcalmode=1 && ./scripts/hackslide revealcalint revealcalintb &"
+        : "./scripts/hackslide revealcalint revealcalintb &"
+    : ""}
     (box
       ; :class "widget ${ locked ? 'topr' : 'float'}"
       :class "widget"

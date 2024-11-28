@@ -1,10 +1,23 @@
 
 (defwidget batscale [] 
-  (scale
-    :orientation "v"
-    :active false 
-    :min 0
-    :max 100
-    :value bat0
-    :flipped true
-    :class "batscale"))
+  (box 
+    :class "widget transparent"
+    :halign "start"
+    :orientation "h"
+    :space-evenly false
+    (label 
+      :text "${bat0}%")
+    (overlay
+      (scale
+        :orientation "h"
+        :active false 
+        :min 0
+        :max 100
+        :value bat0
+        :class "batscale")
+      (box 
+        :class "batslideoverlays")
+      (label 
+        :visible { EWW_BATTERY.BAT0.status == "Charging" }
+        :text "󱐋"))
+    ))

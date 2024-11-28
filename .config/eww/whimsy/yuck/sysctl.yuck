@@ -1,0 +1,17 @@
+
+(defwidget sysctl [class]
+  (box
+    :class class 
+    :orientation "v"
+    :space-evenly false 
+    :width 300
+    :hexpand true
+    (sysbuttons)
+    (volslide)
+    (brislide)
+    (box 
+      :orientation "h"
+      (batscale)
+      (logoutctl)
+      )))
+

@@ -3,56 +3,34 @@
 (defvar revealtray false)
 
 (defwidget system [] 
-  (box
+  (button
     :class "widget"
-    :orientation "h"
-    :space-evenly false
-    :spacing 5
+    :onclick {
+      !revealoverviewint ? 
+        !revealcalint 
+        ? "${EWW_CMD} update revealcalmode=0 && ./scripts/hackslide revealcalint revealcalintb &"
+        : "./scripts/hackslide revealcalint revealcalintb &"
+      : ""}
     :style "padding: 0px 10px;"
-    ; (label 
-    ;   :tooltip wifi_essid 
-    ;   :class "icon" 
-    ;   :text wifi_icon)
-    (revealslide
-      :var revealvol
-      :varstr "revealvol"
+    (box 
+      :orientation "h"
+      :spacing 5 
+      
       (label 
         :tooltip "${volume}%" 
         :class "icon" 
         :text {volumemute == 'false' ? "󰕾" : "󰖁"})
-      (scale 
-        :class "sysslide"
-        :flipped true
-        :orientation "h"
-        :min 0 
-        :max 100
-        :tooltip "${volume}%"
-        :value volume 
-        :onchange "pamixer --set-volume {}"))
 
-    (revealslide 
-      :var revealbri
-      :varstr "revealbri"
       (label
         :tooltip "${brightness}%"
         :class "icon"
         :text "󰃞")
-      (scale
-        :class "sysslide"
-        :flipped true
-        :orientation "h"
-        :min 0 
-        :max 100
-        :tooltip "${brightness}%"
-        :value brightness
-        :onchange "brightnessctl set {}%"))
 
-    (label 
-      :tooltip "${bat0}%"
-      :class "baticon ${ EWW_BATTERY.BAT0.status == 'Charging' ? 'charging': bat0 < 16 ? 'dying': '' }"
-      :text baticon
-      )
-    ))
+      (label 
+        :tooltip "${bat0}%"
+        :class "baticon ${ EWW_BATTERY.BAT0.status == 'Charging' ? 'charging': bat0 < 16 ? 'dying': '' }"
+        :text baticon)
+    )))
 
 (defwidget stray [] 
   (box
@@ -86,3 +64,95 @@
         :transition "slideright"
         (children :nth 1)))))
 
+(defwidget volslide []
+  (box 
+    :class "widget transparent"
+    :orientation "h"
+    :space-evenly false 
+    ; :style "padding-right: 0; padding-left: 0;"
+    (label 
+      :tooltip "${volume}%"
+      :class "icon"
+      :text {volumemute == 'false' ? "󰕾" : "󰖁"})
+    (scale 
+      :class "sysslide"
+      :orientation "h"
+      :min 0 
+      :max 100 
+      :hexpand true
+      :tooltip "${volume}%"
+      :value volume 
+      :onchange "pamixer --set-volume {}")))
+
+(defwidget brislide []
+  (box 
+    :class "widget transparent"
+    :orientation "h"
+    :space-evenly false
+    (label 
+      :tooltip "${brightness}%"
+      :class "icon"
+      :text "󰃞")
+    (scale 
+      :class "sysslide"
+      :orientation "h"
+      :min 0 
+      :max 100 
+      :hexpand true
+      :tooltip "${brightness}%"
+      :value brightness 
+      :onchange "brightnessctl set {}%")))
+
+(defwidget sysbuttons [] 
+  (box 
+    :orientation "h"
+    :height 50
+    (singlesysbutton 
+      :icon wifi_icon
+      :toggle {wifi_radio == "enabled" ? "nmcli radio wifi off" : "nmcli radio wifi on"}
+      :tooltip wifi_essid)
+
+    (singlesysbutton 
+      :icon bluetooth_icon
+      :toggle "./scripts/bluetooth.sh --toggle"
+      :tooltip bluetooth_device)
+
+    (singlesysbutton
+      :icon { notifications.dnd ? "󰂛" : "󰂚"}
+      :toggle "./scripts/notifManage --toggle"
+      :tooltip "Do not disturbed ${ notifications.dnd ? 'on' : 'off' }")
+    (singlesysbutton 
+      :icon { caffeine ? "" : "󰾪"}
+      :toggle {caffeine ? "swaymsg [app_id='.*'] inhibit_idle none && ${EWW_CMD} update caffeine=false" : "swaymsg [app_id='.*'] inhibit_idle open && ${EWW_CMD} update caffeine=true"}
+      :tooltip "Caffeine ${ caffeine ? 'on' : 'off' }")
+    ))
+
+(defwidget singlesysbutton [icon toggle ?tooltip]
+  (button 
+    :class "widget"
+    :onclick toggle
+    :tooltip tooltip
+    (label 
+      :class "icon"
+      :text icon)))
+
+(defwidget logoutctl []
+  (box 
+    :class "widget transparent"
+    :orientation "h"
+    :halign "end"
+    :height 40
+    :spacing 5
+    :style "padding: 0px 10px;"
+    (button 
+      :onclick "notify-send -a 'System' 'Sorry, I actually dont want to logout from here'"
+      (label 
+        :class "icon"
+        :text "󰍃"))
+
+    (button 
+      :onclick "notify-send -a 'System' 'Sorry, I actually dont want to shutdown from here'"
+      (label 
+        :class "icon"
+        :text "󰐥"))
+    ))

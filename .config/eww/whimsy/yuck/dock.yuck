@@ -62,6 +62,7 @@
               :halign "center"
               :space-evenly false 
               :spacing 3
+              :height 5
               (for focus in { task.focused }
                 (box 
                   :class "dockindicate ${ focus ? 'active' : 'inactive'}"

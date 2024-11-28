@@ -8,11 +8,15 @@
 
 (defpoll wifi_icon :initial "" :interval "30s" "./scripts/wifi --ICON")
 (defpoll wifi_essid :initial "" :interval "30s" "./scripts/wifi --ESSID")
+(defpoll wifi_radio :initial "off" :interval "2s" "nmcli radio wifi")
 (defpoll volumemute :initial "false" :interval "1s" "pamixer --get-mute")
 (defpoll volume :initial "0" :interval "1s" "pamixer --get-volume")
 (defpoll brightness :initial "0" :interval "2s" "brightnessctl -m | awk -F, '{print substr($4, 0, length($4)-1)}' | tr -d '%'")
 (defpoll bat0 :initial "0" :interval "30s" "bash ./scripts/sys_info --bat")
 (defpoll baticon :initial "" :interval "30s" "bash ./scripts/sys_info --baticon")
+(defpoll bluetooth_icon :initial "disconnected" :interval "30s" "./scripts/bluetooth.sh --con_status")
+(defpoll bluetooth_device :initial "--" :interval "30s" "./scripts/bluetooth.sh --devname")
+(defvar caffeine false)
 
 (deflisten notesc "./scripts/notesmd.py")
 
@@ -79,3 +83,4 @@
 (include "./yuck/dock.yuck")
 (include "./yuck/calendar.yuck")
 (include "./yuck/overview.yuck")
+(include "./yuck/sysctl.yuck")

@@ -2,11 +2,11 @@
 .batscale {
   all: unset;
   trough {
-    min-height: 100px;
-    min-width: 30px;
+    min-width: 60px;
+    min-height: 20px;
     border-radius: $round;
     background-color: $surface1;
-    margin: $margin;
+    margin: 0px $margin;
 
     slider {
       min-height: 20px;
@@ -16,10 +16,10 @@
 
     highlight {
       background-color: $accent;
-      border-top-left-radius: 0px;
-      border-top-right-radius: 0px;
+      border-top-left-radius: $round;
+      border-top-right-radius: 0;
       border-bottom-left-radius: $round;
-      border-bottom-right-radius: $round;
+      border-bottom-right-radius: 0;
     }
   }
 
@@ -30,6 +30,13 @@
   // &.dying trough highlight {
   //   background-color: $red;
   // }
+}
+
+.batslideoverlays {
+  border-radius: 10px;
+  box-shadow: 
+    inset -$padding 0px 0px 0px $base, 
+    inset $padding 0px 0px 0px $base;
 }
 
 .sysslide {
@@ -79,7 +86,6 @@
 }
 
 .boxslideoverlays {
-  background-color: transparent;
   border-radius: $round;
   box-shadow: 
     inset -$padding $padding 0px 0px $base, 
