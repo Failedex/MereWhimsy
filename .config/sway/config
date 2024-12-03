@@ -184,17 +184,17 @@ input "type:tablet_tool" {
     bindsym $mod+Control+Right resize grow width 10px
 
 #media keys
-bindsym XF86AudioRaiseVolume exec 'pamixer -i 5'
-bindsym XF86AudioLowerVolume exec 'pamixer -d 5'
-bindsym XF86AudioMute exec 'pamixer --toggle-mute'
+bindsym XF86AudioRaiseVolume exec '$HOME/.config/sway/scripts/sysctl.sh incvol'
+bindsym XF86AudioLowerVolume exec '$HOME/.config/sway/scripts/sysctl.sh decvol'
+bindsym XF86AudioMute exec '$HOME/.config/sway/scripts/sysctl.sh togvol'
 
 bindsym XF86AudioMedia exec 'playerctl play-pause'
 bindsym XF86AudioPlay exec 'playerctl play-pause'
 bindsym XF86AudioPrev exec 'playerctl previous'
 bindsym XF86AudioNext exec 'playerctl next'
 
-bindsym XF86MonBrightnessUp exec 'light -A 5'
-bindsym XF86MonBrightnessDown exec 'light -U 5'
+bindsym XF86MonBrightnessUp exec '$HOME/.config/sway/scripts/sysctl.sh incbri'
+bindsym XF86MonBrightnessDown exec '$HOME/.config/sway/scripts/sysctl.sh decbri'
 
 # misc bindings
 bindsym $mod+Shift+x exec "swaylock -c 262626"

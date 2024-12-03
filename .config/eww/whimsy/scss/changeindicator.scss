@@ -1,0 +1,20 @@
+
+.changeindicator {
+  @extend .barstruct;
+  border-top-left-radius: $round + 10px;
+  border-bottom-left-radius: $round + 10px;
+}
+
+.changeindicatorcurve {
+  margin-right: 10px;
+  &.top {
+    border-bottom-right-radius: $round+10px;
+    box-shadow: 20px 0px 0px 0px $base;
+    margin-bottom: -1px;
+  }
+  &.bottom {
+    border-top-right-radius: $round+10px;
+    box-shadow: 20px 0px 0px 0px $base;
+    margin-top: -1px;
+  }
+}

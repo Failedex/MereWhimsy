@@ -6,11 +6,11 @@
   (button
     :class "widget"
     :onclick {
-      !revealoverviewint ? 
-        !revealcalint 
-        ? "./scripts/hackslide calendarint revealcalint && ${EWW_CMD} update revealcalmode=0"
-        : "./scripts/hackslide calendarint revealcalint &"
-      : ""}
+              !revealoverviewint ? 
+              !revealcalint 
+              ? "./scripts/hackslide calendarint revealcalint && ${EWW_CMD} update revealcalmode=0"
+              : "./scripts/hackslide calendarint revealcalint &"
+              : ""}
     :style "padding: 0px 10px;"
     (box 
       :orientation "h"
@@ -29,8 +29,8 @@
       (label 
         :tooltip "${bat0}%"
         :class "baticon ${ EWW_BATTERY.BAT0.status == 'Charging' ? 'charging': bat0 < 16 ? 'dying': '' }"
-        :text baticon)
-    )))
+        :text baticon))))
+    
 
 (defwidget stray [] 
   (box
@@ -65,44 +65,60 @@
         :transition "slideright"
         (children :nth 1)))))
 
-(defwidget volslide []
+(defwidget volslide [?vert]
   (box 
     :class "widget transparent"
-    :orientation "h"
+    :orientation { vert != "" ? "v" : "h"}
     :space-evenly false 
-    ; :style "padding-right: 0; padding-left: 0;"
     (label 
+      :visible { vert == ""}
       :tooltip "${volume}%"
       :class "icon"
       :text {volumemute == 'false' ? "󰕾" : "󰖁"})
     (scale 
-      :class "sysslide"
-      :orientation "h"
+      :class "sysslide${ vert != '' ? 'v' : '' }"
+      :orientation { vert != '' ? "v" : "h"}
       :min 0 
       :max 100 
       :hexpand true
+      :vexpand true
+      :flipped { vert != ""}
       :tooltip "${volume}%"
       :value volume 
-      :onchange "pamixer --set-volume {}")))
+      :onchange "pamixer --set-volume {} & ${EWW_CMD} update volume={} &")
+    (label 
+      :visible { vert != ""}
+      :tooltip "${volume}%"
+      :class "icon"
+      :text {volumemute == 'false' ? "󰕾" : "󰖁"})))
+    
 
-(defwidget brislide []
+(defwidget brislide [?vert]
   (box 
     :class "widget transparent"
-    :orientation "h"
+    :orientation { vert != "" ? "v" : "h"}
     :space-evenly false
     (label 
+      :visible { vert == ""}
       :tooltip "${brightness}%"
       :class "icon"
       :text "󰃞")
     (scale 
-      :class "sysslide"
-      :orientation "h"
+      :class "sysslide${ vert != '' ? 'v' : '' }"
+      :orientation { vert != '' ? "v" : "h"}
       :min 0 
       :max 100 
       :hexpand true
+      :vexpand true
+      :flipped { vert != ""}
       :tooltip "${brightness}%"
       :value brightness 
-      :onchange "brightnessctl set {}%")))
+      :onchange "brightnessctl set {}% & ${EWW_CMD} update brightness={} &")
+    (label 
+      :visible { vert != ""}
+      :tooltip "${brightness}%"
+      :class "icon"
+      :text "󰃞")))
 
 (defwidget sysbuttons [] 
   (box 
@@ -125,8 +141,8 @@
     (singlesysbutton 
       :icon { caffeine ? "" : "󰾪"}
       :toggle {caffeine ? "swaymsg [app_id='.*'] inhibit_idle none && ${EWW_CMD} update caffeine=false" : "swaymsg [app_id='.*'] inhibit_idle open && ${EWW_CMD} update caffeine=true"}
-      :tooltip "Caffeine ${ caffeine ? 'on' : 'off' }")
-    ))
+      :tooltip "Caffeine ${ caffeine ? 'on' : 'off' }")))
+    
 
 (defwidget singlesysbutton [icon toggle ?tooltip]
   (button 
@@ -155,5 +171,5 @@
       :onclick "notify-send -a 'System' 'Sorry, I actually dont want to shutdown from here'"
       (label 
         :class "icon"
-        :text "󰐥"))
-    ))
+        :text "󰐥"))))
+    

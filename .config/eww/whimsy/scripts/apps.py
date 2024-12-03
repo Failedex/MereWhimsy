@@ -121,6 +121,10 @@ def filter_entries(entries, query):
             entry["name"] = entry["name"].title()
         return entries["apps"]
 
+def filter_top(apps, n): 
+    apps = apps[:n]
+    return apps
+
 def highlight(text, query):
     # Función para resaltar las coincidencias en el texto con Pango Markup
     start_tag = '<span font-weight="900">'
@@ -139,6 +143,7 @@ if __name__ == "__main__":
     if query is not None:
         entries = get_cached_entries()
         filtered = filter_entries(entries, query)
+        filtered = filter_top(filtered, 10)
         update_eww({"apps": filtered })
         # print(json.dumps({"apps": filtered }), flush=True)
 
@@ -147,5 +152,6 @@ if __name__ == "__main__":
 
     else:
         entries = get_cached_entries(True)
+        entries["apps"] = filter_top(entries["apps"], 10)
         update_eww(entries)
         # print(json.dumps(entries), flush=True)

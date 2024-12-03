@@ -23,7 +23,7 @@
       (box 
         :height 3)
       (revealer 
-        :reveal { !locked && (floatingwin || revealdock) }
+        :reveal { !locked && (floatingwin || revealdock)}
         :transition "slideup"
         (box 
           :orientation "h"
@@ -46,7 +46,7 @@
     :orientation "h"
     (for task in {tasklistjson}
       (button 
-        :tooltip { task.name }
+        :tooltip { task.name}
         :onclick { task.pid != 'null' ? 'swaymsg "[pid=${task.pid}] focus"' : '(cd && gtk-launch ${task.app_id}) &'}
         (box 
           :orientation "v"
@@ -63,7 +63,7 @@
               :space-evenly false 
               :spacing 3
               :height 5
-              (for focus in { task.focused }
+              (for focus in { task.focused}
                 (box 
                   :class "dockindicate ${ focus ? 'active' : 'inactive'}"
                   :hexpand false 

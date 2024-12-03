@@ -37,6 +37,7 @@
         :space-evenly false
         (stack 
           :selected revealdashmode
+          :transition "none"
           (dashstruct :class "barstruct right")
           (launcher :class "barstruct right"))
         (box 
@@ -78,11 +79,11 @@
   (button
     ; :onclick "${EWW_CMD} open dashboard --toggle"
     :onclick { 
-    !revealoverviewint ? 
-        !revealdashint 
-        ? "./scripts/hackslide dashboardint revealdashint && ${EWW_CMD} update revealdashmode=0"
-        : "./scripts/hackslide dashboardint revealdashint &"
-    : ""}
+              !revealoverviewint ? 
+              !revealdashint 
+              ? "./scripts/hackslide dashboardint revealdashint && ${EWW_CMD} update revealdashmode=0"
+              : "./scripts/hackslide dashboardint revealdashint &"
+              : ""}
     (box
       ; :width 40
       ; :class "barpfp"
@@ -92,11 +93,9 @@
         :text "Dashboard")
       (label 
         :visible false
-        :text pstatus))
+        :text pstatus))))
     ; (image
     ;   :image-width 40
     ;   :path "./assets/roundpfp.png")
-    ))
+    
 
-(include "./yuck/widgets/useless.yuck")
-(include "./yuck/widgets/weather.yuck")

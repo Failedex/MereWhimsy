@@ -1,0 +1,38 @@
+
+(defvar revealchangemode 0)
+(defvar revealchange false)
+(defvar changeindcount 0)
+
+(defwindow changeindicate
+  :geometry (geometry 
+              :x 0 
+              :y 0 
+              :width 0 
+              :height 300
+              :anchor "center right")
+  :stacking "overlay" 
+  :monitor 0 
+
+  (revealer
+    :reveal revealchange
+    :transition "slideleft"
+    (box
+      :orientation "v"
+      :space-evenly false
+      :vexpand true
+      (box 
+        :height 50
+        :class "changeindicatorcurve top")
+      (box
+        :class "changeindicator"
+        :width 50
+        :vexpand true
+        (stack 
+          :selected revealchangemode
+          :transition "none"
+          (volslide :vert "yep")
+          (brislide :vert "yep")))
+      (box 
+        :height 50
+        :class "changeindicatorcurve bottom"))))
+     

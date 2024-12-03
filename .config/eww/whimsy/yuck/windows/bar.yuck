@@ -111,10 +111,3 @@
   :wm-ignore false
   (box 
     :class "fakecornersl active"))
-
-(include "./yuck/widgets/workspaces.yuck")
-(include "./yuck/widgets/time.yuck")
-(include "./yuck/widgets/battery.yuck")
-(include "./yuck/widgets/system.yuck")
-(include "./yuck/widgets/music.yuck")
-(include "./yuck/widgets/keepopen.yuck")
