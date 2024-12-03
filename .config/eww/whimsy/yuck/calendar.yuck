@@ -13,8 +13,7 @@
     :class "popup"))
 
 (defvar revealcalint false)
-(defvar revealcalmode 1)
-(defvar revealcalintb false)
+(defvar revealcalmode 0)
 
 (defwindow calendarint 
   :geometry (geometry 
@@ -42,31 +41,27 @@
           :class "fillerl")
         (stack 
           :selected revealcalmode
-          :transition "slidedown"
+          :transition "none"
           (sysctl :class "barstruct left")
           (calendarstruct :class "barstruct left")
           )))
 
-    (revealer  
-      :duration 0 
-      :reveal revealcalintb
-      :transition "slidedown"
+    (box 
+      :orientation "v"
+      :space-evenly false
       (box 
-        :orientation "v"
-        :space-evenly false
+        :orientation "h"
+        :space-evenly false 
+        :halign "end"
         (box 
-          :orientation "h"
-          :space-evenly false 
-          :halign "end"
-          (box 
-            :width 50
-            :class "fillerl")
-          (bottomstruct))
-        (box 
-          :width 50 
-          :height 50 
-          :class "fillerls"
-          :style "margin-right: 10px;")))))
+          :width 50
+          :class "fillerl")
+        (bottomstruct :f "nah"))
+      (box 
+        :width 50 
+        :height 50 
+        :class "fillerls"
+        :style "margin-right: 10px;"))))
 
 (defwidget calendarstruct [class] 
   (box 

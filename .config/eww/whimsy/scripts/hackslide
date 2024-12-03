@@ -1,17 +1,18 @@
 #!/bin/bash
 
-PWD="$(pwd)"
+PWD="$HOME/.config/eww/whimsy"
 
 
-STAT="$(eww -c $PWD get $1)"
+STAT="$(eww -c $PWD get $2)"
 if [[ $STAT == "true" ]]; then
-    eww -c $PWD update "$1"=false
+    eww -c $PWD update "$2"=false
     sleep 0.5
-    STAT="$(eww -c $PWD get $1)"
+    STAT="$(eww -c $PWD get $2)"
     if [[ $STAT == "false" ]]; then 
-        eww -c $PWD update "$2"=false
+        eww -c $PWD close $1
     fi
 else
-    eww -c $PWD update "$2"=true "$1"=true
+    eww -c $PWD open $1
+    eww -c $PWD update "$2"=true
 fi
 

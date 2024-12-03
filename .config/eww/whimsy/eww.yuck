@@ -77,6 +77,8 @@
 
 (defvar windowsjson "[[], [], [], [], []]")
 
+(deflisten appsjson :initial '{"apps": []}' "./scripts/apps.py" )
+
 (include "./yuck/bar.yuck")
 (include "./yuck/dashboard.yuck")
 (include "./yuck/notifications.yuck")
@@ -84,3 +86,4 @@
 (include "./yuck/calendar.yuck")
 (include "./yuck/overview.yuck")
 (include "./yuck/sysctl.yuck")
+(include "./yuck/widgets/launcher.yuck")

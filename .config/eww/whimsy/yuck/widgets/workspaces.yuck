@@ -12,7 +12,7 @@
 
         (button 
             :onclick "swaymsg -t command workspace number ${workspacejson[i].name}"
-            :onrightclick '${ !revealcalint && !revealdashint ? "./scripts/hackslide revealoverviewint revealoverviewintb" : ""}'
+            :onrightclick '${ !revealcalint && !revealdashint ? "./scripts/hackslide overviewint revealoverviewint &" : ""}'
           (box
             :class "wspill ${ workspacejson[i].focused ? 'active' : ''}"
             ; :style "

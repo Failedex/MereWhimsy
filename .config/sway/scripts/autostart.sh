@@ -8,7 +8,7 @@ swayidle -w \
 		resume 'swaymsg "output * dpms on"' &
 
 $(which eww) daemon &
-$(which eww) --config ~/.config/eww/whimsy open-many bar notifypopup fakecornerl dock calendarint dashboardint overviewint &
+$(which eww) --config ~/.config/eww/whimsy open-many bar notifypopup fakecornerl dock &
 
 nm-applet --indicator &
 

@@ -13,7 +13,7 @@
     :class "popup"))
 
 (defvar revealdashint false)
-(defvar revealdashintb false)
+(defvar revealdashmode 0)
 
 (defwindow dashboardint
   :geometry (geometry 
@@ -23,6 +23,7 @@
               :height 0 
               :anchor "top left")
   :stacking "overlay"
+  :focusable true
   :exclusive false 
   :monitor 0 
   (box 
@@ -34,33 +35,32 @@
       (box 
         :orientation "h"
         :space-evenly false
-        (dashstruct :class "barstruct right")
+        (stack 
+          :selected revealdashmode
+          (dashstruct :class "barstruct right")
+          (launcher :class "barstruct right"))
         (box 
           :width 50 
           :style "margin-top: ${ locked ? 50 : 10 }px;"
           :class "fillerr")))
 
-    (revealer
-      :duration 0
-      :reveal revealdashintb
-      :transition "slidedown"
-      (box 
-        :orientation "v"
+    (box 
+      :orientation "v"
+      :space-evenly false
+      (box
+        :orientation "h"
         :space-evenly false
-        (box
-          :orientation "h"
-          :space-evenly false
-          :halign "start"
-          :height 50
-          (topstruct)
-          (box 
-            :width 50 
-            :class "fillerr"))
+        :halign "start"
+        :height 50
+        (topstruct :f "nah")
         (box 
           :width 50 
-          :height 50 
-          :style "margin-left: 10px;"
-          :class "fillerrs")))))
+          :class "fillerr"))
+      (box 
+        :width 50 
+        :height 50 
+        :style "margin-left: 10px;"
+        :class "fillerrs"))))
 
 (defwidget dashstruct [class]
   (box 
@@ -73,6 +73,30 @@
     (dashplayerctl)
     (generalinfo)
     (whiteboard)))
+
+(defwidget dashtoggle []
+  (button
+    ; :onclick "${EWW_CMD} open dashboard --toggle"
+    :onclick { 
+    !revealoverviewint ? 
+        !revealdashint 
+        ? "./scripts/hackslide dashboardint revealdashint && ${EWW_CMD} update revealdashmode=0"
+        : "./scripts/hackslide dashboardint revealdashint &"
+    : ""}
+    (box
+      ; :width 40
+      ; :class "barpfp"
+      :class "widget"
+      :style "padding: 0px 10px;"
+      (label
+        :text "Dashboard")
+      (label 
+        :visible false
+        :text pstatus))
+    ; (image
+    ;   :image-width 40
+    ;   :path "./assets/roundpfp.png")
+    ))
 
 (include "./yuck/widgets/useless.yuck")
 (include "./yuck/widgets/weather.yuck")

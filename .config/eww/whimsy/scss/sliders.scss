@@ -34,9 +34,10 @@
 
 .batslideoverlays {
   border-radius: 10px;
+  margin: 0px -2px;
   box-shadow: 
-    inset -$padding 0px 0px 0px $base, 
-    inset $padding 0px 0px 0px $base;
+    inset -7px 0px 0px 0px $base, 
+    inset 7px 0px 0px 0px $base;
 }
 
 .sysslide {
@@ -64,11 +65,13 @@
 .boxslides {
   all: unset;
   trough {
-    background-color: $surface1;
+    background-color: $base;
     border-radius: $round;
     margin : $margin;
     min-height: 80px;
     min-width: 80px;
+    border: solid 2px;
+    border-color: $surface0;
 
     slider {
       min-height: 15px;
@@ -76,11 +79,8 @@
     }
 
     highlight {
-      background-color: $surface2;
-      border-top-left-radius: 0px;
-      border-top-right-radius: 0px;
-      border-bottom-left-radius: $round;
-      border-bottom-right-radius: $round;
+      background-color: $surface0;
+      border-radius: 0;
     }
   }
 }

@@ -5,8 +5,8 @@
     :onclick { 
     !revealoverviewint ? 
         !revealcalint 
-        ? "${EWW_CMD} update revealcalmode=1 && ./scripts/hackslide revealcalint revealcalintb &"
-        : "./scripts/hackslide revealcalint revealcalintb &"
+        ? "./scripts/hackslide calendarint revealcalint && ${EWW_CMD} update revealcalmode=1"
+        : "./scripts/hackslide calendarint revealcalint &"
     : ""}
     (box
       ; :class "widget ${ locked ? 'topr' : 'float'}"

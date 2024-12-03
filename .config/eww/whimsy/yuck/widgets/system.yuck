@@ -8,8 +8,8 @@
     :onclick {
       !revealoverviewint ? 
         !revealcalint 
-        ? "${EWW_CMD} update revealcalmode=0 && ./scripts/hackslide revealcalint revealcalintb &"
-        : "./scripts/hackslide revealcalint revealcalintb &"
+        ? "./scripts/hackslide calendarint revealcalint && ${EWW_CMD} update revealcalmode=0"
+        : "./scripts/hackslide calendarint revealcalint &"
       : ""}
     :style "padding: 0px 10px;"
     (box 
@@ -37,6 +37,7 @@
     :orientation "h"
     :space-evenly false
     (button
+      :class "widget transparent thin"
       :onclick "${EWW_CMD} update revealtray=${!revealtray}"
       (label 
         :class "icon"

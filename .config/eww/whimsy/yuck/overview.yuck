@@ -1,5 +1,4 @@
 (defvar revealoverviewint false)
-(defvar revealoverviewintb false)
 
 (defwindow overviewint 
   :geometry (geometry 
@@ -29,22 +28,18 @@
           :width 50 
           :style "margin-top: ${ locked ? 50 : 10 }px;"
           :class "fillerr")))
-    (revealer 
-      :duration 0 
-      :reveal revealoverviewintb 
-      :transition "slidedown"
+    (box 
+      :orientation "h"
+      :space-evenly false 
+      :halign "center"
+      :height 50 
       (box 
-        :orientation "h"
-        :space-evenly false 
-        :halign "center"
-        :height 50 
-        (box 
-          :width 50 
-          :class "fillerl")
-        (middle)
-        (box 
-          :width 50 
-          :class "fillerr")))))
+        :width 50 
+        :class "fillerl")
+      (middle :f "no")
+      (box 
+        :width 50 
+        :class "fillerr"))))
 
 (defwidget overview [class] 
   (box 

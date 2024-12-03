@@ -5,6 +5,8 @@ from gi.repository import Gtk
 import sys
 
 def fetch(icon_name):
+    if not icon_name: 
+        return
     icon_theme = Gtk.IconTheme.get_default()
     icon = icon_theme.lookup_icon(icon_name, 48, 0)
     if icon:

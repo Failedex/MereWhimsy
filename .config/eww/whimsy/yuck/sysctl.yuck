@@ -4,7 +4,7 @@
     :class class 
     :orientation "v"
     :space-evenly false 
-    :width 300
+    :width 350
     :hexpand true
     (sysbuttons)
     (volslide)

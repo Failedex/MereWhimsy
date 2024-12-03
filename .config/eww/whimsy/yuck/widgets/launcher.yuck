@@ -1,0 +1,93 @@
+
+(defwindow applauncher [] 
+  :geometry (geometry 
+              :x 0 
+              :y 0 
+              :width 400 
+              :height 300 
+              :anchor "center")
+  :stacking "overlay"
+  :exclusive false 
+  :focusable true
+  :monitor 0
+  (launcher :class "popup bordered"))
+
+(defwidget launcher [class] 
+  (box 
+    :class class
+    :orientation "v"
+    :width 450 
+    :height 500
+    :space-evenly false
+
+    (overlay
+      :vexpand true
+      (scroll 
+        :vexpand true
+        :vscroll true 
+        :hscroll false
+        (box 
+          :space-evenly false 
+          :orientation "v"
+
+          (for a in { appsjson.apps }
+            (app :a a)
+          )))
+      (box 
+        :class "launchcover")
+      )))
+
+(defwidget launchwid []
+  (box 
+    :orientation "h"
+    :space-evenly false
+    :class "widget"
+    (button 
+      :onclick { 
+      !revealoverviewint ? 
+          !revealdashint 
+          ? "./scripts/hackslide dashboardint revealdashint && ${EWW_CMD} update revealdashmode=1"
+          : "./scripts/hackslide dashboardint revealdashint &"
+      : ""}
+      :onrightclick "${EWW_CMD} close dashboardint"
+      (label 
+        :class "icon"
+        :style "margin: 0px 1px;"
+        :text ""))
+
+    (revealer
+      :reveal { revealdashmode == 1 && revealdashint }
+      :transition "slideright"
+      (input 
+        :onchange "./scripts/apps.py --query '{}' &"
+        :onaccept "
+          ${ arraylength(appsjson.apps) > 0 ? "(cd && ${appsjson.apps[0].desktop}) & ./scripts/apps.py --increase '${appsjson.apps[0].name}' &" : ''}
+          ./scripts/hackslide dashboardint revealdashint &"))))
+
+(defwidget app [a]
+  (button 
+    :class "widget"
+    :onclick "
+      (cd && ${a.desktop}) & ./scripts/apps.py --increase '${a.name}' &
+      ./scripts/hackslide dashboardint revealdashint &
+    "
+    (box 
+      :orientation "h"
+      :space-evenly false 
+      :spacing 10
+      (image 
+        :visible { a.icon != "null" }
+        :valign "start"
+        :image-height 50 
+        :path { a.icon != "null" ? a.icon : "../../assets/weather/idk.svg" })
+      (box 
+        :orientation "v"
+        :space-evenly false
+        :valign "center"
+        (label 
+          :xalign 0
+          :markup "<b>${ a.name }</b>")
+        (label 
+          :xalign 0
+          :wrap true
+          :markup { a.comment })))))
