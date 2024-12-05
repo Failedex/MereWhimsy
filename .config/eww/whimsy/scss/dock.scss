@@ -17,18 +17,19 @@
   margin: $margin+5px;
   border-top-left-radius: $round + 10px;
   border-top-right-radius: $round + 10px;
+  box-shadow: 0px 25px 0px $base;
 }
 
 .dockcurve {
   margin-bottom: $margin+5px;
   &.left {
     margin-right: -$margin - 5px;
-    box-shadow: 0px 25px 0px $base;
+    box-shadow: 0px 40px 0px $base;
     border-bottom-right-radius: $round+10px;
   }
   &.right {
     margin-left: -$margin - 5px;
-    box-shadow: 0px 25px 0px $base;
+    box-shadow: 0px 40px 0px $base;
     border-bottom-left-radius: $round+10px;
   }
 }

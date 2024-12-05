@@ -30,12 +30,12 @@
           :space-evenly false 
           :orientation "v"
 
-          (for a in { appsjson.apps }
-            (app :a a)
-          )))
+          (for a in { appsjson.apps}
+            (app :a a))))
+          
       (box 
-        :class "launchcover")
-      )))
+        :class "launchcover"))))
+      
 
 (defwidget launchwid []
   (box 
@@ -44,19 +44,19 @@
     :class "widget"
     (button 
       :onclick { 
-      !revealoverviewint ? 
-          !revealdashint 
-          ? "./scripts/hackslide dashboardint revealdashint && ${EWW_CMD} update revealdashmode=1"
-          : "./scripts/hackslide dashboardint revealdashint &"
-      : ""}
-      :onrightclick "${EWW_CMD} close dashboardint"
+                !revealoverviewint ? 
+                !revealdashint 
+                ? "./scripts/hackslide dashboardint revealdashint && ${EWW_CMD} update revealdashmode=1"
+                : "./scripts/hackslide dashboardint revealdashint &"
+                : ""}
+      :onrightclick "./scripts/apps.py &"
       (label 
         :class "icon"
         :style "margin: 0px 1px;"
         :text ""))
 
     (revealer
-      :reveal { revealdashmode == 1 && revealdashint }
+      :reveal { revealdashmode == 1 && revealdashint}
       :transition "slideright"
       (input 
         :onchange "./scripts/apps.py --query '{}' &"
@@ -76,10 +76,10 @@
       :space-evenly false 
       :spacing 10
       (image 
-        :visible { a.icon != "null" }
+        :visible { a.icon != "null"}
         :valign "start"
         :image-height 50 
-        :path { a.icon != "null" ? a.icon : "../../assets/weather/idk.svg" })
+        :path { a.icon != "null" ? a.icon : "../../assets/weather/idk.svg"})
       (box 
         :orientation "v"
         :space-evenly false
@@ -90,4 +90,4 @@
         (label 
           :xalign 0
           :wrap true
-          :markup { a.comment })))))
+          :markup { a.comment})))))
