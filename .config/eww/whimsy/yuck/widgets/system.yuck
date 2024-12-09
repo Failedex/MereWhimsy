@@ -19,7 +19,7 @@
       (label 
         :tooltip "${volume}%" 
         :class "icon" 
-        :text {volumemute == 'false' ? "󰕾" : "󰖁"})
+        :text volicon)
 
       (label
         :tooltip "${brightness}%"
@@ -74,7 +74,7 @@
       :visible { vert == ""}
       :tooltip "${volume}%"
       :class "icon"
-      :text {volumemute == 'false' ? "󰕾" : "󰖁"})
+      :text volicon)
     (scale 
       :class "sysslide${ vert != '' ? 'v' : '' }"
       :orientation { vert != '' ? "v" : "h"}
@@ -90,7 +90,7 @@
       :visible { vert != ""}
       :tooltip "${volume}%"
       :class "icon"
-      :text {volumemute == 'false' ? "󰕾" : "󰖁"})))
+      :text volicon)))
     
 
 (defwidget brislide [?vert]

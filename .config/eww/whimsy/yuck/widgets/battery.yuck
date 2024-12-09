@@ -5,6 +5,7 @@
     :halign "start"
     :orientation "h"
     :space-evenly false
+    :spacing 2
     (label 
       :text "${bat0}%")
     (overlay
@@ -18,6 +19,6 @@
       (box 
         :class "batslideoverlays")
       (label 
-        :visible { EWW_BATTERY.BAT0.status == "Charging" }
-        :text "󱐋"))
-    ))
+        :visible { EWW_BATTERY.BAT0.status == "Charging"}
+        :text "󱐋"))))
+    

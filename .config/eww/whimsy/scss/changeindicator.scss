@@ -7,14 +7,13 @@
 
 .changeindicatorcurve {
   margin-right: 10px;
+  box-shadow: 28px -5px 0px 5px $base;
+  margin-bottom: -1px;
+  margin-top: -1px;
   &.top {
     border-bottom-right-radius: $round+10px;
-    box-shadow: 28px -5px 0px 5px $base;
-    margin-bottom: -1px;
   }
   &.bottom {
     border-top-right-radius: $round+10px;
-    box-shadow: 28px 5px 0px 5px $base;
-    margin-top: -1px;
   }
 }

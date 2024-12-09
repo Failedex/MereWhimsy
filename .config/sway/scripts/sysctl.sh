@@ -2,9 +2,28 @@
 
 EWW_DIR="$HOME/.config/eww/whimsy"
 
+get_vol_icon () {
+    muted=$(pamixer --get-mute)
+    icon="󰝟"
+    if [[ $muted == "false" ]]; then 
+        vol=$(pamixer --get-volume)
+
+        if [[ vol -le 10 ]]; then
+            icon="󰕿"
+        elif [[ vol -le 30 ]]; then 
+            icon="󰖀"
+        else 
+            icon="󰕾"
+        fi
+    fi
+
+    eww -c $EWW_DIR update volicon=$icon &
+}
+
 update_eww_vol() {
     eww -c $EWW_DIR update volume=$(pamixer --get-volume) &
     eww -c $EWW_DIR update volumemute=$(pamixer --get-mute) &
+    get_vol_icon
 }
 
 update_eww_bri() {

@@ -1,4 +1,5 @@
 (defvar locked false)
+(defvar dashmcover false)
 
 (defpoll thour :initial "0" :interval "60s" "date +'%I'")
 (defpoll tmin :initial "0" :interval "60s" "date +'%M'")
@@ -11,6 +12,7 @@
 (defpoll wifi_radio :initial "off" :interval "2s" "nmcli radio wifi")
 (defpoll volumemute :initial "false" :interval "1m" "pamixer --get-mute")
 (defpoll volume :initial "0" :interval "1m" "pamixer --get-volume")
+(defpoll volicon :initial "0" :interval "1m" "bash ./scripts/sys_info --volicon")
 (defpoll brightness :initial "0" :interval "1m" "brightnessctl -m | awk -F, '{print substr($4, 0, length($4)-1)}' | tr -d '%'")
 (defpoll bat0 :initial "0" :interval "30s" "bash ./scripts/sys_info --bat")
 (defpoll baticon :initial "" :interval "30s" "bash ./scripts/sys_info --baticon")
@@ -28,6 +30,21 @@
 (deflisten partist "playerctl metadata --format '{{ artist }}' -F")
 (deflisten pcover "./scripts/pollcover.sh")
 (deflisten pstatus "playerctl status -F")
+(deflisten ptime 
+  :initial '{
+             "position": 0,
+             "duration": 0,
+             "readable": "0:00"}
+  '
+  "playerctl -F metadata -f '{ \"position\": {{position/1000000}}, \"duration\": {{mpris:length/1000000}}, \"readable\": \"{{duration(position)}}/{{duration(mpris:length)}}\" }'")
+(deflisten pside :initial '
+    {
+        "volume": 0,
+        "shuffle": "false",
+        "loop": "Playlist"}
+    '
+  "playerctl -F metadata -f '{ \"volume\": {{volume*100}}, \"shuffle\": \"{{shuffle}}\", \"loop\": \"{{loop}}\" }'")
+(deflisten psource "playerctl -F metadata -f '{{playerName}}'")
 
 (defpoll hostname :initial "idk" :interval "24h" 'echo "$(whoami)@$(hostname)"')
 (defpoll uptime :initial "idk" :interval "1m" "uptime -p")
@@ -78,6 +95,8 @@
 (defvar windowsjson "[[], [], [], [], []]")
 
 (deflisten appsjson :initial '{"apps": []}' "./scripts/apps.py")
+
+(deflisten eventsjson :initial '[]' "./scripts/events.py")
 
 ;; Windows
 

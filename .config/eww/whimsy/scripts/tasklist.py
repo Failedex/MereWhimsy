@@ -36,6 +36,7 @@ def recurse(apps, workspace, output):
         rect["height"] = l.rect.height * 1080/output.rect.height
         rect["x"] *= 1920/output.rect.width
         rect["y"] *= 1080/output.rect.height
+        rect["y"] -= 55 # bar is deadspace
 
         apps.append({
             "app_id": app_id,

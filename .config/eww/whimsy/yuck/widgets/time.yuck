@@ -3,11 +3,11 @@
   (button 
     ; :onclick "${EWW_CMD} open calendarpopup --toggle"
     :onclick { 
-    !revealoverviewint ? 
-        !revealcalint 
-        ? "./scripts/hackslide calendarint revealcalint && ${EWW_CMD} update revealcalmode=1"
-        : "./scripts/hackslide calendarint revealcalint &"
-    : ""}
+              !revealoverviewint ? 
+              !revealcalint 
+              ? "./scripts/hackslide calendarint revealcalint && ${EWW_CMD} update revealcalmode=1"
+              : "./scripts/hackslide calendarint revealcalint &"
+              : ""}
     (box
       ; :class "widget ${ locked ? 'topr' : 'float'}"
       :class "widget"
@@ -43,6 +43,15 @@
 (defpoll calendar_year :initial "1" :interval "20h" "date '+%Y'")
 (defvar months '["nothing to see here", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November","December"]')
 
+(defvar seldate '{"year": 2001, "month": 9, "date": 11}')
+(defvar eventname "")
+(defvar eventdesc "")
+(defvar eventnotify false)
+(defvar eventhour 12)
+(defvar eventminute 0)
+(defvar eventam "AM")
+(defvar revealaddtask 0)
+
 (defwidget datecalendar []
   (box 
     :class "whiteboard"
@@ -51,29 +60,226 @@
     :spacing 5
     (box 
       :class "whiteboardhead"
+      (stack
+        :selected revealaddtask
+        :transition "slidedown"
+        :same-size true
+        (box 
+          :orientation "h"
+          :space-evenly false 
+          :spacing 20
+          :halign "center"
+          (button 
+            :onclick "${EWW_CMD} update calendar_year=${calendar_month == 1 ? calendar_year - 1 : calendar_year} calendar_month=${calendar_month == 1 ? 12 : calendar_month - 1}"
+            (label 
+              :class "icon"
+              :angle 180 
+              :text ""))
+          (label 
+            :text "${months[calendar_month]} ${calendar_year}")
+          (button 
+            :onclick "${EWW_CMD} update calendar_year=${calendar_month == 12 ? calendar_year + 1 : calendar_year} calendar_month=${calendar_month == 12 ? 1 : calendar_month + 1}"
+            (label 
+              :class "icon"
+              :text "")))
+        (centerbox
+          (button 
+            :onclick "${EWW_CMD} update revealaddtask=0"
+            (label 
+              :halign "start"
+              :class "icon"
+              :text "󰁍"))
+          (label 
+            :text "Add event")
+          (label 
+            :text " "))))
+          
+
+    (stack
+      :selected revealaddtask
+      :transition "slidedown"
+      :same-size true
+      (calendar 
+        :month calendar_month
+        :year calendar_year
+        :show-heading false
+        :onclick "${EWW_CMD} update \
+          revealaddtask=1 \
+          eventdesc='' \
+          eventname='' \
+          eventnotify=false \
+          eventhour=12 \
+          eventminute=0 \
+          eventam='AM' \
+          seldate='\{\"year\": {2}, \"month\": {1}, \"date\": {0}\}'
+        ")
+
+      (scroll 
+        :vexpand true
+        :vscroll true 
+        :hscroll false
+        (box 
+          :style "padding: 5px;"
+          :orientation "v"
+          :space-evenly false
+          (label 
+            :markup "<span weight='bold'>${seldate.date}/${seldate.month+1}/${seldate.year}</span>")
+          (box 
+            :orientation "h"
+            :space-evenly false
+            :height 30
+            (label 
+              :text "Event:")
+            (input 
+              :hexpand true 
+              :class "subwidget"
+              :value eventname
+              :onchange "${EWW_CMD} update eventname='{}'"))
+          (box 
+            :orientation "h"
+            :space-evenly false
+            :height 30
+            (label 
+              :text "Description:")
+            (input 
+              :hexpand true 
+              :class "subwidget"
+              :value eventdesc
+              :onchange "${EWW_CMD} update eventdesc='{}'"))
+          (box 
+            :orientation "h"
+            :space-evenly false
+            :height 30
+            :spacing 10
+            (label 
+              :text "Notify")
+            (checkbox
+              :vexpand false
+              :valign "center"
+              :checked eventnotify
+              :onchecked "${EWW_CMD} update eventnotify=true"
+              :onunchecked "${EWW_CMD} update eventnotify=false"))
+          (revealer 
+            :reveal eventnotify
+            :transition "slidedown"
+            (box 
+              :orientation "h"
+              :hexpand false
+              :halign "center"
+              :width 200
+              (updownthing 
+                :var eventhour 
+                ;; Me when modular arithmetic
+                :inc "${EWW_CMD} update eventhour=${(eventhour % 12) + 1}"
+                :dec "${EWW_CMD} update eventhour=${eventhour == 1 ? 12 : eventhour - 1}")
+              (updownthing 
+                :var {eventminute < 10 ? "0${eventminute}" : eventminute} 
+                ;; Me when modular arithmetic
+                :inc "${EWW_CMD} update eventminute=${(eventminute + 10) % 60}"
+                :dec "${EWW_CMD} update eventminute=${eventminute == 0 ? 50 : eventminute - 10}")
+              (updownthing 
+                :var eventam 
+                ;; Me when modular arithmetic
+                :inc "${EWW_CMD} update eventam=${eventam == 'PM' ? 'AM' : 'PM'}"
+                :dec "${EWW_CMD} update eventam=${eventam == 'PM' ? 'AM' : 'PM'}")))
+          (revealer
+            :reveal {eventname != ""}
+            :transition "slidedown"
+            (button 
+              :class "subwidget"
+              :onclick '
+                ./scripts/events.py add \'\{
+                "year": ${seldate.year}, 
+                "month": ${seldate.month+1}, 
+                "date": ${seldate.date}, 
+                "name": "${eventname}", 
+                "description": "${eventdesc}", 
+                "notify": ${eventnotify}, 
+                "hour": ${eventam == "PM" ? eventhour == 12 ? 12 : eventhour + 12 : eventhour == 12 ? 0 : eventhour},
+                "minute": ${eventminute}
+              \}\' & ${EWW_CMD} update revealaddtask=0 &
+              '
+              (label 
+                :text "Add"))))))))
+          
+(defwidget updownthing [var inc dec]
+  (box 
+    :orientation "v"
+    :space-evenly false 
+    (button 
+      :class "subwidget"
+      :onclick inc
+      (label 
+        :class "icon"
+        :markup "<span size='x-large'>󰍠</span>"))
+    (label 
+      :markup "<span size='x-large'>${var}</span>")
+    (button 
+      :class "subwidget"
+      :onclick dec 
+      (label 
+        :class "icon"
+        :markup "<span size='x-large'>󰍝</span>")))) 
+
+(defwidget allevents []
+  (box 
+    :class "whiteboard"
+    :orientation "v"
+    :space-evenly false
+    :height 300
+    (box 
+      :class "whiteboardhead"
+      (label 
+        :halign "center"
+        :text "Events"))
+    (scroll
+      :vexpand true
+      :vscroll true 
+      :hscroll false
+      (box
+        :orientation "v"
+        :space-evenly false 
+        :hexpand true
+        :style "padding: 5px;"
+        (for event in {eventsjson}
+          (singleevent :event event))))))
+
+(defwidget singleevent [event]
+  (box 
+    :class "widget"
+    :orientation "h"
+    :space-evenly false
+    (box 
+      :width 60
+      :height 60
+      :class "eventimg ${event.notify ? 'red' : 'accent'}"
+      :valign "start"
+      (label 
+        :halign "center"
+        :valign "center"
+        :style "font-size: 30px;"
+        :text {event.notify ? '󰂚' : '󰃮'}))
+    (box 
+      :class "widget transparent"
+      :orientation "v"
+      :space-evenly false 
+      :hexpand true
       (box 
         :orientation "h"
-        :space-evenly false 
-        :spacing 20
-        :halign "center"
-        (button 
-          :onclick "${EWW_CMD} update calendar_year=${calendar_month == 1 ? calendar_year - 1 : calendar_year} calendar_month=${calendar_month == 1 ? 12 : calendar_month - 1}"
-          (label 
-            :class "icon"
-            :angle 180 
-            :text ""))
+        :space-evenly false
         (label 
-          :text "${months[calendar_month]} ${calendar_year}")
+          :hexpand true
+          :xalign 0
+          :markup "<span weight='bold'>${event.date}</span>")
         (button 
-          :onclick "${EWW_CMD} update calendar_year=${calendar_month == 12 ? calendar_year + 1 : calendar_year} calendar_month=${calendar_month == 12 ? 1 : calendar_month + 1}"
+          :onclick "./scripts/events.py del ${event.id}"
           (label 
             :class "icon"
-            :text ""))))
-
-    (calendar 
-      :month calendar_month
-      :year calendar_year
-      :show-heading false)))
+            :text "󰅖")))
+      (label 
+        :xalign 0
+        :tooltip {event.description}
+        :text {event.eventname}))))
 
 (defwidget timer []
   (box 
@@ -88,16 +294,18 @@
       (button 
         :onclick "./scripts/timer.py timedec"
         (label 
+          :class "icon"
           :text "-"))
       (label 
         :text "${timerdis}${!matches(timerdis, ':') ? ' min' : ''}")
       (button 
         :onclick "./scripts/timer.py timeinc"
         (label 
+          :class "icon"
           :text "+")))
     (button 
       :halign "end"
       :onclick "./scripts/timer.py toggle"
       (label 
         :class "icon"
-        :text { !matches(timerdis, ":") ? "start" : "stop" }))))
+        :text { !matches(timerdis, ":") ? "start" : "stop"}))))

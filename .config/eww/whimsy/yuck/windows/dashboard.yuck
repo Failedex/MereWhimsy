@@ -29,21 +29,21 @@
   (box 
     :orientation "v"
     :space-evenly false
-    (revealer 
-      :reveal revealdashint
-      :transition "slidedown"
-      (box 
-        :orientation "h"
-        :space-evenly false
+    (box 
+      :orientation "h"
+      :space-evenly false
+      (revealer 
+        :reveal revealdashint
+        :transition "slidedown"
         (stack 
           :selected revealdashmode
           :transition "none"
           (dashstruct :class "barstruct right")
-          (launcher :class "barstruct right"))
-        (box 
-          :width 50 
-          :style "margin-top: ${ locked ? 50 : 10 }px;"
-          :class "fillerr")))
+          (launcher :class "barstruct right")))
+      (box 
+        :width 50 
+        :style "margin-top: ${ locked ? 50 : 10 }px; margin-bottom: -${ locked ? 50 : 10 }px;"
+        :class "fillerr"))
 
     (box 
       :orientation "v"
@@ -72,8 +72,14 @@
     :space-evenly false
     (userinfo)
     (dashplayerctl)
-    (generalinfo)
-    (whiteboard)))
+    (revealer
+      :reveal {!dashmcover}
+      :transition "slideup"
+      (box
+        :orientation "v"
+        :space-evenly false
+        (generalinfo)
+        (whiteboard)))))
 
 (defwidget dashtoggle []
   (button

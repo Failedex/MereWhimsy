@@ -13,21 +13,21 @@
   (box 
     :orientation "v"
     :space-evenly false
-    (revealer 
-      :reveal revealoverviewint 
-      :transition "slidedown"
+    (box 
+      :orientation "h"
+      :space-evenly false 
       (box 
-        :orientation "h"
-        :space-evenly false 
-        (box 
-          :width 50 
-          :style "margin-top: ${ locked ? 50 : 10 }px;"
-          :class "fillerl")
-        (overview :class "barstruct left right")
-        (box 
-          :width 50 
-          :style "margin-top: ${ locked ? 50 : 10 }px;"
-          :class "fillerr")))
+        :width 50 
+        :style "margin-top: ${ locked ? 50 : 10 }px; margin-bottom: -${ locked ? 50 : 10 }px;"
+        :class "fillerl")
+      (revealer 
+        :reveal revealoverviewint 
+        :transition "slidedown"
+        (overview :class "barstruct left right"))
+      (box 
+        :width 50 
+        :style "margin-top: ${ locked ? 50 : 10 }px; margin-bottom: -${ locked ? 50 : 10 }px;"
+        :class "fillerr"))
     (box 
       :orientation "h"
       :space-evenly false 
@@ -48,22 +48,25 @@
     (for i in {[0, 1, 2, 3, 4]}
       (button 
         :onclick "swaymsg -t command workspace number ${i+1}"
-        (workspacebox :i i)))))
+        (workspacebox :i i :active {workspacejson[i].focused})))))
 
-(defwidget workspacebox [i]
-  (box 
-    :class "overviewworkspace"
-    :space-evenly false 
-    :style "
-      min-width: ${round(1920/9, 0) + 1}px;
-      min-height: ${round(1080/9, 0) + 1}px;
-    "
-    (for j in {windowsjson[i]}
-      (workspacewindow :w j))))
+(defwidget workspacebox [i ?active ?spaced]
+  (box
+    :class { spaced != "" ? "popup" : ""}
+    :style { spaced != "" ? "margin: 10px;" : ""}
+    (box 
+      :class "overviewworkspace ${ active != '' && active ? 'active' : ''}"
+      :space-evenly false 
+      :style "
+        min-width: ${round(1920/9, 0) + 1}px;
+        min-height: ${round(1030/9, 0) + 1}px;
+      "
+      (for j in {windowsjson[i]}
+        (workspacewindow :w j)))))
 
 (defwidget workspacewindow [w]
   (box
-:style "
+   :style "
       margin-left: ${round((w.rect.x/9), 0)}px; 
       margin-top: ${round((w.rect.y/9), 0)}px; 
       margin-right: -${round((w.rect.x + w.rect.width)/9, 0)}px;

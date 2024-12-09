@@ -5,6 +5,9 @@
   border: solid 2px;
   border-color: $surface0;
   background-color: $base;
+  &.active {
+    border-color: $accent;
+  }
 }
 
 .overviewwindow {

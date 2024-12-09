@@ -214,6 +214,13 @@ for_window [app_id="mpv"] floating enabled
 for_window [app_id="feh"] floating enabled
 for_window [app_id="qalculate"] floating enabled
 
+for_window [all] title_format "%title"
+for_window [app_id="(?i)foot|kitty"] title_format " %title"
+for_window [app_id="(?i)firefox"] title_format "󰈹 %title"
+for_window [app_id="(?i)xournalpp"] title_format "󱞁 %title"
+for_window [app_id="(?i)thunar"] title_format "󰉋 %title"
+for_window [app_id="(?i)discord"] title_format " %title"
+
 # misc settings
 set $bg-color 	         #bcc0cc
 set $inactive-bg-color   #ccd0da
@@ -237,7 +244,7 @@ gaps top 0
 font pango:RobotoMonoNerdFont Regular 12
 titlebar_separator enable
 # titlebar_padding 8
-title_align center
+title_align left
 default_border normal 2
 default_floating_border normal 2
 xwayland enable

@@ -95,6 +95,24 @@ get_battery_icon () {
     echo $icon
 }
 
+get_vol_icon () {
+    muted=$(pamixer --get-mute)
+    icon="󰝟"
+    if [[ $muted == "false" ]]; then 
+        vol=$(pamixer --get-volume)
+
+        if [[ vol -le 10 ]]; then
+            icon="󰕿"
+        elif [[ vol -le 30 ]]; then 
+            icon="󰖀"
+        else 
+            icon="󰕾"
+        fi
+    fi
+
+    echo $icon
+}
+
 ## Execute accordingly
 if [[ "$1" == "--cpu" ]]; then
 	get_cpu
@@ -106,4 +124,6 @@ elif [[ "$1" == "--bat" ]]; then
 	get_battery
 elif [[ "$1" == "--baticon" ]]; then
 	get_battery_icon
+elif [[ "$1" == "--volicon" ]]; then
+	get_vol_icon
 fi

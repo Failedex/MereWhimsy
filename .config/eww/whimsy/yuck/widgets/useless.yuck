@@ -29,7 +29,7 @@
     (box 
       :orientation "v"
       (infobox 
-        :icon {volumemute == 'false' ? "󰕾" : "󰖁"}
+        :icon volicon
         :value volume 
         :onchange "pamixer --set-volume {}")
       (infobox 
@@ -100,5 +100,5 @@
             :halign "start"
             :xalign 0
             :wrap true
-            :markup notesc))
-        )))
+            :markup notesc)))))
+        

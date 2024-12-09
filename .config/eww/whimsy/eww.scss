@@ -21,9 +21,14 @@ $margin: 5px;
 }
 
 tooltip {
-  background-color: $base;
+  background-color: transparent;
   border-radius: $round;
   font-size: 15px;
+  label {
+    background-color: $base;
+    border-radius: $round;
+    padding: $padding;
+  }
 }
 
 .popup {

@@ -12,6 +12,6 @@
     (box 
       :orientation "h"
       (batscale)
-      (logoutctl)
-      )))
+      (logoutctl))))
+      
 

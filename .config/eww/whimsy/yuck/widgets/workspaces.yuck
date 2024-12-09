@@ -7,8 +7,7 @@
     :space-evenly false
     (for i in {"[0, 1, 2, 3, 4]"}
       (tooltip
-
-        (workspacebox :i i)
+        (workspacebox :i i :spaced true)
 
         (button 
             :onclick "swaymsg -t command workspace number ${workspacejson[i].name}"
@@ -32,5 +31,5 @@
               :transition "slideright"
               :reveal {workspacejson[i].focused}
               (box
-                :width 10))
-          ))))))
+                :width 10))))))))
+          

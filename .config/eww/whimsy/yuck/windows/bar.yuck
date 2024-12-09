@@ -5,8 +5,8 @@
               :y "0%"
               :width "100%"
               :height 50
-              :anchor "top center"
-              )
+              :anchor "top center")
+              
   :stacking "bottom"
   :exclusive true
   :monitor 0
@@ -19,8 +19,8 @@
     :orientation "h"
     (top)
     (middle)
-    (bottom)
-    ))
+    (bottom)))
+    
 
 (defwidget top []
   (box
@@ -28,8 +28,8 @@
     :space-evenly false
     :vexpand true
     (topstruct)
-    (spacefiller)
-    ))
+    (spacefiller)))
+    
 
 (defwidget middle [?f]
   (box
@@ -67,8 +67,8 @@
     :class "barstruct ${ !locked || f != '' ? 'left' : '' }"
     (stray)
     (system)
-    (time)
-    ))
+    (time)))
+    
 
 (defwidget lockintoggle []
   (button 
@@ -76,8 +76,8 @@
     :class "widget transparent thin"
     (label 
       :class "icon"
-      :tooltip { locked ? "Locked in" : "Dilly dally" }
-      :text { locked ? "󰌾" : "" })))
+      :tooltip { locked ? "Locked in" : "Dilly dally"}
+      :text { locked ? "󰌾" : ""})))
 
 (defwidget sidedeco [area] 
   (overlay 
@@ -88,8 +88,8 @@
       :vexpand true)
     (box 
       :class "sidedeco ${ locked ? 'active'+area : ''}"
-      :vexpand true
-      )))
+      :vexpand true)))
+      
 
 (defwidget spacefiller []
   (box 
@@ -103,8 +103,8 @@
               :y "0%"
               :width "100%"
               :height 1030
-              :anchor "top center"
-              )
+              :anchor "top center")
+              
   :stacking "bottom"
   :exclusive false
   :monitor 0

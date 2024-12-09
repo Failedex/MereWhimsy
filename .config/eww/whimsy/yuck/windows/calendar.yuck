@@ -24,27 +24,30 @@
               :anchor "top right")
   :stacking "overlay"
   :exclusive false 
+  :focusable true
   :monitor 0 
   (box 
     :orientation "v"
     :space-evenly false
-    (revealer 
-      :reveal { revealcalint }
-      :transition "slidedown"
-      (box
-        :orientation "h"
-        :space-evenly false 
-        :hexpand true
-        (box 
-          :width 50
-          :style "margin-top: ${ locked ? 50 : 10 }px;"
-          :class "fillerl")
-        (stack 
-          :selected revealcalmode
-          :transition "none"
-          (sysctl :class "barstruct left")
-          (calendarstruct :class "barstruct left")
-          )))
+    (box
+      :orientation "h"
+      :space-evenly false 
+      :hexpand true
+      (box 
+        :width 50
+        :style "margin-top: ${ locked ? 50 : 10 }px; margin-bottom: -${ locked ? 50 : 10 }px;"
+        :class "fillerl")
+      (revealer 
+        :reveal { revealcalint}
+        :transition "slidedown"
+        ; (eventbox
+        ;   :onhoverlost "./scripts/hackslide calendarint revealcalint &"
+          (stack 
+            :selected revealcalmode
+            :transition "none"
+            (sysctl :class "barstruct left")
+            (calendarstruct :class "barstruct left"))))
+          
 
     (box 
       :orientation "v"
@@ -70,4 +73,5 @@
     :space-evenly false
     :width 380
     (timer)
-    (datecalendar)))
+    (datecalendar)
+    (allevents)))

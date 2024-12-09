@@ -22,24 +22,29 @@
       :space-evenly false 
       (box 
         :height 3)
-      (revealer 
-        :reveal { !locked && (floatingwin || revealdock)}
-        :transition "slideup"
+      (box 
+        :orientation "h"
+        :space-evenly false
+        :halign "center"
         (box 
-          :orientation "h"
-          :space-evenly false
-          :halign "center"
-          (box 
-            :width 50
-            :class "dockcurve left")
+          :width 50
+          :class "dockcurve ${
+            !locked && (floatingwin || revealdock) 
+            ? 'left' : 'inactive'}")
+        (revealer 
+          :reveal { !locked && (floatingwin || revealdock)}
+          :transition "slideup"
           (box 
             :class "dockpopup"
             :height 60 
             :orientation "h"
-            (tasklist))
-          (box 
-            :width 50
-            :class "dockcurve right"))))))
+            (tasklist)))
+        (box 
+          :width 50
+          :class "dockcurve ${
+            !locked && (floatingwin || revealdock) 
+            ? 'right' : 'inactive'}")))))
+        
 
 (defwidget tasklist []
   (box 

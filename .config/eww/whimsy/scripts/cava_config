@@ -1,0 +1,15 @@
+[general]
+
+framerate = 20
+bars = 10
+
+[output]
+
+method = raw
+raw_target = /dev/stdout
+data_format = ascii
+bit_format = 8bit
+ascii_max_range = 100
+
+[smoothing]
+noise_reduction = 0.5

@@ -2,13 +2,11 @@
 
 # Failed here, I just tooke this from tokyob0t
 
-import glob
 import sys
 import os
 import json
 from subprocess import run as shellRun
-import gi
-from configparser import ConfigParser
+from gi.repository import Gio
 from iconfetch import fetch
 
 
@@ -16,13 +14,10 @@ from iconfetch import fetch
 eww_dir = os.path.expanduser("~/.config/eww/whimsy")
 jsonPath = os.path.expanduser("/tmp/eww/apps.json")
 countPath = os.path.expanduser("~/.cache/eww/appcount.json")
-desktop_files = glob.glob(os.path.join("/usr/share/applications", "*.desktop"))
-desktop_files += glob.glob(os.path.expandvars(os.path.join("$HOME/.local/share/applications", "*.desktop")))
 
-BLACKLISTED_APPS = []
-BLACKLISTED_SUBSTRINGS = [
-    "avahi"
-]
+REPLACE = {
+    "/usr/bin/Discord": "/usr/bin/Discord --enable-features=UseOzonePlatform --ozone-platform=wayland"
+}
 
 def cache_count(): 
     if os.path.exists(countPath):
@@ -42,32 +37,29 @@ def increment_app(app_name):
     counts[app_name] = counts.get(app_name, 0) + 1 
     update_cache_count(counts)
 
-def get_desktop_entries(file_path, counts):
-    parser = ConfigParser()
-    parser.read(file_path)
-    app_name = parser.get("Desktop Entry", "Name")
-
-    if any(substring in app_name.lower() for substring in BLACKLISTED_SUBSTRINGS) or app_name in BLACKLISTED_APPS or parser.getboolean("Desktop Entry", "NoDisplay", fallback=False) and app_name != "Widget Factory":
-        return None
-
-    icon_path = fetch(parser.get("Desktop Entry", "Icon", fallback=None)) or fetch("unknown")
-    comment = parser.get("Desktop Entry", "Comment", fallback=None)
-    count = 0
-
-    if app_name.lower() in counts: 
-        count = counts[app_name.lower()]
+def get_desktop_entries(app_info, app_count):
+    app_name = app_info.get_name()
+    
+    icon = app_info.get_icon()
+    if icon and icon.get_names():
+        icon_name = icon.get_names()[0]
+        icon_path = fetch(icon_name) or fetch("unknown")
     else: 
-        counts[app_name.lower()] = 0
+        icon_path = fetch("unknown")
 
-    if comment is None:
-        comment = parser.get("Desktop Entry", "Type", fallback=None) if parser.get("Desktop Entry", "GenericName", fallback=None) == None else parser.get("Desktop Entry", "GenericName", fallback=None)
+    exe_path = app_info.get_executable()
 
+    if app_name.lower() in app_count: 
+        count = app_count[app_name.lower()]
+    else: 
+        app_count[app_name.lower()] = 0
+        count = 0
 
     entry = {
-        "name": app_name.title().replace("&", "and"),
+        "name": app_name.title(),
         "icon": icon_path,
-        "comment": comment.replace("&", "and"),
-        "desktop": f"gtk-launch {os.path.basename(file_path)} ",
+        "comment": app_info.get_description() or "",
+        "desktop": REPLACE[exe_path] if exe_path in REPLACE else exe_path,
         "count": count
     }
     return entry
@@ -89,10 +81,13 @@ def get_cached_entries(refresh=False):
 
     app_count = cache_count()
 
-    for file_path in desktop_files:
-        entry = get_desktop_entries(file_path, app_count)
-        if entry is not None:
-            all_apps.append(entry)
+    app_info = Gio.AppInfo
+
+    for app_info in app_info.get_all(): 
+        if not app_info.should_show(): 
+            continue
+
+        all_apps.append(get_desktop_entries(app_info, app_count))
 
     # Sort applications by count
     all_apps = sorted(all_apps, key=lambda x: -x["count"])
@@ -111,7 +106,7 @@ def filter_entries(entries, query):
             comment = entry["comment"].lower() if entry["comment"] else ""
 
             if any(keyword in name or keyword in comment for keyword in query.split()):
-                entry["comment"] = highlight(comment, query) if comment else ""
+                # entry["comment"] = highlight(comment, query) if comment else ""
 
                 filtered_data.append(entry)
 

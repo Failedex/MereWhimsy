@@ -9,11 +9,11 @@ eww_bin= [subprocess.getoutput("which eww"), "-c", f"{os.getcwd()}"]
 def startstop():
     if os.path.exists("/tmp/timerstamp"):
         os.remove("/tmp/timerstamp")
-        os.popen("notify-send -a timer -i ./image/timer.svg 'timer stopped'")
+        os.popen("notify-send -a Timer -i ./assets/timer.svg 'Timer stopped'")
     else:
         with open("/tmp/timerstamp", "x") as f:
             f.write(str(time.time()))
-        os.popen("notify-send -a timer -i ./image/timer.svg 'timer start'")
+        os.popen("notify-send -a Timer -i ./assets/timer.svg 'Timer start'")
 
         
 
@@ -34,7 +34,7 @@ def readtime():
 
             if current - timestamp >= timer*60:
                 os.remove("/tmp/timerstamp")
-                os.popen("notify-send -a timer -i ./image/timer.svg 'time is up'")
+                os.popen("notify-send -a Timer -i ./assets/timer.svg 'Time is up'")
                 print("OwO")
                 subprocess.run(eww_bin + ["update", f"timerdis=OwO"])
             else:
@@ -64,7 +64,7 @@ def loop():
 
             if current - timestamp >= timer*60:
                 os.remove("/tmp/timerstamp")
-                os.popen("notify-send -a timer -i ./image/timer.svg 'time is up'")
+                os.popen("notify-send -a Timer -i ./assets/timer.svg 'Time is up'")
             
         time.sleep(1)
 

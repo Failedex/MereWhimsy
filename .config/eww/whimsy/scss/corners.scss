@@ -30,7 +30,7 @@
 }
 
 .filler {
-  transition: 500ms;
+  transition: border-radius 500ms, background-color 500ms;
   margin: 0px;
   margin-top: 10px;
   margin-left: -1px;
@@ -51,7 +51,7 @@
   margin: 0;
   border-top-left-radius: 0;
   box-shadow: 
-    0px -25px 0px 0px $base;
+    20px -20px 0px -10px $base;
 }
 
 .fillerr {
@@ -59,7 +59,7 @@
   margin: 0;
   border-top-right-radius: 0;
   box-shadow: 
-    0px -25px 0px 0px $base;
+    -20px -20px 0px -10px $base;
 }
 
 .fillerrs {
