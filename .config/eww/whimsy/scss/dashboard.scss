@@ -81,13 +81,16 @@
   border-radius: $round - 10px;
   label {
     @extend .icon;
-    color: $surface0;
+    color: $base;
   }
   &.accent {
     background-color: $accent;
   }
   &.red {
     background-color: $red;
+  }
+  &.green {
+    background-color: $green;
   }
 }
 

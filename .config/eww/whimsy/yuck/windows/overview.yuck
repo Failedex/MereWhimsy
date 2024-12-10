@@ -17,17 +17,27 @@
       :orientation "h"
       :space-evenly false 
       (box 
-        :width 50 
-        :style "margin-top: ${ locked ? 50 : 10 }px; margin-bottom: -${ locked ? 50 : 10 }px;"
-        :class "fillerl")
+        :orientation "v"
+        :style "margin-bottom: -2px;"
+        (box 
+          :width 50
+          :style "margin-top: ${ locked ? 50 : 10 }px; margin-bottom: -${ locked ? 50 : 10 }px;"
+          :class "fillerl")
+        (box 
+          :width 50))
       (revealer 
         :reveal revealoverviewint 
         :transition "slidedown"
         (overview :class "barstruct left right"))
       (box 
-        :width 50 
-        :style "margin-top: ${ locked ? 50 : 10 }px; margin-bottom: -${ locked ? 50 : 10 }px;"
-        :class "fillerr"))
+        :orientation "v"
+        :style "margin-bottom: -2px;"
+        (box 
+          :width 50
+          :style "margin-top: ${ locked ? 50 : 10 }px; margin-bottom: -${ locked ? 50 : 10 }px;"
+          :class "fillerr")
+        (box 
+          :width 50)))
     (box 
       :orientation "h"
       :space-evenly false 

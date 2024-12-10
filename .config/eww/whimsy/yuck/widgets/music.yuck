@@ -36,140 +36,143 @@
               (label :class "icon" :text "󰒭"))))))))
 
 (defwidget dashplayerctl []
-  (overlay
-    (box 
-      :orientation "v"
-      :class "musiccoverbg"
-      :style { dashmcover ? "background-image: url('${ pcover }');" : "opacity: 1;"}
-      :space-evenly false
+  (revealer
+    :reveal { psong != ""}
+    :transition "slidedown"
+    (overlay
       (box 
-        :height 80)
-      (revealer 
-        :reveal dashmcover
-        :transition "slidedown"
-        (box 
-          :height 545)))
-    (box
-      :class "fadeoutbox ${dashmcover ? 'active' : ''}"
-      :orientation "v"
-      :space-evenly false
-      (box 
-        :orientation "h"
+        :orientation "v"
+        :class "musiccoverbg"
+        :style { dashmcover ? "background-image: url('${ pcover }');" : "opacity: 1;"}
         :space-evenly false
-        (button
-          :valign "start"
-          :onclick "${EWW_CMD} update dashmcover=${!dashmcover}"
+        (box 
+          :height 80)
+        (revealer 
+          :reveal dashmcover
+          :transition "slidedown"
           (box 
-            :width 80
-            :height 80
-            :class "dashmusiccover ${dashmcover ? 'enlarge' : ''} ${dashmcover && pstatus == 'Playing' ? 'playing' : ''}"
-            :style "
-              background-image: url('${ pcover }');"))
-        (box  
-          :orientation "v"
-          :visible {!dashmcover}
-          :class "widget transparent"
+            :height 545)))
+      (box
+        :class "fadeoutbox ${dashmcover ? 'active' : ''}"
+        :orientation "v"
+        :space-evenly false
+        (box 
+          :orientation "h"
           :space-evenly false
-          :hexpand true
-          :vexpand true
-          (box 
-            :valign "end"
-            :orientation "h"
-            (label 
-              :halign "start"
-              :markup "󰝚 <span size='small'>${psource}</span>")
-            (button
-              :halign "end"
-              :onclick "${EWW_CMD} update dashmcover=${!dashmcover}"
-              (label 
-                :class "icon"
-                :text "󰅀")))
-
-          (box
-            :orientation "h"
+          (button
+            :valign "start"
+            :onclick "${EWW_CMD} update dashmcover=${!dashmcover}"
+            (box 
+              :width 80
+              :height 80
+              :class "dashmusiccover ${dashmcover ? 'enlarge' : ''} ${dashmcover && pstatus == 'Playing' ? 'playing' : ''}"
+              :style "
+                background-image: url('${ pcover }');"))
+          (box  
+            :orientation "v"
+            :visible {!dashmcover}
+            :class "widget transparent"
             :space-evenly false
             :hexpand true
             :vexpand true
             (box 
-              :orientation "v"
-              :hexpand true
-              :space-evenly false
-              :valign "center"
-              (scroll
-                :hscroll true
-                :height 20
-                (label 
-                  :xalign 0
-                  :markup "<span>${psong}</span>"))
-              (scroll
-                :hscroll true
-                :height 15
-                  (label 
-                   :xalign 0
-                   :markup "<span size='small'>${partist}</span>")))
-            (box 
+              :valign "end"
               :orientation "h"
-              :style "margin: 5px;"
-              :spacing 10
-              (button :onclick "playerctl previous"
-                (label :class "icon" :markup "<span size='large'>󰒮</span>"))
-              (button :onclick "playerctl play-pause" 
-                (label :class "icon" :markup  '<span size="large">${ pstatus == "Playing" ? "" : ""}</span>'))
-              (button :onclick "playerctl next"
-                (label :class "icon" :markup "<span size='large'>󰒭</span>"))))))
-            
-
-      (box
-        :visible dashmcover
-        :orientation "v"
-        :vexpand true
-        (box
-          :valign "center"
-          :orientation "v"
-          :space-evenly false
-          :spacing 10
-          (box
-            :orientation "v"
-            :space-evenly false
-            (scroll
-              :height 40 
-              :hscroll true
-              :vscroll false
               (label 
-                :markup "<span size='large'>${psong}</span>"))
-            (label 
-              :markup "${partist}"))
+                :halign "start"
+                :markup "󰝚 <span size='small'>${psource}</span>")
+              (button
+                :halign "end"
+                :onclick "${EWW_CMD} update dashmcover=${!dashmcover}"
+                (label 
+                  :class "icon"
+                  :text "󰅀")))
 
-          (box
-            :style "margin: 0px 70px;"
-            :visible {ptime.duration != "0"}
-            :tooltip {ptime.readable}
-            (scale 
+            (box
+              :orientation "h"
+              :space-evenly false
               :hexpand true
               :vexpand true
-              :class "sysslide"
-              :value {ptime.position}
-              :orientation "h"
-              ; :onchange "playerctl position {}"
-              :min 0 
-              :max {ptime.duration}
-              :tooltip {ptime.readable}))
+              (box 
+                :orientation "v"
+                :hexpand true
+                :space-evenly false
+                :valign "center"
+                (scroll
+                  :hscroll true
+                  :height 20
+                  (label 
+                    :xalign 0
+                    :markup "<span>${psong}</span>"))
+                (scroll
+                  :hscroll true
+                  :height 15
+                    (label 
+                     :xalign 0
+                     :markup "<span size='small'>${partist}</span>")))
+              (box 
+                :orientation "h"
+                :style "margin: 5px;"
+                :spacing 10
+                (button :onclick "playerctl previous"
+                  (label :class "icon" :markup "<span size='large'>󰒮</span>"))
+                (button :onclick "playerctl play-pause" 
+                  (label :class "icon" :markup  '<span size="large">${ pstatus == "Playing" ? "" : ""}</span>'))
+                (button :onclick "playerctl next"
+                  (label :class "icon" :markup "<span size='large'>󰒭</span>"))))))
+              
 
-          (box 
-            :orientation "h"
+        (box
+          :visible dashmcover
+          :orientation "v"
+          :vexpand true
+          (box
+            :valign "center"
+            :orientation "v"
             :space-evenly false
-            :spacing 40
-            :halign "center"
-            (button :onclick "playerctl shuffle toggle"
-              (label :class "icon" :markup "<span size='x-large'>${pside.shuffle == 'true' ? '󰒝' : '󰒞'}</span>"))
-            (button :onclick "playerctl previous"
-              (label :class "icon" :markup "<span size='x-large'>󰒮</span>"))
-            (button :onclick "playerctl play-pause" 
-              (label :class "icon" :markup  '<span size="x-large">${ pstatus == "Playing" ? "" : ""}</span>'))
-            (button :onclick "playerctl next"
-              (label :class "icon" :markup "<span size='x-large'>󰒭</span>"))
-            (button :onclick "playerctl loop ${pside.loop == 'Track' ? 'Playlist' : 'Track'}"
-              (label :class "icon" :markup "<span size='x-large'>${pside.loop == 'Track' ? '󰑘' : '󰑖'}</span>"))))))))
+            :spacing 10
+            (box
+              :orientation "v"
+              :space-evenly false
+              (scroll
+                :height 40 
+                :hscroll true
+                :vscroll false
+                (label 
+                  :markup "<span size='large'>${psong}</span>"))
+              (label 
+                :markup "${partist}"))
+
+            (box
+              :style "margin: 0px 70px;"
+              :visible {ptime.duration != "0"}
+              :tooltip {ptime.readable}
+              (scale 
+                :hexpand true
+                :vexpand true
+                :class "sysslide"
+                :value {ptime.position}
+                :orientation "h"
+                ; :onchange "playerctl position {}"
+                :min 0 
+                :max {ptime.duration}
+                :tooltip {ptime.readable}))
+
+            (box 
+              :orientation "h"
+              :space-evenly false
+              :spacing 40
+              :halign "center"
+              (button :onclick "playerctl shuffle toggle"
+                (label :class "icon" :markup "<span size='x-large'>${pside.shuffle == 'true' ? '󰒝' : '󰒞'}</span>"))
+              (button :onclick "playerctl previous"
+                (label :class "icon" :markup "<span size='x-large'>󰒮</span>"))
+              (button :onclick "playerctl play-pause" 
+                (label :class "icon" :markup  '<span size="x-large">${ pstatus == "Playing" ? "" : ""}</span>'))
+              (button :onclick "playerctl next"
+                (label :class "icon" :markup "<span size='x-large'>󰒭</span>"))
+              (button :onclick "playerctl loop ${pside.loop == 'Track' ? 'Playlist' : 'Track'}"
+                (label :class "icon" :markup "<span size='x-large'>${pside.loop == 'Track' ? '󰑘' : '󰑖'}</span>")))))))))
              
       
           

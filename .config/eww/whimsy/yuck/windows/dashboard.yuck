@@ -41,9 +41,14 @@
           (dashstruct :class "barstruct right")
           (launcher :class "barstruct right")))
       (box 
-        :width 50 
-        :style "margin-top: ${ locked ? 50 : 10 }px; margin-bottom: -${ locked ? 50 : 10 }px;"
-        :class "fillerr"))
+        :orientation "v"
+        :style "margin-bottom: -2px;"
+        (box 
+          :width 50
+          :style "margin-top: ${ locked ? 50 : 10 }px; margin-bottom: -${ locked ? 50 : 10 }px;"
+          :class "fillerr")
+        (box 
+          :width 50)))
 
     (box 
       :orientation "v"

@@ -197,7 +197,7 @@
                 "notify": ${eventnotify}, 
                 "hour": ${eventam == "PM" ? eventhour == 12 ? 12 : eventhour + 12 : eventhour == 12 ? 0 : eventhour},
                 "minute": ${eventminute}
-              \}\' & ${EWW_CMD} update revealaddtask=0 &
+              \}\' & ${EWW_CMD} update revealaddtask=0 eventnotify=false &
               '
               (label 
                 :text "Add"))))))))
@@ -226,7 +226,7 @@
     :class "whiteboard"
     :orientation "v"
     :space-evenly false
-    :height 300
+    :height 290
     (box 
       :class "whiteboardhead"
       (label 
@@ -252,15 +252,16 @@
     (box 
       :width 60
       :height 60
-      :class "eventimg ${event.notify ? 'red' : 'accent'}"
+      :class "eventimg ${event.today ? 'red' : event.notify ? 'accent' : 'green' }"
       :valign "start"
       (label 
         :halign "center"
         :valign "center"
         :style "font-size: 30px;"
-        :text {event.notify ? '󰂚' : '󰃮'}))
+        :text {event.today ? '󰨱' : event.notify ? '󰂚' : '󰃮'}))
     (box 
       :class "widget transparent"
+      :tooltip {event.time}
       :orientation "v"
       :space-evenly false 
       :hexpand true
@@ -276,10 +277,14 @@
           (label 
             :class "icon"
             :text "󰅖")))
-      (label 
-        :xalign 0
-        :tooltip {event.description}
-        :text {event.eventname}))))
+      (scroll
+        :hexpand true 
+        :hscroll true
+        :vscroll false
+        (label 
+          :xalign 0
+          :tooltip {event.description}
+          :text {event.eventname})))))
 
 (defwidget timer []
   (box 

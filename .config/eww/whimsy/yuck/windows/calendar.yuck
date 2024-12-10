@@ -34,9 +34,14 @@
       :space-evenly false 
       :hexpand true
       (box 
-        :width 50
-        :style "margin-top: ${ locked ? 50 : 10 }px; margin-bottom: -${ locked ? 50 : 10 }px;"
-        :class "fillerl")
+        :orientation "v"
+        :style "margin-bottom: -2px;"
+        (box 
+          :width 50
+          :style "margin-top: ${ locked ? 50 : 10 }px; margin-bottom: -${ locked ? 50 : 10 }px;"
+          :class "fillerl")
+        (box 
+          :width 50))
       (revealer 
         :reveal { revealcalint}
         :transition "slidedown"
