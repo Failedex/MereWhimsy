@@ -90,7 +90,7 @@
   :interval "1h" 
   "./scripts/weather.py")
 
-(deflisten timerdis `./scripts/timer.py subscribe`)
+(deflisten timerjson :initial '{"display": "??", "running": false}' `./scripts/timer.py`)
 
 (defvar windowsjson "[[], [], [], [], []]")
 

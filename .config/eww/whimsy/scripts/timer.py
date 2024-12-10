@@ -3,106 +3,111 @@ import time
 import os
 import sys
 import subprocess
+from dbus.mainloop.glib import DBusGMainLoop
+from gi.repository import GLib
+import dbus 
+import dbus.service
+import json
+from datetime import datetime
+from threading import Thread
 
 eww_bin= [subprocess.getoutput("which eww"), "-c", f"{os.getcwd()}"]
 
-def startstop():
-    if os.path.exists("/tmp/timerstamp"):
-        os.remove("/tmp/timerstamp")
-        os.popen("notify-send -a Timer -i ./assets/timer.svg 'Timer stopped'")
-    else:
-        with open("/tmp/timerstamp", "x") as f:
-            f.write(str(time.time()))
-        os.popen("notify-send -a Timer -i ./assets/timer.svg 'Timer start'")
+class Timer(dbus.service.Object): 
+    def __init__(self): 
+        super().__init__(
+            dbus.service.BusName("com.Failed.Timer",
+            bus=dbus.SessionBus()), "/com/Failed/Timer"
+)
+        self.timer = None 
+        self.thd = None
+        self.minutes = 25
+        self.UpdateEww()
 
-        
+    @dbus.service.method("com.Failed.Timer", in_signature="i", out_signature="") 
+    def Increase(self, m): 
+        self.minutes += m
+        self.UpdateEww()
 
-# fuck it, I'm sure we don't need the loop function
-def readtime():
-    if not os.path.exists("/tmp/timer"):
-        with open("/tmp/timer", "x") as f: 
-            f.write("25")
+    @dbus.service.method("com.Failed.Timer", in_signature="i", out_signature="") 
+    def Decrease(self, m): 
+        self.minutes -= m
+        self.minutes = max(self.minutes, 0)
+        self.UpdateEww()
 
-    while True:
-        with open("/tmp/timer") as f:
-            timer = int(f.read())
+    @dbus.service.method("com.Failed.Timer", in_signature="", out_signature="") 
+    def Toggle(self): 
+        if self.timer: 
+            self.timer = None            
+            self.UpdateEww()
+            os.popen("notify-send -a Timer -i ./assets/timer.svg 'Timer stopped'")
+        else: 
+            self.timer = datetime.now().timestamp() + 60*self.minutes
 
-        if os.path.exists("/tmp/timerstamp"):
-            current = time.time()
-            with open("/tmp/timerstamp") as f:
-                timestamp = float(f.read())
-
-            if current - timestamp >= timer*60:
-                os.remove("/tmp/timerstamp")
-                os.popen("notify-send -a Timer -i ./assets/timer.svg 'Time is up'")
-                print("OwO")
-                subprocess.run(eww_bin + ["update", f"timerdis=OwO"])
+            hours = self.minutes // 60
+            if hours > 0:
+                os.popen(f"notify-send -a Timer -i ./assets/timer.svg 'Timer started for {hours} hours and {self.minutes} minutes'")
             else:
-                m, s = divmod((timer*60) - (current-timestamp), 60)
-                print (f"{int(m)}:{int(s)}")
-                subprocess.run(eww_bin + ["update", f"timerdis={int(m)}:{int(s)}"])
-        else:
-            print(timer)
-            subprocess.run(eww_bin + ["update", f"timerdis={timer}"])
+                os.popen(f"notify-send -a Timer -i ./assets/timer.svg 'Timer started for {self.minutes} minutes'")
 
-        time.sleep(1)
+            self.thd = Thread(target=self.Loop)
+            self.thd.start()
 
-
-def loop():
-    if not os.path.exists("/tmp/timer"):
-        with open("/tmp/timer", "x") as f: 
-            f.write("25")
-
-    while True:
-        with open("/tmp/timer") as f:
-            timer = int(f.read())
-
-        current = time.time()
-        if os.path.exists("/tmp/timerstamp"):
-            with open("/tmp/timerstamp") as f:
-                timestamp = float(f.read())
-
-            if current - timestamp >= timer*60:
-                os.remove("/tmp/timerstamp")
+    def Loop(self): 
+        while self.timer:
+            if self.timer - datetime.now().timestamp() < 0:
+                self.timer = None
+                self.UpdateEww()
                 os.popen("notify-send -a Timer -i ./assets/timer.svg 'Time is up'")
-            
-        time.sleep(1)
+                break
 
-def substate():
-    if os.path.exists("/tmp/timerstamp"):
-        print("stop")
+            self.UpdateEww()
+
+            time.sleep(1)
+
+    def UpdateEww(self): 
+        info = {}
+
+        if self.timer: 
+            sec = self.timer - datetime.now().timestamp()
+            sec = int(sec)
+
+            minutes = sec // 60 
+            seconds = sec % 60
+            if seconds < 10: 
+                seconds = f"0{seconds}"
+            info["display"] = f"{minutes}:{seconds}"
+            info["running"] = True
+        else:
+            info["display"] = f"{self.minutes}"
+            info["running"] = False
+
+        print(json.dumps(info), flush=True)
+
+if __name__ == "__main__": 
+    if len(sys.argv) <= 1:
+        DBusGMainLoop(set_as_default=True)
+        loop = GLib.MainLoop()
+        Timer()
+        try: 
+            loop.run()
+        except KeyboardInterrupt: 
+            exit(0)
     else: 
-        print("start")
+        a = sys.argv[1]
 
-def timeinc():
-    with open("/tmp/timer", "r") as f:
-        timer = int(f.read())
+        if a == "toggle": 
+            bus = dbus.SessionBus()
+            remote = bus.get_object("com.Failed.Timer", "/com/Failed/Timer")
+            remote.Toggle()
 
-    timer+=5
-    with open("/tmp/timer", "w") as f:
-        f.write(str(timer))
-    subprocess.run(eww_bin + ["update", f"timerdis={timer}"])
+        if a == "inc":
+            bus = dbus.SessionBus()
+            remote = bus.get_object("com.Failed.Timer", "/com/Failed/Timer")
+            remote.Increase(int(sys.argv[2]))
 
-def timedec():
-    with open("/tmp/timer", "r") as f:
-        timer = int(f.read())
+        if a == "dec":
+            bus = dbus.SessionBus()
+            remote = bus.get_object("com.Failed.Timer", "/com/Failed/Timer")
+            remote.Decrease(int(sys.argv[2]))
 
-    timer-=5
-    with open("/tmp/timer", "w") as f:
-        f.write(str(timer))
-    subprocess.run(eww_bin + ["update", f"timerdis={timer}"])
-
-a = sys.argv[1]
-
-if a == "loop":
-    loop()
-if a == "toggle":
-    startstop()
-if a == "subscribe":
-    readtime()
-if a == "substate":
-    substate()
-if a == "timedec":
-    timedec()
-if a == "timeinc":
-    timeinc()
