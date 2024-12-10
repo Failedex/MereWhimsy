@@ -11,7 +11,7 @@ import json
 from datetime import datetime
 from threading import Thread
 
-eww_bin= [subprocess.getoutput("which eww"), "-c", f"{os.getcwd()}"]
+img = os.path.expanduser("~/.config/eww/whimsy/assets/timer.svg")
 
 class Timer(dbus.service.Object): 
     def __init__(self): 
@@ -40,15 +40,15 @@ class Timer(dbus.service.Object):
         if self.timer: 
             self.timer = None            
             self.UpdateEww()
-            os.popen("notify-send -a Timer -i ./assets/timer.svg 'Timer stopped'")
+            os.popen(f"notify-send -a Timer -i {img} 'Timer stopped'")
         else: 
             self.timer = datetime.now().timestamp() + 60*self.minutes
 
             hours = self.minutes // 60
             if hours > 0:
-                os.popen(f"notify-send -a Timer -i ./assets/timer.svg 'Timer started for {hours} hours and {self.minutes} minutes'")
+                os.popen(f"notify-send -a Timer -i {img} 'Timer started for {hours} hours and {self.minutes} minutes'")
             else:
-                os.popen(f"notify-send -a Timer -i ./assets/timer.svg 'Timer started for {self.minutes} minutes'")
+                os.popen(f"notify-send -a Timer -i {img} 'Timer started for {self.minutes} minutes'")
 
             self.thd = Thread(target=self.Loop)
             self.thd.start()
@@ -58,7 +58,7 @@ class Timer(dbus.service.Object):
             if self.timer - datetime.now().timestamp() < 0:
                 self.timer = None
                 self.UpdateEww()
-                os.popen("notify-send -a Timer -i ./assets/timer.svg 'Time is up'")
+                os.popen(f"notify-send -a Timer -i {img} 'Time is up'")
                 break
 
             self.UpdateEww()

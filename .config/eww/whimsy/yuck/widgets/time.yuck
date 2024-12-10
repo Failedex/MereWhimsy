@@ -297,14 +297,14 @@
       :space-evenly false
       :spacing 10
       (button 
-        :onclick "./scripts/timer.py dec 1"
+        :onclick "./scripts/timer.py dec 5"
         (label 
           :class "icon"
           :text "-"))
       (label 
         :text {timerjson.display})
       (button 
-        :onclick "./scripts/timer.py inc 1"
+        :onclick "./scripts/timer.py inc 5"
         (label 
           :class "icon"
           :text "+")))
