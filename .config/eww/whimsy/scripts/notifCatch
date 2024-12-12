@@ -233,12 +233,7 @@ class NotificationDaemon(dbus.service.Object):
         current["popups"] = [n for n in current["popups"] if n["id"] != id]
         self.write_log_file(current)
 
-        # no saving notifications
-    
         active_popups.pop(id, None)
-
-        if len(active_popups) == 0: 
-            self.ClearAll()
 
 
     @dbus.service.method("org.freedesktop.Notifications", in_signature="", out_signature="")

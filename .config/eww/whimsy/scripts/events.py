@@ -113,7 +113,9 @@ class EventManager(dbus.service.Object):
 
         if j != -1:
             if id in self.timers: 
-                del self.timers[id]
+                if id in self.timers:
+                    self.timers[id].cancel()
+                    del self.timers[id]
             del self.events[j]
             self.UpdateJson()
             self.UpdateEww()

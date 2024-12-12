@@ -79,7 +79,7 @@ class Timer(dbus.service.Object):
             info["display"] = f"{minutes}:{seconds}"
             info["running"] = True
         else:
-            info["display"] = f"{self.minutes}"
+            info["display"] = f"{self.minutes} mins"
             info["running"] = False
 
         print(json.dumps(info), flush=True)

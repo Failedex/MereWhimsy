@@ -5,7 +5,7 @@
     :onclick { 
               !revealoverviewint ? 
               !revealcalint 
-              ? "./scripts/hackslide calendarint revealcalint && ${EWW_CMD} update revealcalmode=1"
+              ? "./scripts/hackslide calendarint revealcalint && ${EWW_CMD} update revealcalmode=1 eventnotimode=0"
               : "./scripts/hackslide calendarint revealcalint &"
               : ""}
     (box
@@ -221,28 +221,64 @@
         :class "icon"
         :markup "<span size='x-large'>󰍝</span>")))) 
 
-(defwidget allevents []
+(defvar eventnotimode 0)
+
+(defwidget eventnotilog []
   (box 
     :class "whiteboard"
     :orientation "v"
     :space-evenly false
     :height 290
     (box 
-      :class "whiteboardhead"
-      (label 
-        :halign "center"
-        :text "Events"))
-    (scroll
+      :orientation "h"
+
+      (button
+        :class "whiteboardhead left ${eventnotimode == 0 ? 'active' : ''}"
+        :onclick "${EWW_CMD} update eventnotimode=0"
+        (label 
+          :halign "center"
+          :text "Events"))
+
+      (button
+        :class "whiteboardhead right ${eventnotimode == 1 ? 'active' : ''}"
+        :onclick "${EWW_CMD} update eventnotimode=1"
+        (label 
+          :halign "center"
+          :text "Notifications")))
+
+    (stack
       :vexpand true
-      :vscroll true 
-      :hscroll false
-      (box
-        :orientation "v"
-        :space-evenly false 
-        :hexpand true
-        :style "padding: 5px;"
-        (for event in {eventsjson}
-          (singleevent :event event))))))
+      :selected eventnotimode
+      :transition "slidedown"
+      (scroll
+        :vexpand true
+        :vscroll true 
+        :hscroll false
+        (box
+          :orientation "v"
+          :space-evenly false 
+          :hexpand true
+          :style "padding: 5px;"
+          (for event in { eventsjson}
+            (singleevent :event event))))
+
+      (scroll
+        :vexpand true
+        :vscroll true 
+        :hscroll false
+        (box
+          :orientation "v"
+          :space-evenly false 
+          :hexpand true
+          :style "padding: 5px;"
+          (box 
+            :visible {arraylength(notifications.notifications) == 0}
+            :halign "center"
+            :vexpand true
+            (label 
+              :text "No notifications"))
+          (for noti in {notifications.notifications}
+            (loggednotif :noti noti)))))))
 
 (defwidget singleevent [event]
   (box 
@@ -287,30 +323,39 @@
           :text {event.eventname})))))
 
 (defwidget timer []
-  (box 
+  (centerbox
     :orientation "h"
-    :class "widget timer"
+    :class "whiteboard timer"
+    :style "padding: 5px;"
     :hexpand true 
     (box 
       :orientation "h"
       :halign "start"
       :space-evenly false
-      :spacing 10
       (button 
         :onclick "./scripts/timer.py dec 5"
+        :style "border-top-right-radius: 0px; border-bottom-right-radius: 0px;"
         (label 
           :class "icon"
           :text "-"))
-      (label 
-        :text {timerjson.display})
       (button 
         :onclick "./scripts/timer.py inc 5"
+        :style "margin-left: -3px; border-top-left-radius: 0px; border-bottom-left-radius: 0px;"
         (label 
           :class "icon"
           :text "+")))
-    (button 
-      :halign "end"
-      :onclick "./scripts/timer.py toggle"
+    (box 
+      :orientation "h"
+      :halign "center"
+      :space-evenly false
       (label 
-        :class "icon"
-        :text { timerjson.running == "false" ? "start" : "stop"}))))
+        :text {timerjson.display}))
+    (box 
+      :orientation "h"
+      :halign "end"
+      :space-evenly false
+      (button 
+        :onclick "./scripts/timer.py toggle"
+        (label 
+          :class "icon"
+          :text { timerjson.running == "false" ? "start" : "stop"})))))

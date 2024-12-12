@@ -220,6 +220,8 @@ for_window [app_id="(?i)firefox"] title_format "󰈹 %title"
 for_window [app_id="(?i)xournalpp"] title_format "󱞁 %title"
 for_window [app_id="(?i)thunar"] title_format "󰉋 %title"
 for_window [app_id="(?i)discord"] title_format " %title"
+for_window [app_id="(?i)zathura"] title_format "󰈦 %title"
+for_window [app_id="(?i)feh"] title_format "󰋩 %title"
 
 # misc settings
 set $bg-color 	         #bcc0cc
@@ -244,7 +246,7 @@ gaps top 0
 font pango:RobotoMonoNerdFont Regular 12
 titlebar_separator enable
 # titlebar_padding 8
-title_align left
+title_align center
 default_border normal 2
 default_floating_border normal 2
 xwayland enable

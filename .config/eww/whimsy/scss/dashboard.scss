@@ -44,14 +44,10 @@
 }
 
 .timer button{
-  background-color: $accent;
+  background-color: $surface0;
   margin: $margin;
   padding: $padding 10px;
-  border-radius: 5px;
-}
-
-.timer button label {
-  color: $base;
+  border-radius: $round - 10px;
 }
 
 .hseparator {
@@ -74,6 +70,15 @@
   padding: $padding; 
   border-top-left-radius: $round - 2px;
   border-top-right-radius: $round - 2px;
+  &.left {
+    border-top-right-radius: 0;
+  }
+  &.right {
+    border-top-left-radius: 0;
+  }
+  &.active {
+    background-color: $surface1;
+  }
 }
 
 .eventimg {

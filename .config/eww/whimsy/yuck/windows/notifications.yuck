@@ -9,33 +9,34 @@
   :stacking "overlay"
   :monitor 0
   (revealer 
-    :reveal { arraylength(notifications.popups) > 0 }
+    :reveal {arraylength(notifications.popups) > 0}
     :transition "slidedown"
+    :duration 0
     (box 
       :orientation "v"
       :space-evenly false
       :style "margin-top: 60px;"
-      (for i in { [0, 1, 2] }
+      (for i in { [0, 1, 2]}
         (singlenotif 
           :noti {
-            i < arraylength(notifications.popups)
-            ? notifications.popups[i]
-            : '{
-              "id": -727, 
-              "app": "",
-              "summary": "",
-              "body": "",
-              "time": "07:27",
-              "actions": [],
-              "icon": null,
-              "image": null
-            }'
-          } )))))
+                 i < arraylength(notifications.popups)
+                 ? notifications.popups[i]
+                 : '{
+                     "id": -727, 
+                     "app": "",
+                     "summary": "",
+                     "body": "",
+                     "time": "07:27",
+                     "actions": [],
+                     "icon": null,
+                     "image": null}
+                 '})))))
+           
 
 (defwidget singlenotif [noti]
   (revealer 
     :transition "slidedown"
-    :reveal { noti.id != -727 }
+    :reveal { noti.id != -727}
     (box 
       :class "popup bordered"
       :style "padding: 0px;"
@@ -45,14 +46,14 @@
       (box 
         :class "notihead"
         (label 
-          :text { noti.app }))
+          :text { noti.app}))
 
       (box 
         :space-evenly false
         :orientation "h"
         (box 
           :valign "start"
-          :visible { noti.image != "null" }
+          :visible { noti.image != "null"}
           :class "notiimage"
           :width 80
           :height 80 
@@ -82,13 +83,13 @@
                 (label 
                   :xalign "0"
                   :vexpand true
-                  :text { noti.summary }))
+                  :text { noti.summary}))
               (label 
                 :xalign "0"
                 :vexpand true
                 :wrap true
-                :visible { noti.body != "null" }
-                :text { noti.body })))
+                :visible { noti.body != "null"}
+                :text { noti.body})))
           (box
             :orientation "h"
             :hexpand true
@@ -103,5 +104,61 @@
                     :hscroll true
                     :vscroll false
                     (label 
-                      :text { action[1] })))))))
-        ))))
+                      :text { action[1]})))))))))))
+        
+(defwidget loggednotif [noti]
+  (box 
+    :class "widget"
+    :orientation "h"
+    :space-evenly false 
+    (box 
+      :width 60 
+      :height 60 
+      :vexpand false
+      :valign "start"
+      :visible {noti.image != "null"}
+      :class "notiimage"
+      :style "background-image: url('${noti.image}')")
+    (box 
+      :class "widget transparent"
+      :tooltip {noti.time}
+      :orientation "v"
+      :space-evenly false 
+      :hexpand true 
+      (box 
+        :orientation "h"
+        :space-evenly false 
+        (scroll
+          :hexpand true
+          :hscroll true
+          :vscroll false
+          (label 
+            :hexpand true 
+            :xalign 0 
+            :markup "<span weight='bold'>${noti.summary}</span>"))
+        (button 
+          :onclick "./scripts/notifManage --close ${noti.id}"
+          (label 
+            :class "icon"
+            :text "󰅖")))
+      (scroll 
+        :hexpand true 
+        :hscroll true 
+        :vscroll false
+        (label 
+          :xalign 0 
+          :text {noti.body}))
+      (box 
+        :orientation "h"
+        :style "margin-top: 5px;"
+        (for action in {noti.actions}
+          (button 
+            :onclick "./scripts/notifManage --action ${noti.id} ${action[0]} && ./scripts/notifManage --close ${noti.id}"
+            :hexpand true 
+            ; :class "widget"
+            (scroll 
+              :hexpand true 
+              :hscroll true 
+              :vscroll false 
+              (label 
+                :text {action[1]}))))))))

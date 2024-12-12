@@ -79,4 +79,4 @@
     :width 380
     (timer)
     (datecalendar)
-    (allevents)))
+    (eventnotilog)))
