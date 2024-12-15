@@ -195,11 +195,14 @@ class NotificationDaemon(dbus.service.Object):
     def save_notification(self, notification):
         current = self.read_log_file()
         current["notifications"].insert(0, notification)
+        
+        if len(current["notifications"]) > 5: 
+            latest = current["notifications"].pop()
+            self.CloseNotification(latest["id"])
+
         current["count"] = len(current["notifications"])
 
-
         self.write_log_file(current)
-        
 
     @dbus.service.method("org.freedesktop.Notifications", in_signature="", out_signature="")
     def ClearAll(self):

@@ -10,7 +10,6 @@ set $term foot
 set $menu 'wofi -i -I'
 
 ### Output configuration
-# output * bg ~/.config/sway/wallpaper/tile.png tile
 output * bg ~/.config/sway/wallpaper/whitebgfw.jpg fill
 
 # I considered it at some point
@@ -154,6 +153,10 @@ input "type:tablet_tool" {
 
     # tile mode toggle
     # bindsym $mod+Tab exec '~/.config/eww/whimsy/scripts/floatingwin.py toggle'
+
+    # theme switcher
+    bindsym $mod+Shift+t exec '~/.config/eww/themeswitch/scripts/pop &'
+
 #
 # Scratchpad:
 #

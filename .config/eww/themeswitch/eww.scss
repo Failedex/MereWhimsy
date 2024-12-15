@@ -1,0 +1,76 @@
+* {
+    all: unset;
+    font-size: 20px;
+    font-family: "Roboto Nerd Font";
+}
+
+.window {
+    transition: 500ms;
+    margin: 0px;
+    padding: 0px;
+}
+
+.switcherw {
+    padding: 5px;
+    border-radius: 15px;
+  border-bottom-right-radius: 60px;
+    transition: 500ms;
+}
+
+.bgimage {
+  background-color: red;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  transition: margin 500ms, padding 500ms; 
+  margin: 30px 50px;
+  padding: 124px 150px;
+  &.inactive {
+    margin: 0px;
+    padding: 540px 960px;
+    border-radius: 0;
+  }
+  border-radius: 5px;
+}
+
+.bgsurround {
+  transition: 500ms; 
+  border-radius: 15px;
+  border-bottom-right-radius: 40px;
+}
+
+.icon {
+    font-family: "Symbols Nerd Font";
+    min-width: 1em;
+    min-height: 1em;
+    font-size: 40px;
+}
+
+.dpad {
+  &.surround {
+    margin: 15px;
+  }
+  &.top {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    margin: 0px 44px;
+  }
+  &.mid {
+    border-radius: 5px;
+  }
+  &.bot {
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    margin: 0px 44px;
+  }
+}
+
+.reddots {
+  margin: 20px;
+  button {
+    background-color: #E4000F;
+    border-radius: 100px;
+    padding: 30px;
+  }
+}
+

@@ -14,7 +14,7 @@
   :monitor 0 
 
   (revealer
-    :reveal revealchange
+    :reveal { revealchange && !fullscreened}
     :transition "slideleft"
     (box
       :orientation "v"

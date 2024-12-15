@@ -1,0 +1,14 @@
+#!/bin/bash
+
+PWD="$HOME/.config/eww/themeswitch"
+LOCK="/tmp/eww/.themeswitch.lock"
+
+if [[ ! -f $LOCK ]]; then
+    touch $LOCK
+    eww -c ~/.config/eww/whimsy update floatingwin=false revealdock=false
+    eww -c $PWD open switcher 
+    sleep 0.2
+    eww -c $PWD update reveal2=true
+    sleep 1
+    eww -c $PWD update reveal=true
+fi

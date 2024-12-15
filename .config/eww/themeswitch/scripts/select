@@ -1,0 +1,15 @@
+#!/usr/bin/bash
+LOCK="/tmp/eww/.themeswitch.lock"
+
+if [[ -f $LOCK ]]; then
+    pwd=$(pwd)
+    if [ -n "$1" ]; then
+        ~/.config/eww/whimsy/scripts/toggletheme select $1 
+    fi
+    eww -c $pwd update reveal=false
+    sleep 1
+    eww -c $pwd update reveal2=false
+    sleep 0.5
+    eww -c $pwd close switcher
+    rm $LOCK
+fi

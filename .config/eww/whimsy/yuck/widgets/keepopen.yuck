@@ -1,4 +1,4 @@
 (defwidget keepupdate []
   (label
     :visible false 
-    :text "${pstatus} ${weatherjson} ${appsjson} ${ptime} ${timerjson} ${eventsjson}"))
+    :text "${pstatus} ${weatherjson} ${appsjson} ${ptime} ${timerjson} ${eventsjson} ${notifications}"))

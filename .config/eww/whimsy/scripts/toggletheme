@@ -15,9 +15,9 @@ switch_theme () {
     fi
 
     inactivebg=$(sed -n "s/\$surface0: \(.*\);/\1/p" $HOME/.config/eww/whimsy/themes/$1.scss)
-    bg=$(sed -n "s/\$surface2: \(.*\);/\1/p" $HOME/.config/eww/whimsy/themes/$1.scss)
+    bg=$(sed -n "s/\$surface1: \(.*\);/\1/p" $HOME/.config/eww/whimsy/themes/$1.scss)
     text=$(sed -n "s/\$white0: \(.*\);/\1/p" $HOME/.config/eww/whimsy/themes/$1.scss)
-    urgent="#ee5396"
+    urgent=$(sed -n "s/\$red: \(.*\);/\1/p" $HOME/.config/eww/whimsy/themes/$1.scss)
 
     if [ -n $surface0 ] && [ -n $surface2 ] && [ -n $white0 ]; then
         swaymsg "client.focused          $bg           $bg          $text          $bg"
@@ -26,111 +26,66 @@ switch_theme () {
         swaymsg "client.urgent           $urgent    $urgent   $text          $urgent"
     fi
 
+    swaymsg output \* bg $2 fill
+
     sleep 1
-    notify-send -a Theme "Theme selected" "$1"
+    notify-send -i $2 -a Theme "Theme selected" "$1"
 }
 
 current=`cat $scss_theme | sed 's/@import \".\/themes\/\(.*\).scss\"/\1/'`
 
-if [[ $1 == "toggle" ]]; then
-    case $current in 
-    "oxocarbon")
-        switch_theme "oxocarbon_light"
-        swaymsg output \* bg ~/.config/sway/wallpaper/flowerbw.png fill
-        ;;
-    "oxocarbon_light") 
-        switch_theme "catppuccin"
-        swaymsg output \* bg ~/.config/sway/wallpaper/catppuccinlan.png fill
-        ;;
-    "catppuccin") 
-        switch_theme "rosepine"
-        swaymsg output \* bg ~/.config/sway/wallpaper/rosepine.jpg fill
-        ;;
-    "rosepine") 
-        switch_theme "swamp"
-        swaymsg output \* bg ~/.config/sway/wallpaper/swamp.png fill
-        ;;
-    "swamp") 
-        switch_theme "biscuit"
-        swaymsg output \* bg ~/.config/sway/wallpaper/biscuitcat.png fill
-        ;;
-    "biscuit") 
-        switch_theme "camellia"
-        swaymsg output \* bg ~/.config/sway/wallpaper/camelliawoman.jpg fill
-        ;;
-    *)
-        switch_theme "oxocarbon"
-        swaymsg output \* bg ~/.config/sway/wallpaper/flowerbw.png fill
-        ;;
-    esac
-elif [[ $1 == "select" ]]; then
+if [[ $1 == "select" ]]; then
     case $2 in 
     "oxocarbon_light")
-        switch_theme "oxocarbon_light"
-        swaymsg output \* bg ~/.config/sway/wallpaper/flowerbw.png fill
+        switch_theme "oxocarbon_light" "~/.config/sway/wallpaper/flowerbw.png"
         ;;
     "catppuccin") 
-        switch_theme "catppuccin"
-        swaymsg output \* bg ~/.config/sway/wallpaper/catppuccinlan.png fill
+        switch_theme "catppuccin" "~/.config/sway/wallpaper/rocket.png"
         ;;
     "catppuccin_latte") 
-        switch_theme "catppuccin_latte"
-        swaymsg output \* bg ~/.config/sway/wallpaper/catppuccinfw.png fill
+        switch_theme "catppuccin_latte" "~/.config/sway/wallpaper/whitebgfw.jpg"
         ;;
     "rosepine") 
-        switch_theme "rosepine"
-        swaymsg output \* bg ~/.config/sway/wallpaper/rosepine.jpg fill
+        switch_theme "rosepine" "~/.config/sway/wallpaper/rosepine.jpg"
         ;;
     "swamp") 
-        switch_theme "swamp"
-        swaymsg output \* bg ~/.config/sway/wallpaper/swamp.png fill
+        switch_theme "swamp" "~/.config/sway/wallpaper/swamp.png"
         ;;
     "biscuit") 
-        switch_theme "biscuit"
-        swaymsg output \* bg ~/.config/sway/wallpaper/biscuitcat.png fill
+        switch_theme "biscuit" "~/.config/sway/wallpaper/biscuitcat.png"
         ;;
     "camellia") 
-        switch_theme "camellia"
-        swaymsg output \* bg ~/.config/sway/wallpaper/camelliawoman.jpg fill
+        switch_theme "camellia" "~/.config/sway/wallpaper/camelliawoman.jpg"
         ;;
     *)
-        switch_theme "oxocarbon"
-        swaymsg output \* bg ~/.config/sway/wallpaper/flowerbw.png fill
+        switch_theme "oxocarbon" "~/.config/sway/wallpaper/flowerbw.png"
         ;;
     esac
 elif [[ $1 == "setup" ]]; then
     case $current in 
     "oxocarbon_light")
-        switch_theme "oxocarbon_light"
-        swaymsg output \* bg ~/.config/sway/wallpaper/flowerbw.png fill
+        switch_theme "oxocarbon_light" "~/.config/sway/wallpaper/flowerbw.png"
         ;;
     "catppuccin") 
-        switch_theme "catppuccin"
-        swaymsg output \* bg ~/.config/sway/wallpaper/catppuccinlan.png fill
+        switch_theme "catppuccin" "~/.config/sway/wallpaper/catppuccinlan.png"
         ;;
     "catppuccin_latte") 
-        switch_theme "catppuccin_latte"
-        swaymsg output \* bg ~/.config/sway/wallpaper/catppuccinfw.png fill
+        switch_theme "catppuccin_latte" "~/Downloads/images/cloudcity.png"
         ;;
     "rosepine") 
-        switch_theme "rosepine"
-        swaymsg output \* bg ~/.config/sway/wallpaper/rosepine.jpg fill
+        switch_theme "rosepine" "~/.config/sway/wallpaper/rosepine.jpg"
         ;;
     "swamp") 
-        switch_theme "swamp"
-        swaymsg output \* bg ~/.config/sway/wallpaper/swamp.png fill
+        switch_theme "swamp" "~/.config/sway/wallpaper/swamp.png"
         ;;
     "biscuit") 
-        switch_theme "biscuit"
-        swaymsg output \* bg ~/.config/sway/wallpaper/biscuitcat.png fill
+        switch_theme "biscuit" "~/.config/sway/wallpaper/biscuitcat.png"
         ;;
     "camellia") 
-        switch_theme "camellia"
-        swaymsg output \* bg ~/.config/sway/wallpaper/camelliawoman.jpg fill
+        switch_theme "camellia" "~/.config/sway/wallpaper/camelliawoman.jpg"
         ;;
     *)
-        switch_theme "oxocarbon"
-        swaymsg output \* bg ~/.config/sway/wallpaper/flowerbw.png fill
+        switch_theme "oxocarbon" "~/.config/sway/wallpaper/flowerbw.png"
         ;;
     esac
 else

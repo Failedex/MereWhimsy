@@ -1,5 +1,6 @@
 (defvar locked false)
 (defvar dashmcover false)
+(defvar fullscreened false)
 
 (defpoll thour :initial "0" :interval "60s" "date +'%I'")
 (defpoll tmin :initial "0" :interval "60s" "date +'%M'")

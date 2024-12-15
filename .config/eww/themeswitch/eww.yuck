@@ -1,0 +1,108 @@
+(defvar reveal false)
+(defvar reveal2 false)
+(defpoll themes :initial "{}" :interval "24h" "cat ./scripts/themes.json")
+(defpoll home :interval "24h" "echo $HOME")
+(defpoll listth :initial "[]" :interval "24h" "./scripts/listth.py")
+(defpoll current :initial "oxocarbon" :interval "24h" "~/.config/eww/whimsy/scripts/toggletheme")
+
+(defwindow switcher 
+  :geometry (geometry
+              :x 0
+              :y 0
+              :width "100%"
+              :height "100%"
+              :anchor "bottom center")
+  :monitor 0 
+  :stacking "overlay"
+  (revealer 
+    :reveal reveal2
+    :duration 300
+    :transition "crossfade"
+    (box 
+      :visible {home != "s"}
+      :height 1080
+      :class "window"
+      :style "background-color: ${themes[current].bg};"
+      (box 
+        :class "switcherw"
+        :style "
+          background-color: ${themes[current].bg0};
+          color: ${themes[current].fg};
+          margin: ${reveal ? '200px 730px' : '0px'};
+          padding: ${reveal ? '50px 20px' : '0px'};
+        "
+        :orientation "v"
+        :space-evenly false
+        (box 
+          :orientation "v"
+          :space-evenly false
+          :halign "center"
+          :valign "start"
+          :class "bgsurround"
+          :style "background-color: ${themes[current].fg};"
+          (for th in {listth}
+            (revealer
+              :transition "slidedown"
+              :reveal {th.theme == current}
+              (overlay
+                (box 
+                  :halign "center"
+                  :valign "start"
+                  :class "bgimage ${!reveal && th.theme == current ? 'inactive' : ''}"
+                  :style "background-image: url('${home}/${themes[th.theme].background}');")
+                (label 
+                  :style "color: ${themes[th.theme].bg}; margin: 7px;"
+                  :halign "start"
+                  :valign "end"
+                  :text "${th.id+1}/${arraylength(listth)}")))))
+            
+        (revealer
+          :reveal reveal
+          :transition "slideup"
+          (box 
+            :style "margin-top: 50px;"
+            :orientation "h"
+            (dpad)
+            (reddots)))))))
+          
+(defwidget dpad[] 
+  (box 
+    :width 162
+    :height 162
+    :halign "start"
+    :orientation "v"
+    :class "dpad surround"
+    (box 
+      :style "background-color: ${themes[current].fg};"
+      :class "dpad top")
+    (box 
+      :style "background-color: ${themes[current].fg};"
+      :class "dpad mid"
+      (button 
+        :onclick "${EWW_CMD} update current=${themes[current].prev}")
+      (label 
+        :text "")
+      (button 
+        :onclick "${EWW_CMD} update current=${themes[current].next}"))
+    (box 
+      :style "background-color: ${themes[current].fg};"
+      :class "dpad bot")))
+   
+(defwidget reddots []
+  (box 
+    :halign "end"
+    :orientation "h"
+    :class "reddots"
+    :spacing 20
+    (button
+      :valign "start"
+      :onclick "./scripts/select ${current}"
+      :style "margin-top: 50px;")
+    (button
+      :valign "start"
+      :onclick "./scripts/select ${current}"
+      :style "margin-top: 20px;"))) 
+      
+   
+   
+  

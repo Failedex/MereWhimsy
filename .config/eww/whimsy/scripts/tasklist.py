@@ -52,10 +52,15 @@ def dockreveal(root):
     if not con or not con.app_id: 
         subprocess.run(eww_bin + ["update", "floatingwin=true"])
     else: 
-        if con.type == "floating_con": 
+        if con.type == "floating_con" and con.fullscreen_mode == 0: 
             subprocess.run(eww_bin + ["update", "floatingwin=true"])
         else: 
             subprocess.run(eww_bin + ["update", "floatingwin=false"])
+
+        if con.fullscreen_mode == 1: 
+            subprocess.run(eww_bin + ["update", "fullscreened=true"])
+        else:
+            subprocess.run(eww_bin + ["update", "fullscreened=false"])
 
 def update(i3, e): 
 

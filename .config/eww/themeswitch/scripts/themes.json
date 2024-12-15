@@ -1,0 +1,58 @@
+{
+    "oxocarbon": {
+        "background": ".config/sway/wallpaper/flowerbw.png",
+        "prev": "camellia",
+        "next": "catppuccin_latte",
+        "bg": "#161616", 
+        "bg0": "#262626", 
+        "fg": "#dde1e6"
+    },
+    "catppuccin_latte": {
+        "background": ".config/sway/wallpaper/whitebgfw.jpg",
+        "prev": "oxocarbon",
+        "next": "catppuccin",
+        "bg": "#eff1f5",
+        "bg0": "#ccd0da",
+        "fg": "#4c4f69" 
+    },
+    "catppuccin": {
+        "background": ".config/sway/wallpaper/rocket.png",
+        "prev": "catppuccin_latte",
+        "next": "rosepine",
+        "bg": "#1e1e2e",
+        "bg0": "#313244",
+        "fg": "#cdd6f4" 
+    },
+    "rosepine": {
+        "background": ".config/sway/wallpaper/rosepine.jpg",
+        "prev": "catppuccin",
+        "next": "swamp",
+        "bg": "#191724",
+        "bg0": "#26233a",
+        "fg": "#e0def4" 
+    },
+    "swamp": {
+        "background": ".config/sway/wallpaper/swamp.png",
+        "prev": "rosepine",
+        "next": "biscuit",
+        "bg": "#242015",
+        "bg0": "#3A3124",
+        "fg": "#D2C3A4" 
+    },
+    "biscuit": {
+        "background": ".config/sway/wallpaper/biscuitcat.png",
+        "prev": "swamp",
+        "next": "camellia",
+        "bg": "#1A1515",
+        "bg0": "#2d2424",
+        "fg": "#DCC9BC" 
+    },
+    "camellia": {
+        "background": ".config/sway/wallpaper/camelliawoman.jpg",
+        "prev": "biscuit",
+        "next": "oxocarbon",
+        "bg": "#17181C",
+        "bg0": "#1E1F24",
+        "fg": "#E4E5E7" 
+    }
+}

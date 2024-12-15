@@ -11,6 +11,7 @@
   :exclusive false 
   :monitor 0
   (box 
+    :visible {!fullscreened}
     :orientation "v"
     :space-evenly false
     (box 

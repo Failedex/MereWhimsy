@@ -11,7 +11,6 @@
   (revealer 
     :reveal {arraylength(notifications.popups) > 0}
     :transition "slidedown"
-    :duration 0
     (box 
       :orientation "v"
       :space-evenly false
