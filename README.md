@@ -1,16 +1,9 @@
 # Mere Whimsy, a sway(fx) dotfile
 
-Many design choices were made during the development of this rice, most of them were made on a whim. 
-
-![Screenshot](https://github.com/Failedex/MereWhimsy/blob/main/assets/latte.png?raw=true)
-
-There's also a floating mode
-
-![Screenshot2](https://github.com/Failedex/MereWhimsy/blob/main/assets/lattefloat.png?raw=true)
+Section currently WIP. 
 
 ## Stuff I use 
 - Compositor: swayfx
-- App launcher: wofi
 - Bar: eww
 - Font: Roboto Mono Nerd Font
 - Terminal: foot
@@ -25,3 +18,12 @@ There's also a floating mode
 - mpd and mpDris2
 - A file under `~/Document/fuck.txt`. This is a to-do list.
 
+## Installation
+
+> [!WARNING]
+> Contain bug and issues that I haven't yet fixed. Safer to use as reference.
+
+You can just clone the repo somewhere and stow to home directory
+```
+stow -t $HOME .
+```
