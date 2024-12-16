@@ -26,49 +26,49 @@
   :focusable true
   :exclusive false 
   :monitor 0 
-  (box 
-    :orientation "v"
-    :space-evenly false
+  (eventbox 
+    :onhoverlost "./scripts/hackslide dashboardint revealdashint close &"
     (box 
-      :orientation "h"
+      :orientation "v"
       :space-evenly false
-      (revealer 
-        :reveal revealdashint
-        :transition "slidedown"
-        (eventbox 
-          :onhoverlost "./scripts/hackslide dashboardint revealdashint &"
+      (box 
+        :orientation "h"
+        :space-evenly false
+        (revealer 
+          :reveal revealdashint
+          :transition "slidedown"
           (stack 
             :selected revealdashmode
             :transition "none"
             (dashstruct :class "barstruct right")
-            (launcher :class "barstruct right"))))
+            (launcher :class "barstruct right")))
+        (box 
+          :orientation "v"
+          :style "margin-bottom: -2px;"
+          (box 
+            :width 50
+            :style "margin-top: ${ locked ? 50 : 10 }px; margin-bottom: -${ locked ? 50 : 10 }px;"
+            :class "fillerr")
+          (box 
+            :width 50)))
+
       (box 
         :orientation "v"
-        :style "margin-bottom: -2px;"
-        (box 
-          :width 50
-          :style "margin-top: ${ locked ? 50 : 10 }px; margin-bottom: -${ locked ? 50 : 10 }px;"
-          :class "fillerr")
-        (box 
-          :width 50)))
-
-    (box 
-      :orientation "v"
-      :space-evenly false
-      (box
-        :orientation "h"
         :space-evenly false
-        :halign "start"
-        :height 50
-        (topstruct :f "nah")
+        (box
+          :orientation "h"
+          :space-evenly false
+          :halign "start"
+          :height 50
+          (topstruct :f "nah")
+          (box 
+            :width 50 
+            :class "fillerr"))
         (box 
           :width 50 
-          :class "fillerr"))
-      (box 
-        :width 50 
-        :height 50 
-        :style "margin-left: ${ locked ? '0px' : '10px'};"
-        :class "fillerrs"))))
+          :height 50 
+          :style "margin-left: ${ locked ? '0px' : '10px'};"
+          :class "fillerrs")))))
 
 (defwidget dashstruct [class]
   (box 
@@ -95,7 +95,7 @@
               !revealoverviewint ? 
               !revealdashint 
               ? "./scripts/hackslide dashboardint revealdashint && ${EWW_CMD} update revealdashmode=0"
-              : "./scripts/hackslide dashboardint revealdashint &"
+              : "./scripts/hackslide dashboardint revealdashint close &"
               : ""}
     (box
       ; :width 40

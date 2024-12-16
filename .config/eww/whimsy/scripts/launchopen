@@ -5,14 +5,13 @@ PWD="$HOME/.config/eww/whimsy"
 
 overview="$(eww -c $PWD get revealoverviewint)"
 
-if [[ $overview == "true" ]]; then
-    $PWD/scripts/hackslide overviewint revealoverviewint
+if [[ $overview == "false" ]]; then
+    open="$(eww -c $PWD get revealdashint)"
+    if [[ $open == "true" ]]; then 
+        $PWD/scripts/hackslide dashboardint revealdashint close
+    else
+        $PWD/scripts/hackslide dashboardint revealdashint
+        eww -c $PWD update revealdashmode=1
+    fi
 fi
 
-open="$(eww -c $PWD get revealdashint)"
-if [[ $open == "true" ]]; then 
-    $PWD/scripts/hackslide dashboardint revealdashint
-else
-    $PWD/scripts/hackslide dashboardint revealdashint
-    eww -c $PWD update revealdashmode=1
-fi

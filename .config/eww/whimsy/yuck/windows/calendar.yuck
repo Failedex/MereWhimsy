@@ -26,50 +26,50 @@
   :exclusive false 
   :focusable true
   :monitor 0 
-  (box 
-    :orientation "v"
-    :space-evenly false
-    (box
-      :orientation "h"
-      :space-evenly false 
-      :hexpand true
-      (box 
-        :orientation "v"
-        :style "margin-bottom: -2px;"
+  (eventbox
+    :onhoverlost "./scripts/hackslide calendarint revealcalint close &"
+    (box 
+      :orientation "v"
+      :space-evenly false
+      (box
+        :orientation "h"
+        :space-evenly false 
+        :hexpand true
         (box 
-          :width 50
-          :style "margin-top: ${ locked ? 50 : 10 }px; margin-bottom: -${ locked ? 50 : 10 }px;"
-          :class "fillerl")
-        (box 
-          :width 50))
-      (revealer 
-        :reveal { revealcalint}
-        :transition "slidedown"
-        (eventbox
-          :onhoverlost "./scripts/hackslide calendarint revealcalint &"
+          :orientation "v"
+          :style "margin-bottom: -2px;"
+          (box 
+            :width 50
+            :style "margin-top: ${ locked ? 50 : 10 }px; margin-bottom: -${ locked ? 50 : 10 }px;"
+            :class "fillerl")
+          (box 
+            :width 50))
+        (revealer 
+          :reveal { revealcalint}
+          :transition "slidedown"
           (stack 
             :selected revealcalmode
             :transition "none"
             (sysctl :class "barstruct left")
-            (calendarstruct :class "barstruct left")))))
-          
+            (calendarstruct :class "barstruct left"))))
+            
 
-    (box 
-      :orientation "v"
-      :space-evenly false
       (box 
-        :orientation "h"
-        :space-evenly false 
-        :halign "end"
+        :orientation "v"
+        :space-evenly false
         (box 
-          :width 50
-          :class "fillerl")
-        (bottomstruct :f "nah"))
-      (box 
-        :width 50 
-        :height 50 
-        :class "fillerls"
-        :style "margin-right: ${ locked ? '0px' : '10px'};"))))
+          :orientation "h"
+          :space-evenly false 
+          :halign "end"
+          (box 
+            :width 50
+            :class "fillerl")
+          (bottomstruct :f "nah"))
+        (box 
+          :width 50 
+          :height 50 
+          :class "fillerls"
+          :style "margin-right: ${ locked ? '0px' : '10px'};")))))
 
 (defwidget calendarstruct [class] 
   (box 

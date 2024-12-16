@@ -6,7 +6,7 @@
               !revealoverviewint ? 
               !revealcalint 
               ? "./scripts/hackslide calendarint revealcalint && ${EWW_CMD} update revealcalmode=1 eventnotimode=0"
-              : "./scripts/hackslide calendarint revealcalint &"
+              : "./scripts/hackslide calendarint revealcalint close &"
               : ""}
     (box
       ; :class "widget ${ locked ? 'topr' : 'float'}"

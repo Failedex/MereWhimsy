@@ -47,7 +47,7 @@
                 !revealoverviewint ? 
                 !revealdashint 
                 ? "./scripts/hackslide dashboardint revealdashint && ${EWW_CMD} update revealdashmode=1"
-                : "./scripts/hackslide dashboardint revealdashint &"
+                : "./scripts/hackslide dashboardint revealdashint close &"
                 : ""}
       :onrightclick "./scripts/apps.py &"
       (label 

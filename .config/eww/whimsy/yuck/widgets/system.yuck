@@ -9,7 +9,7 @@
               !revealoverviewint ? 
               !revealcalint 
               ? "./scripts/hackslide calendarint revealcalint && ${EWW_CMD} update revealcalmode=0"
-              : "./scripts/hackslide calendarint revealcalint &"
+              : "./scripts/hackslide calendarint revealcalint close &"
               : ""}
     :style "padding: 0px 10px;"
     (box 

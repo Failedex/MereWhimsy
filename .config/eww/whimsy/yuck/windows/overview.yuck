@@ -10,49 +10,49 @@
   :stacking "overlay"
   :exclusive false 
   :monitor 0
-  (box 
-    :visible {!fullscreened}
-    :orientation "v"
-    :space-evenly false
+  (eventbox 
+    :onhoverlost "./scripts/hackslide overviewint revealoverviewint close &"
     (box 
-      :orientation "h"
-      :space-evenly false 
+      :visible {!fullscreened}
+      :orientation "v"
+      :space-evenly false
       (box 
-        :orientation "v"
-        :style "margin-bottom: -2px;"
+        :orientation "h"
+        :space-evenly false 
         (box 
-          :width 50
-          :style "margin-top: ${ locked ? 50 : 10 }px; margin-bottom: -${ locked ? 50 : 10 }px;"
+          :orientation "v"
+          :style "margin-bottom: -2px;"
+          (box 
+            :width 50
+            :style "margin-top: ${ locked ? 50 : 10 }px; margin-bottom: -${ locked ? 50 : 10 }px;"
+            :class "fillerl")
+          (box 
+            :width 50))
+        (revealer 
+          :reveal revealoverviewint 
+          :transition "slidedown"
+          (overview :class "barstruct left right"))
+        (box 
+          :orientation "v"
+          :style "margin-bottom: -2px;"
+          (box 
+            :width 50
+            :style "margin-top: ${ locked ? 50 : 10 }px; margin-bottom: -${ locked ? 50 : 10 }px;"
+            :class "fillerr")
+          (box 
+            :width 50)))
+      (box 
+        :orientation "h"
+        :space-evenly false 
+        :halign "center"
+        :height 50 
+        (box 
+          :width 50 
           :class "fillerl")
+        (middle :f "no")
         (box 
-          :width 50))
-      (revealer 
-        :reveal revealoverviewint 
-        :transition "slidedown"
-        (eventbox 
-          :onhoverlost "./scripts/hackslide overviewint revealoverviewint &"
-          (overview :class "barstruct left right")))
-      (box 
-        :orientation "v"
-        :style "margin-bottom: -2px;"
-        (box 
-          :width 50
-          :style "margin-top: ${ locked ? 50 : 10 }px; margin-bottom: -${ locked ? 50 : 10 }px;"
-          :class "fillerr")
-        (box 
-          :width 50)))
-    (box 
-      :orientation "h"
-      :space-evenly false 
-      :halign "center"
-      :height 50 
-      (box 
-        :width 50 
-        :class "fillerl")
-      (middle :f "no")
-      (box 
-        :width 50 
-        :class "fillerr"))))
+          :width 50 
+          :class "fillerr")))))
 
 (defwidget overview [class] 
   (box 

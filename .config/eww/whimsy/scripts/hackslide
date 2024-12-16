@@ -4,11 +4,12 @@ PWD="$HOME/.config/eww/whimsy"
 
 
 STAT="$(eww -c $PWD get $2)"
-if [[ $STAT == "true" ]]; then
+if [[ $STAT == "true" || $3 == "close" ]]; then
     eww -c $PWD update "$2"=false
     sleep 0.5
     STAT="$(eww -c $PWD get $2)"
-    if [[ $STAT == "false" ]]; then 
+    OPEN="$(eww -c $PWD active-windows | grep $1)"
+    if [[ $STAT == "false" && $OPEN ]]; then 
         eww -c $PWD close $1
     fi
 else
