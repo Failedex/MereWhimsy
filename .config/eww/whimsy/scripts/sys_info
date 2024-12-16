@@ -84,11 +84,12 @@ get_battery_icon () {
     battery_info=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0)
     battery_percentage=$(echo "$battery_info" | grep -E "percentage" | awk '{print $2}' | tr -d '%')
     icon="󰁹"
-    icons=("󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂")
+    icons=("󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹")
 
     for i in ${!icons[@]}; do 
-        if [ $battery_percentage -ge $((i*10)) ]; then 
+        if [ $battery_percentage -le $((i*10)) ]; then 
             icon=${icons[$i]}
+            break
         fi
     done
 

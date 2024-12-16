@@ -72,7 +72,11 @@
 
 (defwidget lockintoggle []
   (button 
-    :onclick "${EWW_CMD} update locked=${!locked}"
+    :onclick "
+      ${
+        !locked ? 'swaymsg gaps outer all set 0'
+        : 'swaymsg gaps outer all set 10 && swaymsg gaps top all set 0'
+      } && ${EWW_CMD} update locked=${!locked}"
     :class "widget transparent thin"
     (label 
       :class "icon"
@@ -110,4 +114,4 @@
   :monitor 0
   :wm-ignore false
   (box 
-    :class "fakecornersl active"))
+    :class "fakecornersl active ${locked ? 'locked' : ''}"))

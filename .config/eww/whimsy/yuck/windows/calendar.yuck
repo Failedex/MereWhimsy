@@ -69,7 +69,7 @@
         :width 50 
         :height 50 
         :class "fillerls"
-        :style "margin-right: 10px;"))))
+        :style "margin-right: ${ locked ? '0px' : '10px'};"))))
 
 (defwidget calendarstruct [class] 
   (box 

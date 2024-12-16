@@ -65,7 +65,7 @@
       (box 
         :width 50 
         :height 50 
-        :style "margin-left: 10px;"
+        :style "margin-left: ${ locked ? '0px' : '10px'};"
         :class "fillerrs"))))
 
 (defwidget dashstruct [class]

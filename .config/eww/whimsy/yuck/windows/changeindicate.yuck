@@ -22,7 +22,7 @@
       :vexpand true
       (box 
         :height 50
-        :class "changeindicatorcurve top")
+        :class "changeindicatorcurve top ${locked ? 'locked' : ''}")
       (box
         :class "changeindicator"
         :width 50
@@ -34,5 +34,5 @@
           (brislide :vert "yep")))
       (box 
         :height 50
-        :class "changeindicatorcurve bottom"))))
+        :class "changeindicatorcurve bottom ${locked ? 'locked' : ''}"))))
      

@@ -16,4 +16,7 @@
   &.bottom {
     border-top-right-radius: $round+10px;
   }
+  &.locked {
+    margin: 0px;
+  }
 }

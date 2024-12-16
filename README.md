@@ -3,6 +3,7 @@
 Section currently WIP. 
 
 ## Stuff I use 
+- Distro: void linux
 - Compositor: swayfx
 - Bar: eww
 - Font: Roboto Mono Nerd Font
@@ -14,6 +15,7 @@ Section currently WIP.
 - i3ipc
 - pamixer
 - brightnessctl
+- bluez
 - swaylock
 - mpd and mpDris2
 - A file under `~/Document/fuck.txt`. This is a to-do list.

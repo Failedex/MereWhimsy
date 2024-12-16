@@ -7,6 +7,9 @@
     margin-top: 0;
     border-radius: $round + 10px; 
     box-shadow: 0px 0px 0px 50px $base;
+    &.locked {
+      margin: 0px;
+    }
   }
   &.inactive {
     border-radius: 0;
