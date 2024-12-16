@@ -24,7 +24,7 @@ SECTION CURRENTLY WIP.
 ## Installation
 
 > [!WARNING]
-> Contain bug and issues that I haven't yet fixed. Please use as reference.
+> These dotfiles are mainly catered towards my laptop hardware and operating system, so it will (most likely) cause bugs and issues. Please use as a reference instead.
 
 You can just clone the repo somewhere and stow to home directory
 ```
