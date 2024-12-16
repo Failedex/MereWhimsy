@@ -31,18 +31,21 @@
       (infobox 
         :icon volicon
         :value volume 
-        :onchange "pamixer --set-volume {}")
+        :onchange "pamixer --set-volume {} & ${EWW_CMD} update volume={}"
+        :active true)
       (infobox 
         :icon "󰃞"
         :value brightness
-        :onchange "brightnessctl set {}%")
+        :onchange "brightnessctl set {}% & ${EWW_CMD} update brightness={}"
+        :active true)
       (infobox 
         :icon baticon
         :value bat0
-        :onchange ""))
+        :onchange ""
+        :active false))
     (weather)))
 
-(defwidget infobox [icon value onchange]
+(defwidget infobox [icon value onchange active]
   (overlay 
     (scale
       :class "boxslides"
@@ -52,6 +55,7 @@
       :max 100
       :tooltip "${value}%"
       :value value
+      :active active
       :onchange onchange)
 
     (box 

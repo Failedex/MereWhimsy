@@ -35,11 +35,13 @@
       (revealer 
         :reveal revealdashint
         :transition "slidedown"
-        (stack 
-          :selected revealdashmode
-          :transition "none"
-          (dashstruct :class "barstruct right")
-          (launcher :class "barstruct right")))
+        (eventbox 
+          :onhoverlost "./scripts/hackslide dashboardint revealdashint &"
+          (stack 
+            :selected revealdashmode
+            :transition "none"
+            (dashstruct :class "barstruct right")
+            (launcher :class "barstruct right"))))
       (box 
         :orientation "v"
         :style "margin-bottom: -2px;"

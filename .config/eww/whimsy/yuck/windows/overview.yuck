@@ -29,7 +29,9 @@
       (revealer 
         :reveal revealoverviewint 
         :transition "slidedown"
-        (overview :class "barstruct left right"))
+        (eventbox 
+          :onhoverlost "./scripts/hackslide overviewint revealoverviewint &"
+          (overview :class "barstruct left right")))
       (box 
         :orientation "v"
         :style "margin-bottom: -2px;"

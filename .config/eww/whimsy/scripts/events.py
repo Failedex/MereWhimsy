@@ -8,7 +8,7 @@ from gi.repository import GLib
 import dbus 
 import dbus.service
 from threading import Timer
-from datetime import datetime
+from datetime import datetime, timedelta
 from copy import deepcopy
 
 json_path = os.path.expanduser("~/.cache/eww/events.json")
@@ -23,8 +23,9 @@ class EventManager(dbus.service.Object):
         )
         self.events = self.ReadJson()
         self.timers = {}
+        self.dtimers = {}
         for event in self.events: 
-            self.RunTimer(event, event["notify"])
+            self.RunTimer(event)
         self.UpdateEww()
 
     def __del__(self): 
@@ -74,23 +75,28 @@ class EventManager(dbus.service.Object):
             ev["time"] = read.strftime("%I:%M %p")
         print(json.dumps(readable), flush=True)
 
-    def RunTimer(self, event, notify=True): 
-        duration = event["timestamp"] - int(datetime.now().timestamp()) 
-        if duration < 0: 
-            self.Notify(event, notify)
-            self.DelEvent(event["id"])
-            return
-        
-        timer = Timer(duration, self.Notify, args=(event, notify))
-        self.timers[event['id']] = timer
-        timer.start()
+    def RunTimer(self, event): 
+        if event["notify"]:
+            duration = event["timestamp"] - int(datetime.now().timestamp()) 
+            if duration >= 0: 
+                timer = Timer(duration, self.Notify, args=(event,))
+                self.timers[event["id"]] = timer
+                timer.start()
 
-    def Notify(self, event, notify=True): 
-        if notify:
-            name = event["eventname"]
-            desc = event["description"]
-            os.popen(f"notify-send -a Event '{name}' '{desc}'")
-        self.DelEvent(event["id"])
+        tomorrow = datetime.fromtimestamp(event["timestamp"]).date() + timedelta(days=1)
+        tomorrow = datetime.combine(tomorrow, datetime.min.time())
+        duration = int(tomorrow.timestamp()) - int(datetime.now().timestamp())
+        if duration < 0: 
+            self.DelEvent(event["id"])
+        else:
+            timer = Timer(duration, self.DelEvent, args=(event["id"]))
+            self.dtimers[event["id"]] = timer
+            timer.start()
+
+    def Notify(self, event): 
+        name = event["eventname"]
+        desc = event["description"]
+        os.popen(f"notify-send -a Event '{name}' '{desc}'")
 
     @dbus.service.method("com.Failed.Events", in_signature="s", out_signature="")
     def AddEvent(self, event): 
@@ -99,7 +105,7 @@ class EventManager(dbus.service.Object):
             return
         self.events.append(event)
 
-        self.RunTimer(event, event["notify"])
+        self.RunTimer(event)
         self.UpdateJson()
         self.UpdateEww()
 
@@ -113,9 +119,11 @@ class EventManager(dbus.service.Object):
 
         if j != -1:
             if id in self.timers: 
-                if id in self.timers:
-                    self.timers[id].cancel()
-                    del self.timers[id]
+                self.timers[id].cancel()
+                del self.timers[id]
+            if id in self.dtimers: 
+                self.dtimers[id].cancel()
+                del self.dtimers[id]
             del self.events[j]
             self.UpdateJson()
             self.UpdateEww()

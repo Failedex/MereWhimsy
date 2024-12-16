@@ -45,13 +45,13 @@
       (revealer 
         :reveal { revealcalint}
         :transition "slidedown"
-        ; (eventbox
-        ;   :onhoverlost "./scripts/hackslide calendarint revealcalint &"
+        (eventbox
+          :onhoverlost "./scripts/hackslide calendarint revealcalint &"
           (stack 
             :selected revealcalmode
             :transition "none"
             (sysctl :class "barstruct left")
-            (calendarstruct :class "barstruct left"))))
+            (calendarstruct :class "barstruct left")))))
           
 
     (box 
