@@ -36,7 +36,7 @@
           :transition "slideup"
           (box 
             :class "dockpopup"
-            :height 60 
+            ; :height 60 
             :orientation "h"
             (tasklist)))
         (box 
@@ -48,6 +48,7 @@
 
 (defwidget tasklist []
   (box 
+    :class "widget"
     :orientation "h"
     (for task in {tasklistjson}
       (button 
@@ -68,7 +69,7 @@
               :space-evenly false 
               :spacing 3
               :height 5
-              (for focus in { task.focused}
+              (for focus in {task.focused}
                 (box 
                   :class "dockindicate ${ focus ? 'active' : 'inactive'}"
                   :hexpand false 

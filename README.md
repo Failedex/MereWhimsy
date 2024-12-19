@@ -2,6 +2,10 @@
 
 SECTION CURRENTLY WIP. 
 
+![Screenshot](https://github.com/Failedex/MereWhimsy/blob/main/assets/ss.png?raw=true) 
+
+![Screenshot with widgets](https://github.com/Failedex/MereWhimsy/blob/main/assets/ss2.png?raw=true) 
+
 ## Stuff I use 
 - Distro: void linux
 - Compositor: swayfx

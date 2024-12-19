@@ -15,6 +15,8 @@
       :orientation "v"
       :space-evenly false
       :style "margin-top: 60px;"
+      ; (for n in {notifications.popups}
+      ;   (singlenotif :noti n))
       (for i in { [0, 1, 2]}
         (singlenotif 
           :noti {
@@ -28,7 +30,8 @@
                      "time": "07:27",
                      "actions": [],
                      "icon": null,
-                     "image": null}
+                     "image": null, 
+                     "tleft": 0}
                  '})))))
            
 
@@ -46,6 +49,11 @@
         :class "notihead"
         (label 
           :text { noti.app}))
+
+      ; (box 
+      ;   :halign "start"
+      ;   :class "notiprog"
+      ;   :style "animation-name: ${noti.id != -727 ? 'notiproganim' : 'none'}; animation-delay: -${6000 - noti.tleft}ms;")
 
       (box 
         :space-evenly false

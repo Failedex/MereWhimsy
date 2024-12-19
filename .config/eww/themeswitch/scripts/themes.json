@@ -8,7 +8,7 @@
         "fg": "#dde1e6"
     },
     "catppuccin_latte": {
-        "background": ".config/sway/wallpaper/whitebgfw.jpg",
+        "background": ".config/sway/wallpaper/darkishfw.jpg",
         "prev": "oxocarbon",
         "next": "catppuccin",
         "bg": "#eff1f5",

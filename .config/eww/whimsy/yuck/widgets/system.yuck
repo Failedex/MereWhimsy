@@ -37,12 +37,12 @@
     :orientation "h"
     :space-evenly false
     (button
-      :class "widget transparent thin"
+      :class "widget transparent"
       :onclick "${EWW_CMD} update revealtray=${!revealtray}"
       (label 
         :class "icon"
-        :angle {!revealtray ? 180 : 0}
-        :text ""))
+        :style "margin: 0px 1px;"
+        :text {!revealtray ? "" : ""}))
     (revealer
       :reveal revealtray
       :transition "slideleft"

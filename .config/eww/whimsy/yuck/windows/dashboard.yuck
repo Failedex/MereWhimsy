@@ -27,7 +27,7 @@
   :exclusive false 
   :monitor 0 
   (eventbox 
-    :onhoverlost "./scripts/hackslide dashboardint revealdashint close &"
+    ; :onhoverlost "./scripts/hackslide dashboardint revealdashint close &"
     (box 
       :orientation "v"
       :space-evenly false

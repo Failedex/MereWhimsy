@@ -10,7 +10,7 @@ set $term foot
 set $menu 'wofi -i -I'
 
 ### Output configuration
-output * bg ~/.config/sway/wallpaper/whitebgfw.jpg fill
+output * bg ~/.config/sway/wallpaper/darkishfw.jpg fill
 
 # I considered it at some point
 # output * bg #dde1e6 solid_color
@@ -212,20 +212,44 @@ bindgesture swipe:up workspace next
 bindgesture swipe:4:down exec '$HOME/.config/sway/scripts/touchkey.sh'
 
 # dumb window ruleset
-for_window [app_id="foot_float"] floating enabled
-for_window [app_id="mpv"] floating enabled
-for_window [app_id="feh"] floating enabled
-for_window [app_id="qalculate"] floating enabled
+# some parts copied from elenapan
+for_window { 
+    [app_id="foot_float"] floating enabled
+    [app_id="mpv"] floating enabled
+    [app_id="feh"] floating enabled
+    [app_id="qalculate"] floating enabled
+    [app_id="firefox" title="Picture-in-Picture"] floating enable
+    [window_role="pop-up,task_dialog,About"] floating enable;
+    [window_type="dialog"] floating enable;
+    [window_type="utility"] floating enable;
+    [window_type="toolbar"] floating enable;
+    [window_type="splash"] floating enable;
+    [window_type="menu"] floating enable;
+    [window_type="dropdown_menu"] floating enable;
+    [window_type="popup_menu"] floating enable;
+    [window_type="tooltip"] floating enable;
+    [window_type="notification"] floating enable;
+    [app_id="(?i)firefox" title="^Enter name of file to save to…$"] floating enable;
+    [app_id="(?i)firefox" title="^Open File$"] floating enable;
+    [app_id="(?i)firefox" title="^Save As$"] floating enable;
+    [app_id="(?i)firefox" title="^Save Image$"] floating enable;
+    [app_id="(?i)firefox" title="File Upload"] floating enable;
+    [app_id="(?i)firefox" title="^Firefox - Choose User Profile$"] floating enable;
+    [app_id="(?i)firefox" title="^Developer Tools — "] floating enable;
+    [app_id="(?i)firefox" title="^Opening "] floating enable;
+    [app_id="(?i)discord" title="^Open Files$"] floating enable;
+}
 
-for_window [all] title_format "%title"
-for_window [app_id="(?i)foot|kitty"] title_format " %title"
-for_window [app_id="(?i)firefox"] title_format "󰈹 %title"
-for_window [app_id="(?i)xournalpp"] title_format "󱞁 %title"
-for_window [app_id="(?i)thunar"] title_format "󰉋 %title"
-for_window [app_id="(?i)discord"] title_format " %title"
-for_window [app_id="(?i)zathura"] title_format "󰈦 %title"
-for_window [app_id="(?i)feh"] title_format "󰋩 %title"
-
+# custom title formats
+for_window {
+    [app_id="(?i)foot|kitty"] title_format " %title"
+    [app_id="(?i)firefox"] title_format "󰈹 %title"
+    [app_id="(?i)xournalpp"] title_format "󱞁 %title"
+    [app_id="(?i)thunar"] title_format "󰉋 %title"
+    [app_id="(?i)discord"] title_format " %title"
+    [app_id="(?i)zathura"] title_format "󰈦 %title"
+    [app_id="(?i)feh"] title_format "󰋩 %title"
+}
 # misc settings
 set $bg-color 	         #bcc0cc
 set $inactive-bg-color   #ccd0da

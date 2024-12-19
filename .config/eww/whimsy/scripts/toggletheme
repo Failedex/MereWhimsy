@@ -43,7 +43,7 @@ if [[ $1 == "select" ]]; then
         switch_theme "catppuccin" "~/.config/sway/wallpaper/rocket.png"
         ;;
     "catppuccin_latte") 
-        switch_theme "catppuccin_latte" "~/.config/sway/wallpaper/whitebgfw.jpg"
+        switch_theme "catppuccin_latte" "~/.config/sway/wallpaper/darkishfw.jpg"
         ;;
     "rosepine") 
         switch_theme "rosepine" "~/.config/sway/wallpaper/rosepine.jpg"

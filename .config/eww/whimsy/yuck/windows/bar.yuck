@@ -77,9 +77,10 @@
         !locked ? 'swaymsg gaps outer all set 0'
         : 'swaymsg gaps outer all set 10 && swaymsg gaps top all set 0'
       } && ${EWW_CMD} update locked=${!locked}"
-    :class "widget transparent thin"
+    :class "widget transparent"
     (label 
       :class "icon"
+      :style "margin: 0px 1px;"
       :tooltip { locked ? "Locked in" : "Dilly dally"}
       :text { locked ? "󰌾" : ""})))
 

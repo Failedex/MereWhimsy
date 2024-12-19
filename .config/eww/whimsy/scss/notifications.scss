@@ -19,3 +19,17 @@
   margin: $margin;
   opacity: 1.0;
 }
+
+.notiprog {
+  // transition: padding 6050ms linear;
+  background-color: $accent;
+  padding: 2px 440px 2px 0px;
+  animation-duration: 6200ms;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes notiproganim {
+  from {padding: 2px 440px 2px 0px;}
+  to {padding: 2px 0px 2px 0px;}
+}

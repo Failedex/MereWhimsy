@@ -18,9 +18,14 @@ window {
     background-color: @base;
     border: 2px solid @surface2;
     border-radius: 15px;
-    /* animation: slideIn 2s ease-in-out both; */
+    /*animation: slideIn 500ms ease-in-out both; */
+    margin-top: -100px;
 } 
 /* Slide In */
+@keyframes slideIn {
+    from {margin-top: -500px;}
+    to {margin-top: 0px;}
+}
 
 #input {
     margin: 5px;
