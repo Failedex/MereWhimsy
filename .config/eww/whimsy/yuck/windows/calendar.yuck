@@ -27,7 +27,7 @@
   :focusable true
   :monitor 0 
   (eventbox
-    ; :onhoverlost "./scripts/hackslide calendarint revealcalint close &"
+    :onhoverlost "./scripts/hackslide calendarint revealcalint close &"
     (box 
       :orientation "v"
       :space-evenly false
