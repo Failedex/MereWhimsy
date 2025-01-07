@@ -2,6 +2,12 @@
 
 EWW_DIR="$HOME/.config/eww/whimsy"
 
+check_eww () {
+    if [[ ! $(eww -c $EWW_DIR ping) ]]; then 
+        exit 0
+    fi
+}
+
 get_vol_icon () {
     muted=$(pamixer --get-mute)
     icon="󰝟"
@@ -51,22 +57,27 @@ popup() {
 
 if [[ $1 == "incvol" ]]; then
     pamixer -i 5
+    check_eww
     update_eww_vol
     popup "0"
 elif [[ $1 == "decvol" ]]; then 
     pamixer -d 5
+    check_eww
     update_eww_vol
     popup "0"
 elif [[ $1 == "togvol" ]]; then 
     pamixer --toggle-mute
+    check_eww
     update_eww_vol
     popup "0"
 elif [[ $1 == "incbri" ]]; then 
     light -A 5
+    check_eww
     update_eww_bri
     popup "1"
 elif [[ $1 == "decbri" ]]; then 
     light -U 5
+    check_eww
     update_eww_bri
     popup "1"
 else 

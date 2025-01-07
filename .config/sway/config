@@ -237,6 +237,7 @@ for_window {
     [app_id="(?i)firefox" title="^Firefox - Choose User Profile$"] floating enable;
     [app_id="(?i)firefox" title="^Developer Tools — "] floating enable;
     [app_id="(?i)firefox" title="^Opening "] floating enable;
+    [app_id="(?i)firefox" title="^Picture-in-Picture$"] floating enable;
     [app_id="(?i)discord" title="^Open Files$"] floating enable;
 }
 

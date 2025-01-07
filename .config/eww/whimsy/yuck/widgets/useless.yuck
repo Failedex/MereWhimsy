@@ -97,6 +97,7 @@
         :height 220
         :hscroll false
         :vscroll true
+        :class "vscroll"
         (box 
           (label 
             :style "margin: 10px;"

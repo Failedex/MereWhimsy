@@ -103,3 +103,19 @@
   @extend .widget;
   border-radius: $round - 10px;
 }
+
+.vscroll > scrollbar {
+  background-color: $surface0;
+  transition: 500ms;
+  margin: $margin;
+  border-radius: $round;
+  slider {
+    background-color: $accent;
+    border-radius: $round;
+    min-width: 5px;
+    min-height: 40px;
+    padding: 0px 2px;
+    margin: 0px -2px;
+    transition: 500ms;
+  }
+}

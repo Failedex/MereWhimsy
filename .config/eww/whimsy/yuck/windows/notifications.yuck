@@ -2,15 +2,15 @@
 (defwindow notifypopup
   :geometry (geometry 
               :x "20px"
-              :y "-50px"
+              :y "20px"
               :width 450 
               :height 0
-              :anchor "top right")
+              :anchor "bottom right")
   :stacking "overlay"
   :monitor 0
   (revealer 
     :reveal {arraylength(notifications.popups) > 0}
-    :transition "slidedown"
+    :transition "slideup"
     (box 
       :orientation "v"
       :space-evenly false
@@ -37,7 +37,7 @@
 
 (defwidget singlenotif [noti]
   (revealer 
-    :transition "slidedown"
+    :transition "slideup"
     :reveal { noti.id != -727}
     (box 
       :class "popup bordered"
@@ -58,6 +58,7 @@
       (box 
         :space-evenly false
         :orientation "h"
+        :style "margin: 5px"
         (box 
           :valign "start"
           :visible { noti.image != "null"}

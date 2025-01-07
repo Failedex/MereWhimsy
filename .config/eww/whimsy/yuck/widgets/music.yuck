@@ -151,11 +151,11 @@
                 :hexpand true
                 :vexpand true
                 :class "sysslide"
-                :value {ptime.position}
+                :value {round(100*ptime.position/ptime.duration, 0)}
                 :orientation "h"
                 ; :onchange "playerctl position {}"
                 :min 0 
-                :max {ptime.duration}
+                :max 100
                 :tooltip {ptime.readable}))
 
             (box 
