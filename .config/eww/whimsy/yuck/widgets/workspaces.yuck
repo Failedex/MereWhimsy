@@ -13,23 +13,10 @@
             :onclick "swaymsg -t command workspace number ${workspacejson[i].name}"
             :onrightclick '${ !revealcalint && !revealdashint ? "./scripts/hackslide overviewint revealoverviewint &" : ""}'
           (box
-            :class "wspill ${ workspacejson[i].focused ? 'active' : ''}"
-            ; :style "
-            ;   min-height: ${ws.focused ? 60 : !ws.empty ? 40 : 30}px;
-            ; "
-            :height 10
-            :orientation "h"
-            :space-evenly false
-            (box
-              :width 40)
-            (revealer 
-              :transition "slideright"
-              :reveal {!workspacejson[i].empty || workspacejson[i].focused}
-              (box
-                :width 20))
-            (revealer 
-              :transition "slideright"
-              :reveal {workspacejson[i].focused}
-              (box
-                :width 10))))))))
+            :class "wspill ${ 
+              workspacejson[i].focused 
+              ? 'focused' 
+              : workspacejson[i].empty 
+              ? 'inactive'
+              : 'active'}"))))))
           

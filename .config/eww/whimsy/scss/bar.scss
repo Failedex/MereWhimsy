@@ -70,8 +70,16 @@
   margin: $margin;
   border-radius: $round;
   background-color: $surface1;
+  transition: padding 500ms;
+  &.inactive {
+    padding: 5px 20px;
+  }
   &.active {
+    padding: 5px 30px;
+  }
+  &.focused {
     background-color: $accent;
+    padding: 5px 35px;
   }
 }
 
