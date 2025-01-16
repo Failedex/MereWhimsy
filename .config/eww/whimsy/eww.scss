@@ -72,21 +72,19 @@ calendar:indeterminate {
 }
 
 checkbutton {
+  border-radius: 24px;
+  border: solid 2px $white0;
+  padding: 2px;
+  check {
     border-radius: 24px;
-    border: solid 2px $white0;
-    padding: 2px;
-    check {
-        min-height: 13px;
-        min-width: 13px;
-        color: transparent;
-    }
+    background-color: transparent;
+  }
 }
 
 checkbutton:checked {
-    check{
-        border-radius: 24px;
-        background-color: $accent;
-    }
+  check{
+    background-color: $accent;
+  }
 }
 
 entry {
