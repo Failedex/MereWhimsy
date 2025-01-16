@@ -73,19 +73,19 @@ calendar:indeterminate {
 
 checkbutton {
     border-radius: 24px;
-    background-color: $surface1;
-    padding: 4px;
+    border: solid 2px $white0;
+    padding: 2px;
     check {
-        min-height: 15px;
-        min-width: 15px;
-        color: $white0;
+        min-height: 13px;
+        min-width: 13px;
+        color: transparent;
     }
 }
 
 checkbutton:checked {
     check{
         border-radius: 24px;
-        background-color: $white0;
+        background-color: $accent;
     }
 }
 
