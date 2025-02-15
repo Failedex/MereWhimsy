@@ -22,9 +22,8 @@
               :width 0 
               :height 0 
               :anchor "top right")
-  :stacking "overlay"
+  :focusable "ondemand"
   :exclusive false 
-  :focusable true
   :monitor 0 
   (eventbox
     :onhoverlost "./scripts/hackslide calendarint revealcalint close &"
