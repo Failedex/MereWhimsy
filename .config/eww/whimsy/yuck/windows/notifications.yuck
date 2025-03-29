@@ -7,7 +7,7 @@
               :height 0
               :anchor "bottom right")
   :stacking "overlay"
-  :monitor 0
+  :monitor '["eDP-1", "<primary>", 0]'
   (revealer 
     :reveal {arraylength(notifications.popups) > 0}
     :transition "slideup"

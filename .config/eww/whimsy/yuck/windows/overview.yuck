@@ -9,7 +9,7 @@
               :anchor "top center")
   :stacking "overlay"
   :exclusive false 
-  :monitor 0
+  :monitor '["eDP-1", "<primary>", 0]'
   (eventbox 
     :onhoverlost "./scripts/hackslide overviewint revealoverviewint close &"
     (box 

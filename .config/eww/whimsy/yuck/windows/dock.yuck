@@ -10,7 +10,7 @@
               :height 3
               :anchor "bottom center")
   :stacking "overlay"
-  :monitor 0 
+  :monitor '["eDP-1", "<primary>", 0]' 
   (dockstruct))
 
 (defwidget dockstruct [] 

@@ -8,8 +8,8 @@
               :anchor "center")
   :stacking "overlay"
   :exclusive false 
-  :focusable true
-  :monitor 0
+  :focusable "ondemand"
+  :monitor '["eDP-1", "<primary>", 0]'
   (launcher :class "popup bordered"))
 
 (defwidget launcher [class] 

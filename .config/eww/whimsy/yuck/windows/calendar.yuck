@@ -8,7 +8,7 @@
               :anchor "top right")
   :stacking "overlay"
   :exclusive false 
-  :monitor 0 
+  :monitor '["eDP-1", "<primary>", 0]' 
   (calendarstruct 
     :class "popup"))
 
@@ -24,7 +24,7 @@
               :anchor "top right")
   :focusable "ondemand"
   :exclusive false 
-  :monitor 0 
+  :monitor '["eDP-1", "<primary>", 0]' 
   (eventbox
     :onhoverlost "./scripts/hackslide calendarint revealcalint close &"
     (box 

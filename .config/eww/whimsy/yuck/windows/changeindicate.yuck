@@ -11,7 +11,7 @@
               :height 300
               :anchor "center right")
   :stacking "overlay" 
-  :monitor 0 
+  :monitor '["eDP-1", "<primary>", 0]' 
 
   (revealer
     :reveal { revealchange && !fullscreened}
