@@ -275,8 +275,8 @@ font pango:RobotoMonoNerdFont Regular 12
 titlebar_separator enable
 # titlebar_padding 8
 title_align center
-default_border normal 2
-default_floating_border normal 2
+default_border pixel 2
+default_floating_border pixel 2
 xwayland enable
 bindswitch lid:on exec 'swaylock -c 262626'
 bindswitch tablet:on exec '$HOME/.config/sway/scripts/bordertoggle.sh tablet'
