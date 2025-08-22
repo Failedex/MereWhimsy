@@ -18,8 +18,8 @@ pipewire &
 wireplumber &
 pipewire-pulse &
 
-mpd &
-mpDris2 &
+# mpd &
+# mpDris2 &
 
 $(which eww) daemon
 $(which eww) --config ~/.config/eww/whimsy open-many bar notifypopup fakecornerl dock &

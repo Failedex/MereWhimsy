@@ -64,8 +64,8 @@ input "type:tablet_tool" {
 
     bindsym $mod+w kill
 
-    bindsym $mod+d exec $menu
-    bindsym $mod+Shift+d exec "~/.config/eww/whimsy/scripts/launchopen"
+    bindsym $mod+Shift+d exec $menu
+    bindsym $mod+d exec "~/.config/eww/whimsy/scripts/launchopen"
 
     floating_modifier $mod normal
 
