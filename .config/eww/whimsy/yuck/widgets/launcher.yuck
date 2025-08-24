@@ -42,7 +42,7 @@
     :orientation "h"
     :space-evenly false
     :class "widget"
-    (button 
+    (eventbox
       :onclick { 
                 !revealoverviewint ? 
                 !revealdashint 
@@ -55,9 +55,10 @@
         :style "margin: 0px 1px;"
         :text ""))
 
-    (revealer
-      :reveal { revealdashmode == 1 && revealdashint}
-      :transition "slideright"
+    (scroll 
+      :hscroll true
+      :vscroll false
+      :style "transition: 500ms; min-width: ${revealdashmode == 1 && revealdashint ? 160 : 0}px;"
       (input 
         :onchange "./scripts/apps.py --query '{}' &"
         :onaccept "
